@@ -1,0 +1,15 @@
+<h1>Connect 4</h1>
+
+<div class="board">
+  @for (row of board; let rowIndex = $index; track rowIndex) {
+  <span class="row">
+    @for (cell of row;let cellIndex = $index; track cellIndex) {
+    <div class="cell-container" (click)="cellClicked(rowIndex, cellIndex)">
+      <div [ngClass]="'hole'">
+      <div [ngClass]="'cell-' + cell.state"></div>
+      </div>
+    </div>
+    }
+  </span>
+  }
+</div>

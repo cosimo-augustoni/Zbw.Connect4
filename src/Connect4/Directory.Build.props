@@ -1,0 +1,7 @@
+<Project>
+    <ItemGroup>
+        <PackageReference Include="Roslynator.Analyzers" />
+        <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" />
+        <PackageReference Include="Roslynator.Formatting.Analyzers" />
+    </ItemGroup>
+</Project>
