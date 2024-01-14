@@ -8,7 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="EventStore.Client.Grpc.Streams" />
-    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
