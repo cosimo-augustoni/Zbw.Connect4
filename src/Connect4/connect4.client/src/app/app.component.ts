@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  private currentPlayer: 'red' | 'yellow' = 'red';
+  public currentPlayer: 'red' | 'yellow' = 'red';
 
   public cellClicked(rowIndex: number, columnIndex: number) {
     let lowestFreeRow = 0;
