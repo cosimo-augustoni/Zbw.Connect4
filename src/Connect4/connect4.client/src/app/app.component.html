@@ -3,8 +3,8 @@
 <div class="board">
   @for (row of board; let rowIndex = $index; track rowIndex) { @for (cell of
   row;let cellIndex = $index; track cellIndex) {
-  <div class="cell-container" (click)="cellClicked(rowIndex, cellIndex)">
-    <div [ngClass]="'hole'">
+  <div class="cell-container" (click)="cellClicked(rowIndex, cellIndex)" (mouseenter)="mouseenter(cellIndex)" (mouseleave)="mouseleave(cellIndex)">
+    <div [ngClass]="['hole', cell.isHovered ? 'hovered' : '']">
       <div
         [ngClass]="[cell.state === 'empty' ? 'empty' : 'filled', cell.state, 'game-piece']"
       ></div>

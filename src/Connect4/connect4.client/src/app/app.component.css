@@ -16,6 +16,10 @@
   position: relative;
 }
 
+.hovered{
+  background: #5f5f5f;
+}
+
 .empty{
   opacity: 0;
   transform: translateY(-1000px);
