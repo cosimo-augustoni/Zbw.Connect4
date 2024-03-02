@@ -1,0 +1,182 @@
+﻿@page "/visualdemo"
+@rendermode InteractiveServer
+
+<PageTitle>Demo</PageTitle>
+
+<style>
+    .cell-container {
+        flex: 0 1 13.8%;
+        aspect-ratio: 1 / 1;
+        background: #b1a8a8;
+    }
+
+    .hole {
+        background: #3e3e3e;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .hovered {
+        background: #5f5f5f;
+    }
+
+    .empty {
+        opacity: 0;
+        transform: translateY(-1000px);
+        transition: all 0.8s ease-out;
+    }
+
+    .filled {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.8s ease-out;
+    }
+
+    .yellow {
+        background-image: radial-gradient(circle, rgb(242, 238, 13), #d17913 90%);
+    }
+
+    .red {
+        background-image: radial-gradient(circle, rgb(241, 14, 14), #970e0e 90%);
+    }
+
+    .game-piece {
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: 90%;
+        overflow: visible;
+    }
+
+    .board {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        gap: 2px;
+        height: 70vh;
+        aspect-ratio: 7 / 6;
+        background: #b1a8a8;
+    }
+
+    .player {
+        background-color: #b1a8a8;
+        height: 70vh;
+        aspect-ratio: 3/5;
+        box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.75);
+        transition: all 0.3s linear;
+    }
+
+        .player.active-red {
+            box-shadow: 0px 0px 5px 3px rgba(241, 14, 14,0.5);
+        }
+
+        .player.active-yellow {
+            box-shadow: 0px 0px 5px 3px rgba(242, 238, 13,0.5);
+        }
+
+    .game {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<h1>Vier Gewinnt</h1>
+
+<div class="game">
+    <div class="player @( this.CurrentPlayer == State.Red ? "active-red" : "")">
+        <h2>Player Red</h2>
+    </div>
+    <div class="board">
+        @{
+            int rowIndex = 0;
+        }
+        @foreach (var row in this.Board)
+        {
+            int columnIndex = 0;
+            @foreach (var cell in row)
+            {
+                
+                var localRowIndex = rowIndex;
+                var localColumnIndex = columnIndex;
+                <div class="cell-container" @onclick="() => CellClicked(localRowIndex, localColumnIndex)" @onmouseenter="() => MouseEnter(localColumnIndex)" @onmouseleave="() => MouseLeave(localColumnIndex)">
+                    <div class="hole @(cell.IsHovered ? "hovered" : "")">
+                        <div class="game-piece @(cell.State.ToString().ToLower()) @(cell.State == State.Empty ? "empty" : "filled")"></div>
+                    </div>
+                </div>
+
+                columnIndex++;
+            }
+
+        rowIndex++;
+        }
+    </div>
+    <div class="player @( this.CurrentPlayer == State.Yellow ? "active-yellow" : "")">
+        <h2>Player Yellow</h2>
+    </div>
+</div>
+
+@code {
+
+    private enum State
+    {
+        Empty,
+        Red,
+        Yellow
+    }
+
+    private class Cell
+    {
+        public State State { get; set; } = State.Empty;
+        public bool IsHovered { get; set; }
+    }
+
+    private State CurrentPlayer { get; set; } = State.Red;
+
+    private Cell[][] Board { get; } = Enumerable.Range(0, 6).Select(i => Enumerable.Range(0, 7).Select(j => new Cell()).ToArray()).ToArray();
+
+    private void CellClicked(int rowIndex, int columnIndex)
+    {
+        var lowestFreeRow = 0;
+        for(var row = 0; row < 6; row++){
+            if(this.Board[0][columnIndex].State != State.Empty)
+                return;
+
+            if(this.Board[row][columnIndex].State == State.Empty)
+                lowestFreeRow = row;
+            else
+                break;
+        }
+
+        this.Board[lowestFreeRow][columnIndex].State = this.CurrentPlayer;
+        this.CurrentPlayer = this.CurrentPlayer == State.Red ? State.Yellow : State.Red;
+    }
+
+    private void MouseEnter(int columnIndex)
+    {
+        for(var row = 0; row < 6; row++){
+            this.Board[row][columnIndex].IsHovered = true;
+        }
+    }
+
+    private void MouseLeave(int columnIndex)
+    {
+        for (var row = 0; row < 6; row++)
+        {
+            this.Board[row][columnIndex].IsHovered = false;
+        }
+    }
+
+}

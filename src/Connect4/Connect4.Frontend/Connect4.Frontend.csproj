@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+        <PackageReference Include="Microsoft.Identity.Web" />
+        <PackageReference Include="Microsoft.Identity.Web.UI" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>

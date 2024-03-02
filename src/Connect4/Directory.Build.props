@@ -1,7 +1,20 @@
 <Project>
-    <ItemGroup>
-        <PackageReference Include="Roslynator.Analyzers" />
-        <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" />
-        <PackageReference Include="Roslynator.Formatting.Analyzers" />
-    </ItemGroup>
+	
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Package management">
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Compiler settings">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Language features">
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+	
 </Project>

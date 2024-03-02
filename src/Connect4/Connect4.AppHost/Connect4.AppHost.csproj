@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsAspireHost>true</IsAspireHost>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" />
+    <PackageReference Include="Aspire.Hosting.Orleans" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Connect4.Web\Connect4.Web.csproj" />
+  </ItemGroup>
+
+</Project>

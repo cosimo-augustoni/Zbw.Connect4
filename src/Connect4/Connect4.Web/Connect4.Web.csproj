@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Connect4.Frontend\Connect4.Frontend.csproj" />
+    <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>
