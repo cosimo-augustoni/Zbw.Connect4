@@ -1,4 +1,5 @@
 using Connect4.Frontend;
+using Connect4.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 

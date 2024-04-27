@@ -2,16 +2,29 @@
   "resources": {
     "redis": {
       "type": "container.v0",
-      "image": "redis:latest",
+      "connectionString": "{redis.bindings.tcp.host}:{redis.bindings.tcp.port}",
+      "image": "docker.io/library/redis:7.2.4",
+      "args": [
+        "--save",
+        "2",
+        "1"
+      ],
+      "volumes": [
+        {
+          "name": "redis-data",
+          "target": "/data",
+          "readOnly": false
+        }
+      ],
       "bindings": {
         "tcp": {
           "scheme": "tcp",
           "protocol": "tcp",
           "transport": "tcp",
-          "containerPort": 6379
+          "port": 6381,
+          "targetPort": 6379
         }
-      },
-      "connectionString": "{redis.bindings.tcp.host}:{redis.bindings.tcp.port}"
+      }
     },
     "redis-replica1": {
       "type": "container.v0",
@@ -25,41 +38,24 @@
         "6380"
       ]
     },
-    "apiservice": {
-      "type": "project.v0",
-      "path": "../Connect4.ApiService/Connect4.ApiService.csproj",
-      "env": {
-        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
-        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
-        "Orleans__Clustering__ProviderType": "RedisContainer",
-        "Orleans__Clustering__ServiceKey": "redis",
-        "ConnectionStrings__redis": "{redis.connectionString}",
-        "Orleans__GrainStorage__games__ProviderType": "RedisContainer",
-        "Orleans__GrainStorage__games__ServiceKey": "redis",
-        "Orleans__ClusterId": "337c0337210e4989ba32513d4ff34b6f",
-        "Orleans__EnableDistributedTracing": "true"
-      },
-      "bindings": {
-        "http": {
-          "scheme": "http",
-          "protocol": "tcp",
-          "transport": "http"
-        },
-        "https": {
-          "scheme": "https",
-          "protocol": "tcp",
-          "transport": "http"
-        }
-      }
-    },
-    "webfrontend": {
+    "webapp": {
       "type": "project.v0",
       "path": "../Connect4.Web/Connect4.Web.csproj",
       "env": {
         "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
         "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
-        "services__apiservice__0": "{apiservice.bindings.http.url}",
-        "services__apiservice__1": "{apiservice.bindings.https.url}"
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY": "in_memory",
+        "ASPNETCORE_FORWARDEDHEADERS_ENABLED": "true",
+        "Orleans__Clustering__ProviderType": "Redis",
+        "Orleans__Clustering__ServiceKey": "redis",
+        "ConnectionStrings__redis": "{redis.connectionString}",
+        "Orleans__ClusterId": "{orleans-cluster-id.value}",
+        "Orleans__ServiceId": "{orleans-service-id.value}",
+        "Orleans__EnableDistributedTracing": "true",
+        "Orleans__GrainStorage__games__ProviderType": "Redis",
+        "Orleans__GrainStorage__games__ServiceKey": "redis",
+        "Orleans__Endpoints__SiloPort": "{webapp.bindings.orleans-silo.targetPort}",
+        "Orleans__Endpoints__GatewayPort": "{webapp.bindings.orleans-gateway.targetPort}"
       },
       "bindings": {
         "http": {
@@ -71,6 +67,50 @@
           "scheme": "https",
           "protocol": "tcp",
           "transport": "http"
+        },
+        "orleans-silo": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 8000
+        },
+        "orleans-gateway": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 8001
+        }
+      }
+    },
+    "orleans-cluster-id": {
+      "type": "parameter.v0",
+      "value": "{orleans-cluster-id.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "default": {
+            "generate": {
+              "minLength": 25,
+              "upper": false,
+              "special": false
+            }
+          }
+        }
+      }
+    },
+    "orleans-service-id": {
+      "type": "parameter.v0",
+      "value": "{orleans-service-id.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "default": {
+            "generate": {
+              "minLength": 25,
+              "upper": false,
+              "special": false
+            }
+          }
         }
       }
     }

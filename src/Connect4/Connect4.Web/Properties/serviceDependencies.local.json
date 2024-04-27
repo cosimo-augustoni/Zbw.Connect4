@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "connectionInfo": "App registration: Connect 4, Tenant: Bestanden (team1.work - AAD B2C)",
+      "type": "identityapp.default"
+    }
+  }
+}
