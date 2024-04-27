@@ -21,6 +21,7 @@ namespace Connect4.Frontend
                 // By default, all incoming requests will be authorized according to the default policy
                 options.FallbackPolicy = options.DefaultPolicy;
             });
+            services.AddCascadingAuthenticationState();
 
             services.AddRazorComponents()
                 .AddInteractiveServerComponents()
