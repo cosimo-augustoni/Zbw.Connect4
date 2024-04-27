@@ -7,6 +7,11 @@ var redis = builder.AddRedis("redis", 6381)
     .WithPersistence(TimeSpan.FromSeconds(2))
     .WithRedisCommander();
 
+var mongoDb = builder.AddMongoDB("mongodb")
+    .WithDataVolume("mongodb-data")
+    .WithMongoExpress()
+    .AddDatabase("projections");
+
 if (!builder.Environment.IsDevelopment())
 {
     var redisReplica = builder.AddContainer("redis-replica1", "redis", "latest")
@@ -19,6 +24,7 @@ var orleans = builder
     .WithGrainStorage("games", redis);
 
 builder.AddProject<Projects.Connect4_Web>("webapp")
-    .WithReference(orleans);
+    .WithReference(orleans)
+    .WithReference(mongoDb);
 
 builder.Build().Run();

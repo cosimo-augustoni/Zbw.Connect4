@@ -10,7 +10,7 @@ using Microsoft.Identity.Web.UI;
 
 namespace Connect4.Frontend
 {
-    public static class FrontendExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddFrontend(this IServiceCollection services, IConfigurationSection azureAdConfiguration)
         {

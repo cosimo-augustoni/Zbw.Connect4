@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <ItemGroup>
+        <PackageReference Include="MediatR" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
@@ -10,6 +11,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\Game.Application\Game.Application.csproj" />
+        <ProjectReference Include="..\Game.Domain\Game.Domain.csproj" />
     </ItemGroup>
 
 </Project>
