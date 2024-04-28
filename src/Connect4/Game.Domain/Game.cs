@@ -5,10 +5,18 @@ namespace Game.Domain
     public class Game(GameId id, IEventRegistry<GameEvent> eventRegistry) : AggregateRoot<GameEvent>(eventRegistry), IGame
     {
         public GameId Id { get; } = id;
-        public ValueTask<Guid> GetId() => new(this.Id.Id);
 
         public string Name { get; private set; } = "Connect 4 Game";
 
+        public async Task<Guid> CreateGame()
+        {
+            await this.RaiseEventAsync(new GameCreatedEvent
+            {
+                GameId = this.Id
+            });
+
+            return this.Id.Id;
+        }
 
         public async Task UpdateGameNameAsync(string name)
         {
@@ -22,10 +30,13 @@ namespace Game.Domain
             });
         }
 
-        public void Apply(GameEvent @event)
+        public override void Apply(GameEvent @event)
         {
             switch (@event)
             {
+                case GameCreatedEvent gameCreatedEvent:
+                    this.Apply(gameCreatedEvent);
+                    break;
                 case GameNameChangedEvent gameNameChangedEvent:
                     this.Apply(gameNameChangedEvent);
                     break;
@@ -38,7 +49,13 @@ namespace Game.Domain
         {
             this.Name = @event.Name;
         }
+
+        private void Apply(GameCreatedEvent _)
+        {
+        }
     }
+
+    public record GameCreatedEvent : GameEvent;
 
     public record GameNameChangedEvent : GameEvent
     {

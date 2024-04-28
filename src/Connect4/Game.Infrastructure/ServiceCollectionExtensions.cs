@@ -1,5 +1,6 @@
 ﻿using Game.Domain;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Infrastructure;
 
 namespace Game.Infrastructure
 {
@@ -7,6 +8,8 @@ namespace Game.Infrastructure
     {
         public static IServiceCollection AddGameInfrastructure(this IServiceCollection services)
         {
+            services.AddSharedInfrastructure();
+
             services.AddScoped<IGameRepository, GameRepository>();
 
             return services;

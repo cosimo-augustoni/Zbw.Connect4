@@ -1,4 +1,6 @@
-﻿namespace Shared.Domain
+﻿using MediatR;
+
+namespace Shared.Domain
 {
-    public abstract record DomainEvent;
+    public abstract record DomainEvent : INotification;
 }

@@ -1,6 +1,6 @@
 ﻿namespace Shared.Domain
 {
-    public abstract class AggregateRoot<TEventBase>(IEventRegistry<TEventBase> eventRegistry)
+    public abstract class AggregateRoot<TEventBase>(IEventRegistry<TEventBase> eventRegistry) : IAggregateRoot<TEventBase>
         where TEventBase : DomainEvent
     {
         protected Task RaiseEventAsync(TEventBase @event)
@@ -9,5 +9,7 @@
 
             return Task.CompletedTask;
         }
+
+        public abstract void Apply(TEventBase @event);
     }
 }

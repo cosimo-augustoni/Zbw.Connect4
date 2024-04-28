@@ -1,4 +1,4 @@
-﻿namespace Game.Infrastructure
+﻿namespace Shared.Infrastructure
 {
     public class GrainUninitialisedOnAccessException : Exception
     {

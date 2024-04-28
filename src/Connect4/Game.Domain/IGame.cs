@@ -9,7 +9,7 @@ namespace Game.Domain
 {
     public interface IGame
     {
-        ValueTask<Guid> GetId();
+        Task<Guid> CreateGame();
         Task UpdateGameNameAsync(string name);
     }
 }

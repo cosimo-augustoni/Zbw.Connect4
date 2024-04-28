@@ -13,5 +13,10 @@ namespace Shared.Infrastructure
         private readonly List<TEventBase> events = [];
 
         public IReadOnlyList<TEventBase> Events => this.events.AsReadOnly();
+
+        public void Clear()
+        {
+            this.events.Clear();
+        }
     }
 }

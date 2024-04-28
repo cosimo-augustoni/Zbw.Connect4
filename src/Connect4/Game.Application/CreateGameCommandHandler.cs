@@ -8,7 +8,7 @@ namespace Game.Application
         public async Task<Guid> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             var game = gameRepository.Create();
-            return await game.GetId();
+            return await game.CreateGame();
         }
     }
 }
