@@ -3,13 +3,19 @@
 @using Game.Domain
 @using MediatR
 @using Game.Application
+@using Game.Domain.GameProjections
 
 @code {
 
     [Inject]
     private IMediator Mediator { get; set; } = null!;
 
+    [Inject]
+    private IGamesQuery GamesQuery { get; set; } = null!;
+
     private Guid? GameId { get; set; }
+
+    public IReadOnlyList<GameSummary> Games { get; set; } = [];
 
     private async Task CreateGame()
     {
@@ -25,12 +31,22 @@
         await this.Mediator.Send(new UpdateGameNameCommand(new GameId(this.GameId.Value), "New Game Name"));
     }
 
+    private async Task GetGames()
+    {
+        this.Games = await this.GamesQuery.GetAllGames();
+    }
+
 }
 
 <PageTitle>Playground</PageTitle>
 
 <h1>Current Game: @GameId</h1>
 
-<button @onclick="() => Console.WriteLine('t')"> Test Button</button>
 <button @onclick="CreateGame">Create</button>
 <button @onclick="RenameGame">Rename</button>
+<button @onclick="GetGames">Show Games</button>
+
+@foreach (var game in this.Games)
+{
+    <p>ID: @game.Id, Name: @game.Name</p>
+}

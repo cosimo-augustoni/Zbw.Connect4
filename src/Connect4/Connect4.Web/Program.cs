@@ -11,7 +11,7 @@ builder.UseOrleans(siloBuilder =>
 {
     siloBuilder.AddLogStorageBasedLogConsistencyProvider();
 });
-
+builder.AddMongoDBClient("projections");
 
 builder.Services.AddBackend();
 builder.Services.AddFrontend(builder.Configuration.GetSection("AzureAd"));

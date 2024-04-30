@@ -1,7 +1,8 @@
 ﻿using Game.Domain;
+using Game.Domain.GameAggregate;
 using Orleans;
 
-namespace Game.Infrastructure
+namespace Game.Infrastructure.GameAggregate
 {
     public class GameRepository(IGrainFactory grainFactory) : IGameRepository
     {

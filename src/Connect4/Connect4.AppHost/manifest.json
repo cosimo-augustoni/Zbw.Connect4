@@ -36,6 +36,9 @@
           "readOnly": false
         }
       ],
+      "env": {
+        "MONGO_INITDB_DATABASE": "projections"
+      },
       "bindings": {
         "tcp": {
           "scheme": "tcp",

@@ -1,22 +1,23 @@
 ﻿using Game.Domain;
+using Game.Domain.GameAggregate;
 using Orleans.Providers;
 using Shared.Domain;
 using Shared.Infrastructure;
 
-namespace Game.Infrastructure
+namespace Game.Infrastructure.GameAggregate
 {
     [StorageProvider(ProviderName = "games")]
     [LogConsistencyProvider(ProviderName = "LogStorage")]
-    public class GameActor : EventSourcedOrleansActor<Domain.Game, GameState, GameEvent>, IGameActor
+    public class GameActor : EventSourcedOrleansActor<Domain.GameAggregate.Game, GameState, GameEvent>, IGameActor
     {
         public GameActor(IEventPublisher eventPublisher)
             : base(eventPublisher, AggregateFactory)
         {
         }
 
-        private static Domain.Game AggregateFactory(IEventRegistry<GameEvent> eventRegistry, Guid id)
+        private static Domain.GameAggregate.Game AggregateFactory(IEventRegistry<GameEvent> eventRegistry, Guid id)
         {
-            return new Domain.Game(new GameId(id), eventRegistry);
+            return new Domain.GameAggregate.Game(new GameId(id), eventRegistry);
         }
 
         public async Task<Guid> CreateGame()

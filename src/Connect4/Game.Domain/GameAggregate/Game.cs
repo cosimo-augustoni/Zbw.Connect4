@@ -1,12 +1,12 @@
 ﻿using Shared.Domain;
 
-namespace Game.Domain
+namespace Game.Domain.GameAggregate
 {
     public class Game(GameId id, IEventRegistry<GameEvent> eventRegistry) : AggregateRoot<GameEvent>(eventRegistry), IGame
     {
         public GameId Id { get; } = id;
 
-        public string Name { get; private set; } = "Connect 4 Game";
+        public string? Name { get; private set; }
 
         public async Task<Guid> CreateGame()
         {
@@ -14,6 +14,8 @@ namespace Game.Domain
             {
                 GameId = this.Id
             });
+
+            await this.UpdateGameNameAsync("Connect 4 Game");
 
             return this.Id.Id;
         }

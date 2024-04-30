@@ -3,8 +3,6 @@ services:
   redis:
     container_name: "redis"
     image: "docker.io/library/redis:7.2.4"
-    environment:
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:4317"
     volumes:
     - "redis-data:/data"
     ports:
@@ -19,7 +17,7 @@ services:
     container_name: "mongodb"
     image: "docker.io/library/mongo:7.0.5"
     environment:
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:4317"
+      MONGO_INITDB_DATABASE: "projections"
     volumes:
     - "mongodb-data:/data/db"
     ports:
@@ -37,15 +35,14 @@ services:
       Orleans__Clustering__ProviderType: "Redis"
       Orleans__Clustering__ServiceKey: "redis"
       ConnectionStrings__redis: "redis:6379"
-      Orleans__ClusterId: "rqx4uWNenAtc2kul0maqD2pcW"
-      Orleans__ServiceId: "yFSS5!jjmZBAVJ2Bdjvk5MBDo"
+      Orleans__ClusterId: "SGIQbkHCLofO4Addh1FHUVomD"
+      Orleans__ServiceId: "jHvg1rvarQjHWlRHrNYXZ7Oul"
       Orleans__EnableDistributedTracing: "true"
       Orleans__GrainStorage__games__ProviderType: "Redis"
       Orleans__GrainStorage__games__ServiceKey: "redis"
       Orleans__Endpoints__SiloPort: "8000"
       Orleans__Endpoints__GatewayPort: "8001"
       ConnectionStrings__projections: "mongodb://mongodb:27017/projections"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:4317"
     ports:
     - target: 8080
       published: 10000

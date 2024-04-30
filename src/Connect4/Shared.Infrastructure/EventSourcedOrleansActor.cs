@@ -45,9 +45,9 @@ namespace Shared.Infrastructure
             await action(this.State.Aggregate);
 
             this.RaiseEvents(this.eventRegistry.Events);
-            this.eventRegistry.Clear();
-            await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
             await this.ConfirmEvents();
+            await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
+            this.eventRegistry.Clear();
         }
 
         protected async Task<T> ExecuteAsync<T>(Func<TAggregate, Task<T>> func)
@@ -58,9 +58,9 @@ namespace Shared.Infrastructure
             var result = await func(this.State.Aggregate);
 
             this.RaiseEvents(this.eventRegistry.Events);
-            this.eventRegistry.Clear();
-            await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
             await this.ConfirmEvents();
+            await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
+            this.eventRegistry.Clear();
 
             return result;
         }

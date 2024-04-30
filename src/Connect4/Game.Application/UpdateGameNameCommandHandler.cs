@@ -1,4 +1,5 @@
 ﻿using Game.Domain;
+using Game.Domain.GameAggregate;
 using Shared.Application;
 
 namespace Game.Application

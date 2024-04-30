@@ -1,3 +1,4 @@
+using Aspire.Hosting;
 using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ var redis = builder.AddRedis("redis")
 var mongoDb = builder.AddMongoDB("mongodb")
     .WithDataVolume("mongodb-data")
     .WithMongoExpress()
+    .WithEnvironment("MONGO_INITDB_DATABASE", "projections")
     .AddDatabase("projections");
 
 var orleans = builder
