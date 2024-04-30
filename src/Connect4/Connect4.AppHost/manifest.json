@@ -21,22 +21,33 @@
           "scheme": "tcp",
           "protocol": "tcp",
           "transport": "tcp",
-          "port": 6381,
           "targetPort": 6379
         }
       }
     },
-    "redis-replica1": {
+    "mongodb": {
       "type": "container.v0",
-      "image": "redis:latest",
-      "args": [
-        "redis-server",
-        "--slaveof",
-        "redis",
-        "6379",
-        "--port",
-        "6380"
-      ]
+      "connectionString": "mongodb://{mongodb.bindings.tcp.host}:{mongodb.bindings.tcp.port}",
+      "image": "docker.io/library/mongo:7.0.5",
+      "volumes": [
+        {
+          "name": "mongodb-data",
+          "target": "/data/db",
+          "readOnly": false
+        }
+      ],
+      "bindings": {
+        "tcp": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 27017
+        }
+      }
+    },
+    "projections": {
+      "type": "value.v0",
+      "connectionString": "{mongodb.connectionString}/projections"
     },
     "webapp": {
       "type": "project.v0",
@@ -55,7 +66,8 @@
         "Orleans__GrainStorage__games__ProviderType": "Redis",
         "Orleans__GrainStorage__games__ServiceKey": "redis",
         "Orleans__Endpoints__SiloPort": "{webapp.bindings.orleans-silo.targetPort}",
-        "Orleans__Endpoints__GatewayPort": "{webapp.bindings.orleans-gateway.targetPort}"
+        "Orleans__Endpoints__GatewayPort": "{webapp.bindings.orleans-gateway.targetPort}",
+        "ConnectionStrings__projections": "{projections.connectionString}"
       },
       "bindings": {
         "http": {
