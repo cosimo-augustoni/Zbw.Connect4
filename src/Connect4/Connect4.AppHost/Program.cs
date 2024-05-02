@@ -19,8 +19,13 @@ var orleans = builder
     .WithClustering(redis)
     .WithGrainStorage("games", redis);
 
+var rabbitMq = builder.AddRabbitMQ("rabbitmq")
+    .WithArgs("/bin/bash", "-c","rabbitmq-plugins enable --offline rabbitmq_mqtt; rabbitmq-server")
+    .WithManagementPlugin();
+
 builder.AddProject<Projects.Connect4_Web>("webapp")
     .WithReference(orleans)
-    .WithReference(mongoDb);
+    .WithReference(mongoDb)
+    .WithReference(rabbitMq);
 
 builder.Build().Run();

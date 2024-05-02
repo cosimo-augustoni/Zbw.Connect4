@@ -52,6 +52,34 @@
       "type": "value.v0",
       "connectionString": "{mongodb.connectionString}/projections"
     },
+    "rabbitmq": {
+      "type": "container.v0",
+      "connectionString": "amqp://guest:{rabbitmq-password.value}@{rabbitmq.bindings.tcp.host}:{rabbitmq.bindings.tcp.port}",
+      "image": "docker.io/library/rabbitmq:3-management",
+      "args": [
+        "/bin/bash",
+        "-c",
+        "rabbitmq-plugins enable --offline rabbitmq_mqtt; rabbitmq-server"
+      ],
+      "env": {
+        "RABBITMQ_DEFAULT_USER": "guest",
+        "RABBITMQ_DEFAULT_PASS": "{rabbitmq-password.value}"
+      },
+      "bindings": {
+        "tcp": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 5672
+        },
+        "management": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http",
+          "targetPort": 15672
+        }
+      }
+    },
     "webapp": {
       "type": "project.v0",
       "path": "../Connect4.Web/Connect4.Web.csproj",
@@ -70,7 +98,8 @@
         "Orleans__GrainStorage__games__ServiceKey": "redis",
         "Orleans__Endpoints__SiloPort": "{webapp.bindings.orleans-silo.targetPort}",
         "Orleans__Endpoints__GatewayPort": "{webapp.bindings.orleans-gateway.targetPort}",
-        "ConnectionStrings__projections": "{projections.connectionString}"
+        "ConnectionStrings__projections": "{projections.connectionString}",
+        "ConnectionStrings__rabbitmq": "{rabbitmq.connectionString}"
       },
       "bindings": {
         "http": {
@@ -94,6 +123,22 @@
           "protocol": "tcp",
           "transport": "tcp",
           "targetPort": 8001
+        }
+      }
+    },
+    "rabbitmq-password": {
+      "type": "parameter.v0",
+      "value": "{rabbitmq-password.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "secret": true,
+          "default": {
+            "generate": {
+              "minLength": 22,
+              "special": false
+            }
+          }
         }
       }
     },
