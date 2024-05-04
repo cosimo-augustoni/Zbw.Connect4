@@ -43,8 +43,9 @@ namespace Visualizer.Infrastructure.VisualizerProjections.Detail
 
         public async Task Handle(VisualizerDeletedEvent notification, CancellationToken cancellationToken)
         {
+            var updateNameDefinition = Builders<VisualizerDetailDbo>.Update.Set(g => g.IsDeleted, true);
             await collectionProvider.VisualizerDetailCollection
-                .DeleteOneAsync(g => g.VisualizerId == notification.VisualizerId.Id, cancellationToken: cancellationToken);
+                .FindOneAndUpdateAsync(g => g.VisualizerId == notification.VisualizerId.Id, updateNameDefinition, cancellationToken: cancellationToken);
         }
     }
 }

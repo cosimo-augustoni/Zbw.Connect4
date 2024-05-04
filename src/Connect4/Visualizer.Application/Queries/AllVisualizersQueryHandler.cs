@@ -12,7 +12,8 @@ namespace Visualizer.Application.Queries
             return visualizers.Select(v => new VisualizerSummaryDto
             {
                 Id = v.Id,
-                Name = v.Name
+                Name = v.Name,
+                ExternalId = v.ExternalId
             }).ToList();
         }
     }

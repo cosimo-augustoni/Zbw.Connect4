@@ -6,14 +6,19 @@ namespace Visualizer.Infrastructure.VisualizerProjections.Summary
 {
     internal class VisualizersQuery(IVisualizerCollectionProvider collectionProvider) : IVisualizersQuery
     {
-        public async Task<IReadOnlyList<VisualizerSummary>> GetAllVisualizers(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<VisualizerSummary>> GetAllVisualizers(CancellationToken cancellationToken = default)
         {
-            var visualizerDetails = await collectionProvider.VisualizerSummaryCollection.AsQueryable().ToListAsync(cancellationToken);
-            return visualizerDetails.Select(v => new VisualizerSummary
+            var visualizerDetails = collectionProvider.VisualizerSummaryCollection
+                .AsQueryable()
+                .Where(v => !v.IsDeleted)
+                .ToList();
+
+            return Task.FromResult<IReadOnlyList<VisualizerSummary>>(visualizerDetails.Select(v => new VisualizerSummary
             {
                 Id = new VisualizerId(v.VisualizerId),
                 Name = v.Name,
-            }).ToList();
+                ExternalId = v.ExternalId
+            }).ToList());
         }
     }
 }

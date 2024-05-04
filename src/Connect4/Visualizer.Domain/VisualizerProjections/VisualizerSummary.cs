@@ -6,5 +6,6 @@ namespace Visualizer.Domain.VisualizerProjections
     {
         public required VisualizerId Id { get; init; }
         public string? Name { get; init; }
+        public string? ExternalId { get; init; }
     }
 }

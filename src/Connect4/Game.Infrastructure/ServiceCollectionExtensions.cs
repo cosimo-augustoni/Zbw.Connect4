@@ -16,7 +16,7 @@ namespace Game.Infrastructure
             services.AddMediatR(config => config
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
-            services.AddScoped<IGameRepository, GameRepository>();
+            services.AddTransient<IGameRepository, GameRepository>();
             services.AddTransient<IGamesQuery, GamesQuery>();
 
             return services;

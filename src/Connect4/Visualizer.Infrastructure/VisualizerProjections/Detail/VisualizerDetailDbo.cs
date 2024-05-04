@@ -9,5 +9,6 @@ namespace Visualizer.Infrastructure.VisualizerProjections.Detail
         public string? Name { get; set; }
         public string? ExternalId { get; set; }
         public int StatusId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

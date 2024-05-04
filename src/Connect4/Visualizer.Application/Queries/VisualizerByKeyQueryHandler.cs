@@ -18,4 +18,21 @@ namespace Visualizer.Application.Queries
             };
         }
     }
+
+    internal class VisualizerByExternalIdQueryHandler(IVisualizerDetailQuery query) : IQueryHandler<VisualizerByExternalIdQuery, VisualizerDetailDto>
+    {
+        public async Task<VisualizerDetailDto> Handle(VisualizerByExternalIdQuery request, CancellationToken cancellationToken)
+        {
+            var visualizerDetail = await query.GetByExternalIdAsync(request.ExternalId, cancellationToken);
+            return new VisualizerDetailDto
+            {
+                Id = visualizerDetail.Id,
+                Name = visualizerDetail.Name,
+                ExternalId = visualizerDetail.ExternalId,
+                Status = visualizerDetail.Status
+            };
+        }
+    }
+
+    
 }

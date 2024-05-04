@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Visualizer.Domain\Visualizer.Domain.csproj" />
+    <ProjectReference Include="..\Visualizer.Physical.Infrastructure\Visualizer.Physical.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

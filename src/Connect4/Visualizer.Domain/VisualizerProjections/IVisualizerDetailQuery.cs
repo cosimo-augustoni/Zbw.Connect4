@@ -5,5 +5,6 @@ namespace Visualizer.Domain.VisualizerProjections
     public interface IVisualizerDetailQuery
     {
         Task<VisualizerDetail> GetByIdAsync(VisualizerId id, CancellationToken cancellationToken = default);
+        Task<VisualizerDetail> GetByExternalIdAsync(string externalId, CancellationToken cancellationToken = default);
     }
 }

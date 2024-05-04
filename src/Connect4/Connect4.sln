@@ -38,17 +38,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Application", "Share
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizer", "Visualizer", "{00DAF9F4-0EF5-480A-9715-47C697FCA85D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Application", "Visualizer.Application\Visualizer.Application.csproj", "{D17E944C-3524-4860-9785-C78B43535BF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Application", "Visualizer.Application\Visualizer.Application.csproj", "{D17E944C-3524-4860-9785-C78B43535BF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Domain", "Visualizer.Domain\Visualizer.Domain.csproj", "{D786A3D9-32DC-40F4-AC53-389207CD563F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Domain", "Visualizer.Domain\Visualizer.Domain.csproj", "{D786A3D9-32DC-40F4-AC53-389207CD563F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Infrastructure", "Visualizer.Infrastructure\Visualizer.Infrastructure.csproj", "{96244A5C-DF83-48CB-BB92-207346173BB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Infrastructure", "Visualizer.Infrastructure\Visualizer.Infrastructure.csproj", "{96244A5C-DF83-48CB-BB92-207346173BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Contract", "Visualizer.Contract\Visualizer.Contract.csproj", "{A03A2756-00BC-4A4D-BEC9-62F8015EE5AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Contract", "Visualizer.Contract\Visualizer.Contract.csproj", "{A03A2756-00BC-4A4D-BEC9-62F8015EE5AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Contract", "Shared.Contract\Shared.Contract.csproj", "{05AAD756-622B-4451-ACAB-7375AF2F4DC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Contract", "Shared.Contract\Shared.Contract.csproj", "{05AAD756-622B-4451-ACAB-7375AF2F4DC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Contract", "Game.Contract\Game.Contract.csproj", "{CC301037-8C83-4D42-8043-2EA6C6477B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Contract", "Game.Contract\Game.Contract.csproj", "{CC301037-8C83-4D42-8043-2EA6C6477B84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Physical.Infrastructure", "Visualizer.Physical.Infrastructure\Visualizer.Physical.Infrastructure.csproj", "{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +126,10 @@ Global
 		{CC301037-8C83-4D42-8043-2EA6C6477B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC301037-8C83-4D42-8043-2EA6C6477B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC301037-8C83-4D42-8043-2EA6C6477B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{A03A2756-00BC-4A4D-BEC9-62F8015EE5AE} = {00DAF9F4-0EF5-480A-9715-47C697FCA85D}
 		{05AAD756-622B-4451-ACAB-7375AF2F4DC5} = {AD116EEF-D7AD-417A-94AA-C98FDE117F1C}
 		{CC301037-8C83-4D42-8043-2EA6C6477B84} = {C482FC41-D6CF-415C-89D5-2CA38C6FB6F9}
+		{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE} = {00DAF9F4-0EF5-480A-9715-47C697FCA85D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15536992-5D0B-4AF4-B2B0-96C75C9128F9}

@@ -86,6 +86,7 @@ namespace Visualizer.Domain.VisualizerAggregate
             await this.RaiseEventAsync(new VisualizerExternalIdChangedEvent()
             {
                 VisualizerId = this.Id,
+                PreviousExternalId = this.ExternalId,
                 ExternalId = externalId
             });
         }

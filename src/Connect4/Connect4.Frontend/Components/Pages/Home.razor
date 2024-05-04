@@ -4,6 +4,7 @@
 @using Game.Contract
 @using Game.Contract.Commands
 @using Game.Domain.GameProjections
+@using Visualizer.Physical.Infrastructure
 
 @code {
 
@@ -11,11 +12,17 @@
     private IMediator Mediator { get; set; } = null!;
 
     [Inject]
+    private IVisualizerMqttClient MqttClient { get; set; } = null!;
+
+    [Inject]
     private IGamesQuery GamesQuery { get; set; } = null!;
 
     private Guid? GameId { get; set; }
 
     public IReadOnlyList<GameSummary> Games { get; set; } = [];
+
+    public string? MqttPayload { get; set; }
+    public string MqttTopic { get; set; } = "IT_to_R001";
 
     private async Task CreateGame()
     {
@@ -34,6 +41,14 @@
     private async Task GetGames()
     {
         this.Games = await this.GamesQuery.GetAllGames();
+    }
+
+    private void SendToBroker()
+    {
+        if (string.IsNullOrWhiteSpace(this.MqttPayload))
+            return;
+
+        this.MqttClient.PublishAsync(this.MqttTopic, this.MqttPayload);
     }
 
 }
@@ -63,4 +78,10 @@
         }
     </tbody>
 </MudSimpleTable>
+
+<MudDivider />
+
+<MudTextField Label="Payload" @bind-Value="MqttPayload"></MudTextField>
+<MudTextField Label="Topic" @bind-Value="MqttTopic"></MudTextField>
+<MudButton @onclick="SendToBroker">Send To MQTT</MudButton>
 

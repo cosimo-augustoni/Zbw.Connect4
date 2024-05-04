@@ -6,6 +6,7 @@ using Visualizer.Infrastructure.VisualizerAggregate;
 using Visualizer.Infrastructure.VisualizerProjections;
 using Visualizer.Infrastructure.VisualizerProjections.Detail;
 using Visualizer.Infrastructure.VisualizerProjections.Summary;
+using Visualizer.Physical.Infrastructure;
 
 namespace Visualizer.Infrastructure
 {
@@ -14,14 +15,15 @@ namespace Visualizer.Infrastructure
         public static IServiceCollection AddVisualizerInfrastructure(this IServiceCollection services)
         {
             services.AddSharedInfrastructure();
+            services.AddVisualizerPhysicalInfrastructure();
 
             services.AddMediatR(config => config
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
-            services.AddScoped<IVisualizerRepository, VisualizerRepository>();
-            services.AddScoped<IVisualizerCollectionProvider, VisualizerCollectionProvider>();
-            services.AddScoped<IVisualizerDetailQuery, VisualizerDetailQuery>();
-            services.AddScoped<IVisualizersQuery, VisualizersQuery>();
+            services.AddTransient<IVisualizerRepository, VisualizerRepository>();
+            services.AddTransient<IVisualizerCollectionProvider, VisualizerCollectionProvider>();
+            services.AddTransient<IVisualizerDetailQuery, VisualizerDetailQuery>();
+            services.AddTransient<IVisualizersQuery, VisualizersQuery>();
 
             return services;
         }

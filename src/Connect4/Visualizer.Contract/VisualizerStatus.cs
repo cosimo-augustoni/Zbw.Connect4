@@ -1,4 +1,6 @@
-﻿namespace Visualizer.Contract
+﻿using System.Text.Json.Serialization;
+
+namespace Visualizer.Contract
 {
     public class VisualizerStatus
     {
@@ -14,6 +16,7 @@
         public int Id { get; }
         public string DisplayText { get; }
 
+        [JsonConstructor]
         private VisualizerStatus(int id, string displayText)
         {
             this.Id = id;
