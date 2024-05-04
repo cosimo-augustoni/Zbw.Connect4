@@ -1,6 +1,7 @@
 using Connect4.Backend;
 using Connect4.Frontend;
 using Connect4.ServiceDefaults;
+using Orleans.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,10 @@ builder.AddKeyedRedisClient("redis");
 builder.UseOrleans(siloBuilder =>
 {
     siloBuilder.AddLogStorageBasedLogConsistencyProvider();
+    siloBuilder.Services.AddSerializer(serializerBuilder =>
+    {
+        serializerBuilder.AddJsonSerializer(_ => true);
+    });
 });
 builder.AddMongoDBClient("projections");
 

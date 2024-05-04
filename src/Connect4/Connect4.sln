@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connect4.Frontend", "Connect4.Frontend\Connect4.Frontend.csproj", "{531EBD48-D7DD-4690-9741-22130BA613E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.Backend", "Connect4.Backend\Connect4.Backend.csproj", "{35DF84DC-8AD1-4773-8DA9-69EBD297A642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connect4.Backend", "Connect4.Backend\Connect4.Backend.csproj", "{35DF84DC-8AD1-4773-8DA9-69EBD297A642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{270B8C03-7A84-40A4-ACF5-A7597A99FF32}"
 EndProject
@@ -24,17 +24,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AD116E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{C482FC41-D6CF-415C-89D5-2CA38C6FB6F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Domain", "Shared.Domain\Shared.Domain.csproj", "{21C508D6-EC34-4A35-9D25-66210C18EC0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Domain", "Shared.Domain\Shared.Domain.csproj", "{21C508D6-EC34-4A35-9D25-66210C18EC0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Infrastructure", "Shared.Infrastructure\Shared.Infrastructure.csproj", "{5E28898E-1D76-4FD8-9655-35587DF2CD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "Shared.Infrastructure\Shared.Infrastructure.csproj", "{5E28898E-1D76-4FD8-9655-35587DF2CD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Infrastructure", "Game.Infrastructure\Game.Infrastructure.csproj", "{874718CF-0179-40E1-B6D0-2E44570AFB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Infrastructure", "Game.Infrastructure\Game.Infrastructure.csproj", "{874718CF-0179-40E1-B6D0-2E44570AFB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Domain", "Game.Domain\Game.Domain.csproj", "{815FCFEF-7AE7-4B8A-A29B-0281ABE7466B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Domain", "Game.Domain\Game.Domain.csproj", "{815FCFEF-7AE7-4B8A-A29B-0281ABE7466B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Application", "Game.Application\Game.Application.csproj", "{B1CBC882-3712-483D-8C2B-2706D485A1D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Application", "Game.Application\Game.Application.csproj", "{B1CBC882-3712-483D-8C2B-2706D485A1D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Application", "Shared.Application\Shared.Application.csproj", "{D995F080-27AB-4115-A35E-8AE40102B80B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Application", "Shared.Application\Shared.Application.csproj", "{D995F080-27AB-4115-A35E-8AE40102B80B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizer", "Visualizer", "{00DAF9F4-0EF5-480A-9715-47C697FCA85D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Application", "Visualizer.Application\Visualizer.Application.csproj", "{D17E944C-3524-4860-9785-C78B43535BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Domain", "Visualizer.Domain\Visualizer.Domain.csproj", "{D786A3D9-32DC-40F4-AC53-389207CD563F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Infrastructure", "Visualizer.Infrastructure\Visualizer.Infrastructure.csproj", "{96244A5C-DF83-48CB-BB92-207346173BB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +94,18 @@ Global
 		{D995F080-27AB-4115-A35E-8AE40102B80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D995F080-27AB-4115-A35E-8AE40102B80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D995F080-27AB-4115-A35E-8AE40102B80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17E944C-3524-4860-9785-C78B43535BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17E944C-3524-4860-9785-C78B43535BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17E944C-3524-4860-9785-C78B43535BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17E944C-3524-4860-9785-C78B43535BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D786A3D9-32DC-40F4-AC53-389207CD563F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D786A3D9-32DC-40F4-AC53-389207CD563F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D786A3D9-32DC-40F4-AC53-389207CD563F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D786A3D9-32DC-40F4-AC53-389207CD563F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96244A5C-DF83-48CB-BB92-207346173BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96244A5C-DF83-48CB-BB92-207346173BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96244A5C-DF83-48CB-BB92-207346173BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96244A5C-DF83-48CB-BB92-207346173BB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +120,10 @@ Global
 		{815FCFEF-7AE7-4B8A-A29B-0281ABE7466B} = {C482FC41-D6CF-415C-89D5-2CA38C6FB6F9}
 		{B1CBC882-3712-483D-8C2B-2706D485A1D8} = {C482FC41-D6CF-415C-89D5-2CA38C6FB6F9}
 		{D995F080-27AB-4115-A35E-8AE40102B80B} = {AD116EEF-D7AD-417A-94AA-C98FDE117F1C}
+		{00DAF9F4-0EF5-480A-9715-47C697FCA85D} = {270B8C03-7A84-40A4-ACF5-A7597A99FF32}
+		{D17E944C-3524-4860-9785-C78B43535BF2} = {00DAF9F4-0EF5-480A-9715-47C697FCA85D}
+		{D786A3D9-32DC-40F4-AC53-389207CD563F} = {00DAF9F4-0EF5-480A-9715-47C697FCA85D}
+		{96244A5C-DF83-48CB-BB92-207346173BB9} = {00DAF9F4-0EF5-480A-9715-47C697FCA85D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15536992-5D0B-4AF4-B2B0-96C75C9128F9}

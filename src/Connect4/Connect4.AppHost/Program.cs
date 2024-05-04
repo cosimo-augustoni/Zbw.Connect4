@@ -17,7 +17,8 @@ var mongoDb = builder.AddMongoDB("mongodb")
 var orleans = builder
     .AddOrleans("orleans")
     .WithClustering(redis)
-    .WithGrainStorage("games", redis);
+    .WithGrainStorage("games", redis)
+    .WithGrainStorage("visualizers", redis);
 
 var rabbitMq = builder.AddRabbitMQ("rabbitmq")
     .WithArgs("/bin/bash", "-c","rabbitmq-plugins enable --offline rabbitmq_mqtt; rabbitmq-server")

@@ -1,0 +1,138 @@
+﻿@rendermode InteractiveServer
+@page "/visualizers"
+@using Visualizer.Domain.VisualizerProjections
+@using MediatR
+@using Visualizer.Application.Commands
+@using Visualizer.Application.Queries
+@using Visualizer.Domain
+@using System.ComponentModel.DataAnnotations
+
+@attribute [StreamRendering]
+
+<PageTitle>Roboter</PageTitle>
+
+<h1>Roboter</h1>
+
+@if (visualizers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button @onclick="CreateNewVisualizer">Create New</button>
+
+    @foreach (var visualizer in visualizers)
+    {
+        <div>
+
+            <p>
+                ID: @visualizer.Id, Name: @visualizer.Name
+                <button @onclick="async () => await SelectVisualizer(visualizer.Id)">Edit</button>
+                <button @onclick="async () => await DeleteVisualizer(visualizer.Id)">Delete</button>
+            </p>
+
+        </div>
+    }
+
+    if (SelectedVisualizer != null)
+    {
+        <div>
+            <label>
+                Name:
+                <input required="true" @bind="SelectedVisualizer.Name" />
+            </label>
+
+            <label>
+                External ID:
+                <input required="true" @bind="SelectedVisualizer.ExternalId" />
+            </label>
+
+            <button @onclick="SaveVisualizer">Save</button>
+        </div>
+    }
+
+}
+
+@code {
+    [Inject]
+    private ISender Mediator { get; set; } = null!;
+
+    private IReadOnlyList<VisualizerSummary>? visualizers;
+
+    private VisualizerEditTemplate? SelectedVisualizer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVisualizersAsync();
+    }
+
+    private async Task LoadVisualizersAsync()
+    {
+        this.visualizers = await this.Mediator.Send(new AllVisualizersQuery());
+    }
+
+    private async Task SelectVisualizer(VisualizerId id)
+    {
+        var visualizerDetail = await this.Mediator.Send(new VisualizerByKeyQuery { VisualizerId = id });
+        this.SelectedVisualizer = new VisualizerEditTemplate
+            {
+                Id = visualizerDetail.Id,
+                Name = visualizerDetail.Name,
+                ExternalId = visualizerDetail.ExternalId,
+            };
+    }
+
+    private async Task DeleteVisualizer(VisualizerId visualizerId)
+    {
+        await this.Mediator.Send(new DeleteVisualizerCommand
+            {
+                VisualizerId = visualizerId
+            });
+
+        await this.LoadVisualizersAsync();
+    }
+
+    private class VisualizerEditTemplate
+    {
+        public VisualizerId? Id { get; set; }
+        public string? Name { get; set; }
+        public string? ExternalId { get; set; }
+    }
+
+    private async Task SaveVisualizer()
+    {
+        if (this.SelectedVisualizer == null)
+            return;
+
+        if (this.SelectedVisualizer.Id == null)
+        {
+            await this.Mediator.Send(new CreateVisualizerCommand()
+                {
+                    Name = this.SelectedVisualizer.Name ?? throw new ValidationException("Name muss ausfgefüllt werden"),
+                    ExternalId = this.SelectedVisualizer.ExternalId ?? throw new ValidationException("ExternalId muss ausfgefüllt werden"),
+                });
+        }
+        else
+        {
+            await this.Mediator.Send(new UpdateVisualizerCommand
+                {
+                    VisualizerId = this.SelectedVisualizer.Id,
+                    Name = this.SelectedVisualizer.Name ?? string.Empty,
+                    ExternalId = this.SelectedVisualizer.ExternalId ?? string.Empty,
+                });
+        }
+
+
+        this.SelectedVisualizer = null;
+
+        await LoadVisualizersAsync();
+    }
+
+    private void CreateNewVisualizer()
+    {
+        this.SelectedVisualizer = new VisualizerEditTemplate();
+    }
+
+
+
+}

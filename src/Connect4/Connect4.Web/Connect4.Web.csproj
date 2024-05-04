@@ -6,6 +6,7 @@
     <PackageReference Include="Microsoft.Orleans.Clustering.Redis" />
     <PackageReference Include="Microsoft.Orleans.EventSourcing" />
     <PackageReference Include="Microsoft.Orleans.Persistence.Redis" />
+    <PackageReference Include="Microsoft.Orleans.Serialization.SystemTextJson" />
     <PackageReference Include="Microsoft.Orleans.Server" />
     <ProjectReference Include="..\Connect4.Backend\Connect4.Backend.csproj" />
     <ProjectReference Include="..\Connect4.Frontend\Connect4.Frontend.csproj" />

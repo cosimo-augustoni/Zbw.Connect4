@@ -9,7 +9,7 @@ namespace Game.Application
         public async Task Handle(UpdateGameNameCommand request, CancellationToken cancellationToken)
         {
             var game = gameRepository.GetById(request.GameId);
-            await game.UpdateGameNameAsync(request.Name);
+            await game.ChangeNameAsync(request.Name);
         }
     }
 }

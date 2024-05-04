@@ -25,9 +25,9 @@ namespace Game.Infrastructure.GameAggregate
             return await this.ExecuteAsync(async (aggregate) => await aggregate.CreateGame());
         }
 
-        public async Task UpdateGameNameAsync(string name)
+        public async Task ChangeNameAsync(string name)
         {
-            await this.ExecuteAsync(async (aggregate) => await aggregate.UpdateGameNameAsync(name));
+            await this.ExecuteAsync(async (aggregate) => await aggregate.ChangeNameAsync(name));
         }
     }
 }

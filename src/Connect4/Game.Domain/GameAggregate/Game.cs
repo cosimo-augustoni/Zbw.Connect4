@@ -4,6 +4,11 @@ namespace Game.Domain.GameAggregate
 {
     public class Game(GameId id, IEventRegistry<GameEvent> eventRegistry) : AggregateRoot<GameEvent>(eventRegistry), IGame
     {
+        public Game(IEventRegistry<GameEvent> eventRegistry, GameId id, string? name) : this(id, eventRegistry)
+        {
+            this.Name = name;
+        }
+
         public GameId Id { get; } = id;
 
         public string? Name { get; private set; }
@@ -15,12 +20,12 @@ namespace Game.Domain.GameAggregate
                 GameId = this.Id
             });
 
-            await this.UpdateGameNameAsync("Connect 4 Game");
+            await this.ChangeNameAsync("Connect 4 Game");
 
             return this.Id.Id;
         }
 
-        public async Task UpdateGameNameAsync(string name)
+        public async Task ChangeNameAsync(string name)
         {
             if(this.Name == name)
                 return;
@@ -36,8 +41,7 @@ namespace Game.Domain.GameAggregate
         {
             switch (@event)
             {
-                case GameCreatedEvent gameCreatedEvent:
-                    this.Apply(gameCreatedEvent);
+                case GameCreatedEvent:
                     break;
                 case GameNameChangedEvent gameNameChangedEvent:
                     this.Apply(gameNameChangedEvent);
@@ -51,21 +55,5 @@ namespace Game.Domain.GameAggregate
         {
             this.Name = @event.Name;
         }
-
-        private void Apply(GameCreatedEvent _)
-        {
-        }
-    }
-
-    public record GameCreatedEvent : GameEvent;
-
-    public record GameNameChangedEvent : GameEvent
-    {
-        public required string Name { get; init; }
-    }
-
-    public abstract record GameEvent : DomainEvent
-    {
-        public required GameId GameId { get; init; }
     }
 }
