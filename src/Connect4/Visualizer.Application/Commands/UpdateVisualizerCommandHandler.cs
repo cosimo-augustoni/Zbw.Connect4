@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shared.Application;
-using Visualizer.Application.Queries;
+using Visualizer.Contract.Commands;
+using Visualizer.Contract.Queries;
 using Visualizer.Domain.VisualizerAggregate;
 
 namespace Visualizer.Application.Commands

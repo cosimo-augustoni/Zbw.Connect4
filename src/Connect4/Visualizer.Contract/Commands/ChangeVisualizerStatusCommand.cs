@@ -1,8 +1,6 @@
-﻿using Shared.Application;
-using Visualizer.Domain;
-using Visualizer.Domain.VisualizerAggregate;
+﻿using Shared.Contract;
 
-namespace Visualizer.Application.Commands
+namespace Visualizer.Contract.Commands
 {
     public class ChangeVisualizerStatusCommand : ICommand
     {

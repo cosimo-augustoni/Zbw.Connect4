@@ -1,4 +1,6 @@
-﻿namespace Game.Domain.GameAggregate
+﻿using Game.Contract;
+
+namespace Game.Domain.GameAggregate
 {
     public interface IGameRepository
     {

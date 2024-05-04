@@ -1,5 +1,5 @@
-﻿using Game.Domain;
-using Game.Domain.GameAggregate;
+﻿using Game.Contract;
+using Game.Contract.Events;
 using Orleans.Providers;
 using Shared.Domain;
 using Shared.Infrastructure;

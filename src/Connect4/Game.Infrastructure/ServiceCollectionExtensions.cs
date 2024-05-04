@@ -1,5 +1,4 @@
-﻿using Game.Domain;
-using Game.Domain.GameAggregate;
+﻿using Game.Domain.GameAggregate;
 using Game.Domain.GameProjections;
 using Game.Infrastructure.GameAggregate;
 using Game.Infrastructure.GameProjections;

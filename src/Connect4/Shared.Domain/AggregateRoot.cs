@@ -1,4 +1,6 @@
-﻿namespace Shared.Domain
+﻿using Shared.Contract;
+
+namespace Shared.Domain
 {
     public abstract class AggregateRoot<TEventBase>(IEventRegistry<TEventBase> eventRegistry) : IAggregateRoot<TEventBase>
         where TEventBase : DomainEvent

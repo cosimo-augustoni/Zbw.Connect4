@@ -1,4 +1,5 @@
 ﻿using Shared.Application;
+using Visualizer.Contract.Commands;
 using Visualizer.Domain.VisualizerAggregate;
 
 namespace Visualizer.Application.Commands

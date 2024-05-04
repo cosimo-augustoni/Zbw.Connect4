@@ -1,13 +1,21 @@
 ﻿using Shared.Application;
+using Visualizer.Contract.Queries;
 using Visualizer.Domain.VisualizerProjections;
 
 namespace Visualizer.Application.Queries
 {
-    internal class VisualizerByKeyQueryHandler(IVisualizerDetailQuery query) : IQueryHandler<VisualizerByKeyQuery, VisualizerDetail>
+    internal class VisualizerByKeyQueryHandler(IVisualizerDetailQuery query) : IQueryHandler<VisualizerByKeyQuery, VisualizerDetailDto>
     {
-        public async Task<VisualizerDetail> Handle(VisualizerByKeyQuery request, CancellationToken cancellationToken)
+        public async Task<VisualizerDetailDto> Handle(VisualizerByKeyQuery request, CancellationToken cancellationToken)
         {
-            return await query.GetByIdAsync(request.VisualizerId, cancellationToken);
+            var visualizerDetail = await query.GetByIdAsync(request.VisualizerId, cancellationToken);
+            return new VisualizerDetailDto
+            {
+                Id = visualizerDetail.Id,
+                Name = visualizerDetail.Name,
+                ExternalId = visualizerDetail.ExternalId,
+                Status = visualizerDetail.Status
+            };
         }
     }
 }

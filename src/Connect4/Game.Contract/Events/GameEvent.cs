@@ -1,6 +1,6 @@
-﻿using Shared.Domain;
+﻿using Shared.Contract;
 
-namespace Game.Domain.GameAggregate
+namespace Game.Contract.Events
 {
     public abstract record GameEvent : DomainEvent
     {

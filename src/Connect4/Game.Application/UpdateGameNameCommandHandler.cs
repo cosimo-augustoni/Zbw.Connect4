@@ -1,4 +1,4 @@
-﻿using Game.Domain;
+﻿using Game.Contract.Commands;
 using Game.Domain.GameAggregate;
 using Shared.Application;
 

@@ -1,5 +1,6 @@
 ﻿using Orleans;
 using Orleans.EventSourcing;
+using Shared.Contract;
 using Shared.Domain;
 
 namespace Shared.Infrastructure

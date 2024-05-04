@@ -1,6 +1,5 @@
 ﻿using MongoDB.Driver;
-using Visualizer.Domain;
-using Visualizer.Domain.VisualizerAggregate;
+using Visualizer.Contract;
 using Visualizer.Domain.VisualizerProjections;
 
 namespace Visualizer.Infrastructure.VisualizerProjections.Detail

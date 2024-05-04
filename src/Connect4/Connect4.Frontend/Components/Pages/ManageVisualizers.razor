@@ -1,11 +1,10 @@
 ﻿@rendermode InteractiveServer
 @page "/visualizers"
-@using Visualizer.Domain.VisualizerProjections
 @using MediatR
-@using Visualizer.Application.Commands
-@using Visualizer.Application.Queries
-@using Visualizer.Domain
 @using System.ComponentModel.DataAnnotations
+@using Visualizer.Contract
+@using Visualizer.Contract.Commands
+@using Visualizer.Contract.Queries
 
 @attribute [StreamRendering]
 
@@ -57,7 +56,7 @@ else
     [Inject]
     private ISender Mediator { get; set; } = null!;
 
-    private IReadOnlyList<VisualizerSummary>? visualizers;
+    private IReadOnlyList<VisualizerSummaryDto>? visualizers;
 
     private VisualizerEditTemplate? SelectedVisualizer { get; set; }
 

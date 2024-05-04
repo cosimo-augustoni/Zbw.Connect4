@@ -1,4 +1,4 @@
-﻿namespace Visualizer.Domain.VisualizerAggregate
+﻿namespace Visualizer.Contract.Events
 {
     public record VisualizerDeletedEvent : VisualizerEvent
     {

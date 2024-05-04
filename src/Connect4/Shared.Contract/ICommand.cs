@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Shared.Application;
+namespace Shared.Contract;
 
 public interface ICommand : IRequest;
 

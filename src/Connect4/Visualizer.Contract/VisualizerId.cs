@@ -1,4 +1,4 @@
-﻿namespace Visualizer.Domain
+﻿namespace Visualizer.Contract
 {
     public record VisualizerId(Guid Id)
     {

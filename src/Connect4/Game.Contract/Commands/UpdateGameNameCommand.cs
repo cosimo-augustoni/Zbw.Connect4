@@ -1,7 +1,6 @@
-﻿using Game.Domain;
-using Shared.Application;
+﻿using Shared.Contract;
 
-namespace Game.Application
+namespace Game.Contract.Commands
 {
     public record UpdateGameNameCommand(GameId GameId, string Name) : ICommand;
 }

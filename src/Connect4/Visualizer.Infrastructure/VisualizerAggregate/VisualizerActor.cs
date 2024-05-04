@@ -1,8 +1,8 @@
 ﻿using Orleans;
 using Orleans.Runtime;
 using Shared.Infrastructure;
-using Visualizer.Domain;
-using Visualizer.Domain.VisualizerAggregate;
+using Visualizer.Contract;
+using Visualizer.Contract.Events;
 
 namespace Visualizer.Infrastructure.VisualizerAggregate
 {

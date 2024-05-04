@@ -1,4 +1,4 @@
-﻿namespace Game.Domain
+﻿namespace Game.Contract
 {
     public record GameId(Guid Id)
     {

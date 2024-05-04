@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MongoDB.Driver;
-using Visualizer.Domain.VisualizerAggregate;
+using Visualizer.Contract.Events;
 
 namespace Visualizer.Infrastructure.VisualizerProjections.Detail
 {

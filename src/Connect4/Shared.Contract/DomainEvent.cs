@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Shared.Domain
+namespace Shared.Contract
 {
     public abstract record DomainEvent : INotification;
 }

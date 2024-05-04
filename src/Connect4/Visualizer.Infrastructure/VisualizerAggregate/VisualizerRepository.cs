@@ -1,5 +1,5 @@
 ﻿using Orleans;
-using Visualizer.Domain;
+using Visualizer.Contract;
 using Visualizer.Domain.VisualizerAggregate;
 
 namespace Visualizer.Infrastructure.VisualizerAggregate

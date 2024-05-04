@@ -1,4 +1,5 @@
-﻿using Shared.Domain;
+﻿using Shared.Contract;
+using Shared.Domain;
 
 namespace Shared.Infrastructure
 {

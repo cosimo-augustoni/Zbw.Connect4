@@ -1,4 +1,4 @@
-﻿using Game.Domain.GameAggregate;
+﻿using Game.Contract.Events;
 using MediatR;
 using MongoDB.Driver;
 

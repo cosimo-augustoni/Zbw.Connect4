@@ -1,7 +1,6 @@
-﻿using Shared.Application;
-using Visualizer.Domain;
+﻿using Shared.Contract;
 
-namespace Visualizer.Application.Commands
+namespace Visualizer.Contract.Commands
 {
     public class DeleteVisualizerCommand : ICommand
     {

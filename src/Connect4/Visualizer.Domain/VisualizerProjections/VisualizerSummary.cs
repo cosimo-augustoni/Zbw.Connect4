@@ -1,4 +1,6 @@
-﻿namespace Visualizer.Domain.VisualizerProjections
+﻿using Visualizer.Contract;
+
+namespace Visualizer.Domain.VisualizerProjections
 {
     public class VisualizerSummary
     {

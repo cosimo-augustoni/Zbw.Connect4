@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.Contract;
 
 namespace Shared.Domain
 {
-    public interface IEventRegistry<TEventBase> where TEventBase : DomainEvent
+    public interface IEventRegistry<in TEventBase> where TEventBase : DomainEvent
     {
         void RegisterEvent(TEventBase @event);
     }

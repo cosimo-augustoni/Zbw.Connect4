@@ -1,4 +1,4 @@
-﻿using Game.Domain;
+﻿using Game.Contract;
 using Game.Domain.GameAggregate;
 using Orleans;
 

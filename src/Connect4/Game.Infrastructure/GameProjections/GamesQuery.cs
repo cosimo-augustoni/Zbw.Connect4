@@ -1,10 +1,5 @@
 ﻿using Game.Domain.GameProjections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game.Domain;
+using Game.Contract;
 using MongoDB.Driver;
 
 namespace Game.Infrastructure.GameProjections

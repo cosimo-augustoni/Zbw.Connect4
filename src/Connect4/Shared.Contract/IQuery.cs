@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Shared.Application
+namespace Shared.Contract
 {
     public interface IQuery<out TResponse> : IRequest<TResponse>;
 }

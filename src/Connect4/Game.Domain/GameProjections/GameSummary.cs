@@ -1,4 +1,6 @@
-﻿namespace Game.Domain.GameProjections
+﻿using Game.Contract;
+
+namespace Game.Domain.GameProjections
 {
     public class GameSummary
     {

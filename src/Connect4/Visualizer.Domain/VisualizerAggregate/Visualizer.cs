@@ -1,4 +1,6 @@
 ﻿using Shared.Domain;
+using Visualizer.Contract;
+using Visualizer.Contract.Events;
 
 namespace Visualizer.Domain.VisualizerAggregate
 {

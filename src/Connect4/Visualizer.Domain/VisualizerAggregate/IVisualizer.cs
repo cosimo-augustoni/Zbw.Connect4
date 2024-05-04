@@ -1,4 +1,6 @@
-﻿namespace Visualizer.Domain.VisualizerAggregate
+﻿using Visualizer.Contract;
+
+namespace Visualizer.Domain.VisualizerAggregate
 {
     public interface IVisualizer
     {
