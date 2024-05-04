@@ -42,11 +42,25 @@
 
 <h1>Current Game: @GameId</h1>
 
-<button @onclick="CreateGame">Create</button>
-<button @onclick="RenameGame">Rename</button>
-<button @onclick="GetGames">Show Games</button>
+<MudButton @onclick="CreateGame">Create</MudButton>
+<MudButton @onclick="RenameGame">Rename</MudButton>
+<MudButton @onclick="GetGames">Show Games</MudButton>
 
-@foreach (var game in this.Games)
-{
-    <p>ID: @game.Id, Name: @game.Name</p>
-}
+<MudSimpleTable>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in this.Games)
+        {
+            <tr>
+                <td>@game.Id</td>
+                <td>@game.Name</td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+

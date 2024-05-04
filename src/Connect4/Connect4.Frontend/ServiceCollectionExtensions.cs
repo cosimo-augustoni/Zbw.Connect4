@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using MudBlazor.Services;
 
 namespace Connect4.Frontend
 {
@@ -26,6 +27,8 @@ namespace Connect4.Frontend
             services.AddRazorComponents()
                 .AddInteractiveServerComponents()
                 .AddMicrosoftIdentityConsentHandler();
+
+            services.AddMudServices();
 
             return services;
         }

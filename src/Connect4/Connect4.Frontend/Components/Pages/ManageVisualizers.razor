@@ -18,36 +18,43 @@
 }
 else
 {
-    <button @onclick="CreateNewVisualizer">Create New</button>
+    <MudButton @onclick="CreateNewVisualizer">Create New</MudButton>
 
-    @foreach (var visualizer in visualizers)
-    {
-        <div>
-
-            <p>
-                ID: @visualizer.Id, Name: @visualizer.Name
-                <button @onclick="async () => await SelectVisualizer(visualizer.Id)">Edit</button>
-                <button @onclick="async () => await DeleteVisualizer(visualizer.Id)">Delete</button>
-            </p>
-
-        </div>
-    }
+    <MudSimpleTable>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visualizer in this.visualizers)
+            {
+                <tr>
+                    <td>@visualizer.Id</td>
+                    <td>@visualizer.Name</td>
+                    <td>
+                        <MudButton @onclick="async () => await SelectVisualizer(visualizer.Id)">Edit</MudButton>
+                        <MudButton @onclick="async () => await DeleteVisualizer(visualizer.Id)">Delete</MudButton>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
 
     if (SelectedVisualizer != null)
     {
-        <div>
-            <label>
-                Name:
-                <input required="true" @bind="SelectedVisualizer.Name" />
-            </label>
-
-            <label>
-                External ID:
-                <input required="true" @bind="SelectedVisualizer.ExternalId" />
-            </label>
-
-            <button @onclick="SaveVisualizer">Save</button>
-        </div>
+        <MudDivider />
+        <MudCard>
+            <MudCardContent>
+                <MudTextField @bind-Value="SelectedVisualizer.Name" Label="Name"></MudTextField>
+                <MudTextField @bind-Value="SelectedVisualizer.ExternalId" Label="External ID"></MudTextField>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton @onclick="SaveVisualizer" Variant="Variant.Text" Color="Color.Primary">Save</MudButton>
+            </MudCardActions>
+        </MudCard>
     }
 
 }
