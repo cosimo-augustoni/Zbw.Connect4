@@ -52,9 +52,28 @@
       "type": "value.v0",
       "connectionString": "{mongodb.connectionString}/projections"
     },
+    "RabbitMQUsername": {
+      "type": "parameter.v0",
+      "value": "{RabbitMQUsername.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "RabbitMQPassword": {
+      "type": "parameter.v0",
+      "value": "{RabbitMQPassword.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "secret": true
+        }
+      }
+    },
     "rabbitmq": {
       "type": "container.v0",
-      "connectionString": "amqp://guest:{rabbitmq-password.value}@{rabbitmq.bindings.tcp.host}:{rabbitmq.bindings.tcp.port}",
+      "connectionString": "amqp://{RabbitMQUsername.value}:{RabbitMQPassword.value}@{rabbitmq.bindings.tcp.host}:{rabbitmq.bindings.tcp.port}",
       "image": "docker.io/library/rabbitmq:3-management",
       "args": [
         "/bin/bash",
@@ -62,8 +81,8 @@
         "rabbitmq-plugins enable --offline rabbitmq_mqtt; rabbitmq-server"
       ],
       "env": {
-        "RABBITMQ_DEFAULT_USER": "guest",
-        "RABBITMQ_DEFAULT_PASS": "{rabbitmq-password.value}"
+        "RABBITMQ_DEFAULT_USER": "{RabbitMQUsername.value}",
+        "RABBITMQ_DEFAULT_PASS": "{RabbitMQPassword.value}"
       },
       "bindings": {
         "tcp": {
@@ -71,6 +90,12 @@
           "protocol": "tcp",
           "transport": "tcp",
           "targetPort": 5672
+        },
+        "mqtt": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 1883
         },
         "management": {
           "scheme": "http",
@@ -96,10 +121,14 @@
         "Orleans__EnableDistributedTracing": "true",
         "Orleans__GrainStorage__games__ProviderType": "Redis",
         "Orleans__GrainStorage__games__ServiceKey": "redis",
+        "Orleans__GrainStorage__visualizers__ProviderType": "Redis",
+        "Orleans__GrainStorage__visualizers__ServiceKey": "redis",
         "Orleans__Endpoints__SiloPort": "{webapp.bindings.orleans-silo.targetPort}",
         "Orleans__Endpoints__GatewayPort": "{webapp.bindings.orleans-gateway.targetPort}",
         "ConnectionStrings__projections": "{projections.connectionString}",
-        "ConnectionStrings__rabbitmq": "{rabbitmq.connectionString}"
+        "MQTT_HOST": "{rabbitmq.bindings.mqtt.host}",
+        "MQTT_USERNAME": "{RabbitMQUsername.value}",
+        "MQTT_PASSWORD": "{RabbitMQPassword.value}"
       },
       "bindings": {
         "http": {
@@ -123,22 +152,6 @@
           "protocol": "tcp",
           "transport": "tcp",
           "targetPort": 8001
-        }
-      }
-    },
-    "rabbitmq-password": {
-      "type": "parameter.v0",
-      "value": "{rabbitmq-password.inputs.value}",
-      "inputs": {
-        "value": {
-          "type": "string",
-          "secret": true,
-          "default": {
-            "generate": {
-              "minLength": 22,
-              "special": false
-            }
-          }
         }
       }
     },
