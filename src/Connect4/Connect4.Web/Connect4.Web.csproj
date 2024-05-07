@@ -1,16 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <ItemGroup>
-    <PackageReference Include="Aspire.MongoDB.Driver" />
-    <PackageReference Include="Aspire.StackExchange.Redis" />
-    <PackageReference Include="Microsoft.Orleans.Clustering.Redis" />
-    <PackageReference Include="Microsoft.Orleans.EventSourcing" />
-    <PackageReference Include="Microsoft.Orleans.Persistence.Redis" />
-    <PackageReference Include="Microsoft.Orleans.Serialization.SystemTextJson" />
-    <PackageReference Include="Microsoft.Orleans.Server" />
-    <ProjectReference Include="..\Connect4.Backend\Connect4.Backend.csproj" />
-    <ProjectReference Include="..\Connect4.Frontend\Connect4.Frontend.csproj" />
-    <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <ContainerRepository>forward-adviser-421815/registry01/connect4</ContainerRepository>
+        <ContainerRegistry>europe-west6-docker.pkg.dev</ContainerRegistry>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.MongoDB.Driver" />
+        <PackageReference Include="Aspire.StackExchange.Redis" />
+        <PackageReference Include="Microsoft.Orleans.Clustering.Redis" />
+        <PackageReference Include="Microsoft.Orleans.EventSourcing" />
+        <PackageReference Include="Microsoft.Orleans.Persistence.Redis" />
+        <PackageReference Include="Microsoft.Orleans.Serialization.SystemTextJson" />
+        <PackageReference Include="Microsoft.Orleans.Server" />
+        <ProjectReference Include="..\Connect4.Backend\Connect4.Backend.csproj" />
+        <ProjectReference Include="..\Connect4.Frontend\Connect4.Frontend.csproj" />
+        <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
+    </ItemGroup>
 
 </Project>
