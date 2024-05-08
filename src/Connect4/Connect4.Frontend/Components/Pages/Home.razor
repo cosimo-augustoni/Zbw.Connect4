@@ -4,6 +4,7 @@
 @using Game.Contract
 @using Game.Contract.Commands
 @using Game.Domain.GameProjections
+@using Visualizer.Contract.Queries
 @using Visualizer.Physical.Infrastructure
 
 @code {
@@ -17,12 +18,34 @@
     [Inject]
     private IGamesQuery GamesQuery { get; set; } = null!;
 
+    [Inject] 
+    private VisualizerUpdateEventHandler VisualizerUpdateEventHandler { get; set; } = null!;
+
     private Guid? GameId { get; set; }
 
     public IReadOnlyList<GameSummary> Games { get; set; } = [];
 
-    public string? MqttPayload { get; set; }
-    public string MqttTopic { get; set; } = "IT_to_R001";
+    public string? MqttPayload { get; set; } = "3";
+    public string MqttTopic { get; set; } = "R001_to_IT";
+
+    private IReadOnlyList<VisualizerSummaryDto>? visualizers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVisualizersAsync();
+        this.VisualizerUpdateEventHandler.VisualizerUpdated += OnVisualizerUpdated;
+    }
+
+    private async Task OnVisualizerUpdated(object? sender, VisualizerUpdatedEventArgs e)
+    {
+        await LoadVisualizersAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task LoadVisualizersAsync()
+    {
+        this.visualizers = await this.Mediator.Send(new AllVisualizersQuery());
+    }
 
     private async Task CreateGame()
     {
@@ -79,9 +102,23 @@
     </tbody>
 </MudSimpleTable>
 
-<MudDivider />
+<MudDivider Style="margin: 20px" />
 
 <MudTextField Label="Payload" @bind-Value="MqttPayload"></MudTextField>
 <MudTextField Label="Topic" @bind-Value="MqttTopic"></MudTextField>
 <MudButton @onclick="SendToBroker">Send To MQTT</MudButton>
 
+<MudDivider Style="margin: 20px" />
+
+@foreach (var visualizer in this.visualizers ?? [])
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText>@visualizer.Name</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText Label="ExternalId">@visualizer.ExternalId</MudText>
+            <MudText Label="Status">@visualizer.Status.DisplayText</MudText>
+        </MudCardContent>
+    </MudCard>
+}

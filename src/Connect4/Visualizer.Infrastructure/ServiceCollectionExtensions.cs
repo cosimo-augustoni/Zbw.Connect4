@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR.NotificationPublishers;
+using Microsoft.Extensions.DependencyInjection;
 using Shared.Infrastructure;
 using Visualizer.Domain.VisualizerAggregate;
 using Visualizer.Domain.VisualizerProjections;
@@ -17,8 +18,7 @@ namespace Visualizer.Infrastructure
             services.AddSharedInfrastructure();
             services.AddVisualizerPhysicalInfrastructure();
 
-            services.AddMediatR(config => config
-                .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
+            services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
             services.AddTransient<IVisualizerRepository, VisualizerRepository>();
             services.AddTransient<IVisualizerCollectionProvider, VisualizerCollectionProvider>();

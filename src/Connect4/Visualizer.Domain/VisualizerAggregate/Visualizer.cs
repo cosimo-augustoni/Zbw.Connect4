@@ -65,7 +65,7 @@ namespace Visualizer.Domain.VisualizerAggregate
 
         public async Task ChangeStatusAsync(VisualizerStatus status)
         {
-            if (this.Status == status)
+            if (this.Status.Id == status.Id)
                 return;
 
             if (this.IsDeleted)

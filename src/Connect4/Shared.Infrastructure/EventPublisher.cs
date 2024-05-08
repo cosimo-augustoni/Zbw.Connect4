@@ -9,7 +9,7 @@ namespace Shared.Infrastructure
         {
             foreach (var domainEvent in domainEvents)
             {
-                await mediator.Publish(domainEvent);
+                await mediator.Publish(domainEvent).ConfigureAwait(false);
             }
         }
     }

@@ -13,7 +13,8 @@ namespace Visualizer.Application.Queries
             {
                 Id = v.Id,
                 Name = v.Name,
-                ExternalId = v.ExternalId
+                ExternalId = v.ExternalId,
+                Status = v.Status
             }).ToList();
         }
     }

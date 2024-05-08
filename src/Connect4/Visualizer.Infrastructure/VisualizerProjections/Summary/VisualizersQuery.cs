@@ -17,7 +17,8 @@ namespace Visualizer.Infrastructure.VisualizerProjections.Summary
             {
                 Id = new VisualizerId(v.VisualizerId),
                 Name = v.Name,
-                ExternalId = v.ExternalId
+                ExternalId = v.ExternalId,
+                Status = v.StatusId.HasValue ? VisualizerStatus.GetById(v.StatusId.Value) : VisualizerStatus.Unknown
             }).ToList());
         }
     }

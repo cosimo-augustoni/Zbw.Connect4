@@ -1,4 +1,5 @@
 ﻿using Connect4.Frontend.Components;
+using Connect4.Frontend.Components.Pages;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Rewrite;
@@ -29,6 +30,11 @@ namespace Connect4.Frontend
                 .AddMicrosoftIdentityConsentHandler();
 
             services.AddMudServices();
+
+            services.AddMediatR(config => config
+                .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
+
+            services.AddSingleton<VisualizerUpdateEventHandler>();
 
             return services;
         }
