@@ -44,6 +44,7 @@ namespace Connect4.Frontend
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
             services.AddSingleton<VisualizerChangedEventHandler>();
+            services.AddSingleton<LoadingDelayer>();
 
             return services;
         }

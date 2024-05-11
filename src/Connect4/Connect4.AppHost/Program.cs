@@ -1,4 +1,6 @@
 
+using Aspire.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var redis = builder.AddRedis("redis")
@@ -33,6 +35,7 @@ builder.AddProject<Projects.Connect4_Web>("webapp")
     .WithReference(mongoDb)
     .WithEnvironment("MQTT_HOST", $"{mqttEndpoint.Property(EndpointProperty.Host)}")
     .WithEnvironment("MQTT_USERNAME", rabbitMQUsername)
-    .WithEnvironment("MQTT_PASSWORD", rabbitMQPassword);
+    .WithEnvironment("MQTT_PASSWORD", rabbitMQPassword)
+    .WithEnvironment("FRONTEND_LOADING_DELAY", "500");
 
 builder.Build().Run();

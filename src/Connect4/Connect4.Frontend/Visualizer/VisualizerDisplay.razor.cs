@@ -19,6 +19,9 @@ namespace Connect4.Frontend.Visualizer
 
         [Inject]
         private ISnackbar Snackbar { get; set; } = null!;
+        
+        [Inject]
+        private LoadingDelayer LoadingDelayer { get; set; } = null!;
 
         [Inject]
         private VisualizerChangedEventHandler VisualizerChangedEventHandler { get; set; } = null!;
@@ -45,7 +48,7 @@ namespace Connect4.Frontend.Visualizer
 
         protected override async Task OnInitializedAsync()
         {
-            await Task.Delay(500);
+            await this.LoadingDelayer.Delay();
 
             this.Visualizer = await this.Mediator.Send(new VisualizerByKeyQuery { VisualizerId = this.VisualizerId });
             this.VisualizerChangedEventHandler.VisualizerUpdated += this.OnVisualizerUpdated;
