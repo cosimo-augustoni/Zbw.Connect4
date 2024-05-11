@@ -1,11 +1,13 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="MicrosoftIdentity/Account/EditProfile">
-            @context.User.Identity?.Name
-        </a>
-        <a href="MicrosoftIdentity/Account/SignOut">Log out</a>
+        <div class="d-flex flex-row justify-content-evenly gap-3">
+            <MudLink Href="MicrosoftIdentity/Account/EditProfile">
+                @context.User.Identity?.Name
+            </MudLink>
+            <MudLink Href="MicrosoftIdentity/Account/SignOut">Log out</MudLink>
+        </div>
     </Authorized>
     <NotAuthorized>
-        <a href="MicrosoftIdentity/Account/SignIn">Log in</a>
+        <MudLink Href="MicrosoftIdentity/Account/SignIn">Log in</MudLink>
     </NotAuthorized>
 </AuthorizeView>
