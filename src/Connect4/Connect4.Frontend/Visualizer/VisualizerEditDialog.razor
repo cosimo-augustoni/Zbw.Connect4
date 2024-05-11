@@ -1,0 +1,76 @@
+﻿@using FluentValidation
+@using global::Visualizer.Contract
+<MudDialog>
+    <DialogContent>
+        <MudForm Model="@Visualizer" @ref="@form" Validation="@(validator.ValidateValue)" ValidationDelay="0">
+            <MudTextField @bind-Value="Visualizer.Name"
+                          For="@(() => Visualizer.Name)"
+                          Immediate="true"
+                          Label="Name" />
+            <MudTextField @bind-Value="Visualizer.ExternalId"
+                          For="@(() => Visualizer.ExternalId)"
+                          Immediate="true"
+                          Label="Externe ID" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Abbrechen</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Save">Speichern</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    [CascadingParameter]
+    public required MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public required VisualizerModel Visualizer { get; set; }
+
+    private MudForm form = null!;
+
+    private readonly VisualizerModelFluentValidator validator = new();
+
+    private async Task Save()
+    {
+        await form.Validate();
+
+        if (form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(this.Visualizer));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    public class VisualizerModel
+    {
+        public VisualizerId? VisualizerId { get; init; }
+        public string? Name { get; set; }
+        public string? ExternalId { get; set; }
+    }
+
+    public class VisualizerModelFluentValidator : AbstractValidator<VisualizerModel>
+    {
+        public VisualizerModelFluentValidator()
+        {
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .Length(1, 50);
+
+            RuleFor(x => x.ExternalId)
+                .NotEmpty()
+                .WithName("Externe ID")
+                .Length(1, 10)
+                .WithName("Externe ID");
+        }
+
+        public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
+        {
+            var result = await ValidateAsync(ValidationContext<VisualizerModel>.CreateWithOptions((VisualizerModel)model, x => x.IncludeProperties(propertyName)));
+            if (result.IsValid)
+                return Array.Empty<string>();
+            return result.Errors.Select(e => e.ErrorMessage);
+        };
+    }
+}

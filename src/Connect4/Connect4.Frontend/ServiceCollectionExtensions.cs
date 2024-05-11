@@ -1,13 +1,16 @@
 ﻿using Connect4.Frontend.Components;
 using Connect4.Frontend.Components.Pages;
+using Connect4.Frontend.Shared;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using MudBlazor;
 using MudBlazor.Services;
 
 namespace Connect4.Frontend
@@ -29,12 +32,18 @@ namespace Connect4.Frontend
                 .AddInteractiveServerComponents()
                 .AddMicrosoftIdentityConsentHandler();
 
-            services.AddMudServices();
+            services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopRight;
+                config.SnackbarConfiguration.VisibleStateDuration = 3500;
+                config.SnackbarConfiguration.ShowCloseIcon = true;
+                config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+            });
 
             services.AddMediatR(config => config
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
-            services.AddSingleton<VisualizerUpdateEventHandler>();
+            services.AddSingleton<VisualizerChangedEventHandler>();
 
             return services;
         }

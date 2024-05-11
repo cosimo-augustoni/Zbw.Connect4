@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Contract", "Shared.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Contract", "Game.Contract\Game.Contract.csproj", "{CC301037-8C83-4D42-8043-2EA6C6477B84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.Physical.Infrastructure", "Visualizer.Physical.Infrastructure\Visualizer.Physical.Infrastructure.csproj", "{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Physical.Infrastructure", "Visualizer.Physical.Infrastructure\Visualizer.Physical.Infrastructure.csproj", "{7C9436BB-F3B7-49E5-9C9F-C7CDE3D435EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

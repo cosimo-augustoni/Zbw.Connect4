@@ -1,6 +1,8 @@
-﻿namespace Visualizer.Contract.Queries
+﻿using Visualizer.Contract;
+
+namespace Visualizer.Domain.VisualizerProjections
 {
-    public class VisualizerSummaryDto
+    public class VisualizerView
     {
         public required VisualizerId Id { get; init; }
         public string? Name { get; init; }

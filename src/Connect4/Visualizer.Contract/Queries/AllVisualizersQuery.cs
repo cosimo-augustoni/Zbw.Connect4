@@ -2,5 +2,5 @@
 
 namespace Visualizer.Contract.Queries
 {
-    public class AllVisualizersQuery : IQuery<IReadOnlyList<VisualizerSummaryDto>>;
+    public class AllVisualizersQuery : IQuery<IReadOnlyList<VisualizerDto>>;
 }

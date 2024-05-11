@@ -4,12 +4,12 @@ using Visualizer.Domain.VisualizerProjections;
 
 namespace Visualizer.Application.Queries
 {
-    internal class AllVisualizersQueryHandler(IVisualizersQuery query) : IQueryHandler<AllVisualizersQuery, IReadOnlyList<VisualizerSummaryDto>>
+    internal class AllVisualizersQueryHandler(IVisualizerQuery query) : IQueryHandler<AllVisualizersQuery, IReadOnlyList<VisualizerDto>>
     {
-        public async Task<IReadOnlyList<VisualizerSummaryDto>> Handle(AllVisualizersQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<VisualizerDto>> Handle(AllVisualizersQuery request, CancellationToken cancellationToken)
         {
-            var visualizers = await query.GetAllVisualizers(cancellationToken);
-            return visualizers.Select(v => new VisualizerSummaryDto
+            var visualizers = await query.GetAllVisualizersAsync(cancellationToken);
+            return visualizers.Select(v => new VisualizerDto
             {
                 Id = v.Id,
                 Name = v.Name,

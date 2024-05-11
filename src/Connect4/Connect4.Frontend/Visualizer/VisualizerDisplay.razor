@@ -1,0 +1,40 @@
+﻿@attribute [StreamRendering]
+
+@if (this.Visualizer == null)
+{
+    <MudCard Style="width: 300px" Elevation="15">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudSkeleton Width="50%" Height="42px;" />
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="300px"/>
+        <MudCardContent>
+            <MudSkeleton Width="30%"/>
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <MudCard Style="width: 300px" Square="true" Elevation="15">
+
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5">@this.Visualizer.Name</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                @if (this.Editable)
+                {
+                    <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                        <MudMenuItem @onclick="EditVisualizer">Bearbeiten</MudMenuItem>
+                        <MudMenuItem @onclick="DeleteVisualizer">Löschen</MudMenuItem>
+                    </MudMenu>
+                }
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardMedia Image="@($"_content/Connect4.Frontend/images/robots/{this.VisualizerImage}")" Height="300" />
+        <MudCardContent>
+            <VisualizerStatusDisplay VisualizerStatus="@this.Visualizer.Status"></VisualizerStatusDisplay>
+        </MudCardContent>
+    </MudCard>
+}

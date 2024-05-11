@@ -4,11 +4,11 @@ using Visualizer.Domain.VisualizerProjections;
 
 namespace Visualizer.Application.Queries
 {
-    internal class VisualizerByKeyQueryHandler(IVisualizerQuery query) : IQueryHandler<VisualizerByKeyQuery, VisualizerDto>
+    internal class VisualizerByExternalIdQueryHandler(IVisualizerQuery query) : IQueryHandler<VisualizerByExternalIdQuery, VisualizerDto>
     {
-        public async Task<VisualizerDto> Handle(VisualizerByKeyQuery request, CancellationToken cancellationToken)
+        public async Task<VisualizerDto> Handle(VisualizerByExternalIdQuery request, CancellationToken cancellationToken)
         {
-            var visualizerDetail = await query.GetByIdAsync(request.VisualizerId, cancellationToken);
+            var visualizerDetail = await query.GetByExternalIdAsync(request.ExternalId, cancellationToken);
             return new VisualizerDto
             {
                 Id = visualizerDetail.Id,

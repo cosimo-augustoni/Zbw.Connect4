@@ -1,7 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
 <MudThemeProvider IsDarkMode="true" />
-<MudDialogProvider />
+<MudDialogProvider CloseButton="true"
+                   FullWidth="true"
+                   MaxWidth="MaxWidth.Medium"
+                   Position="DialogPosition.Center"
+                   CloseOnEscapeKey="true" />
 <MudSnackbarProvider />
 
 <div class="page">

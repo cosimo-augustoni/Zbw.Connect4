@@ -2,7 +2,7 @@
 
 namespace Visualizer.Contract.Queries
 {
-    public class VisualizerByKeyQuery : IQuery<VisualizerDetailDto>
+    public class VisualizerByKeyQuery : IQuery<VisualizerDto>
     {
         public required VisualizerId VisualizerId { get; init; }
     }

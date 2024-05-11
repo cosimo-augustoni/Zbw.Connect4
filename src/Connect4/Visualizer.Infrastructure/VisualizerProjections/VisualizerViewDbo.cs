@@ -1,8 +1,8 @@
 ﻿using MongoDB.Bson;
 
-namespace Visualizer.Infrastructure.VisualizerProjections.Detail
+namespace Visualizer.Infrastructure.VisualizerProjections
 {
-    internal class VisualizerDetailDbo
+    internal class VisualizerViewDbo
     {
         public ObjectId Id { get; set; }
         public required Guid VisualizerId { get; set; }

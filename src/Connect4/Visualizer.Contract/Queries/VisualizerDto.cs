@@ -1,6 +1,6 @@
 ﻿namespace Visualizer.Contract.Queries
 {
-    public class VisualizerDetailDto
+    public class VisualizerDto
     {
         public required VisualizerId Id { get; init; }
         public string? Name { get; init; }
