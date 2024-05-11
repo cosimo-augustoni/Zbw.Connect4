@@ -1,8 +1,6 @@
 ﻿using Connect4.Frontend.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using Visualizer.Contract.Commands;
 using Visualizer.Contract.Queries;
 
 namespace Connect4.Frontend.Visualizer

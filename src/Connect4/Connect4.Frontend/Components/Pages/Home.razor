@@ -1,49 +1,40 @@
 ﻿@rendermode InteractiveServer
 @page "/"
+@using Connect4.Frontend.Visualizer
 
 <PageTitle>Playground</PageTitle>
 
-<h1>Current Game: @GameId</h1>
+<h3>Playground</h3>
 
-<MudButton @onclick="CreateGame">Create</MudButton>
-<MudButton @onclick="RenameGame">Rename</MudButton>
-<MudButton @onclick="GetGames">Show Games</MudButton>
+<div class="d-flex flex-column gap-4">
+    <MudPaper Class="p-3" Elevation="25">
+        <MudText>Current Game: @GameId</MudText>
+        <MudButton @onclick="CreateGame">Create</MudButton>
+        <MudButton @onclick="RenameGame">Rename</MudButton>
+        <MudButton @onclick="GetGames">Show Games</MudButton>
+        <MudSimpleTable>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var game in this.Games)
+                {
+                    <tr>
+                        <td>@game.Id</td>
+                        <td>@game.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </MudSimpleTable>
+    </MudPaper>
 
-<MudSimpleTable>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var game in this.Games)
-        {
-            <tr>
-                <td>@game.Id</td>
-                <td>@game.Name</td>
-            </tr>
-        }
-    </tbody>
-</MudSimpleTable>
-
-<MudDivider Style="margin: 20px" />
-
-<MudTextField Label="Payload" @bind-Value="MqttPayload"></MudTextField>
-<MudTextField Label="Topic" @bind-Value="MqttTopic"></MudTextField>
-<MudButton @onclick="SendToBroker">Send To MQTT</MudButton>
-
-<MudDivider Style="margin: 20px" />
-
-@foreach (var visualizer in this.visualizers ?? [])
-{
-    <MudCard>
-        <MudCardHeader>
-            <MudText>@visualizer.Name</MudText>
-        </MudCardHeader>
-        <MudCardContent>
-            <MudText Label="ExternalId">@visualizer.ExternalId</MudText>
-            <MudText Label="Status">@visualizer.Status.DisplayText</MudText>
-        </MudCardContent>
-    </MudCard>
-}
+    <MudPaper Class="p-3" Elevation="25">
+        <MudTextField Label="Payload" @bind-Value="MqttPayload"></MudTextField>
+        <MudTextField Label="Topic" @bind-Value="MqttTopic"></MudTextField>
+        <MudButton @onclick="SendToBroker">Send To MQTT</MudButton>
+    </MudPaper>
+    <VisualizerOverview />
+</div>

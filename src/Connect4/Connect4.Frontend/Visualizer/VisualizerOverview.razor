@@ -2,20 +2,12 @@
 
 @if (!this.IsLoading)
 {
-    <div class="d-flex flex-column gap-2">
-        <MudPaper Elevation="25">
-            <MudToolBar>
-                <VisualizerCreationButton/>
-            </MudToolBar>
-        </MudPaper>
-
-        <MudPaper class="d-flex flex-row flex-wrap justify-content-center justify-content-lg-start gap-3 p-3" Elevation="25">
-            @foreach (var visualizer in this.Visualizers)
-            {
-                <VisualizerDisplay VisualizerId="@visualizer.Id" Editable="true"></VisualizerDisplay>
-            }
-        </MudPaper>
-    </div>
+    <MudPaper class="d-flex flex-row flex-wrap justify-content-center justify-content-lg-start gap-3 p-3" Elevation="25">
+        @foreach (var visualizer in this.Visualizers)
+        {
+            <VisualizerDisplay VisualizerId="@visualizer.Id" Editable="true"></VisualizerDisplay>
+        }
+    </MudPaper>
 }
 else
 {
