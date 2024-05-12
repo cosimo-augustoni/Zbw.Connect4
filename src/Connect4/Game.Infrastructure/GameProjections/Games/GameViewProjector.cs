@@ -1,6 +1,6 @@
 ﻿using Game.Contract;
 using Game.Contract.Events;
-using Game.Contract.Queries;
+using Game.Contract.Queries.Notifications;
 using MediatR;
 using MongoDB.Driver;
 

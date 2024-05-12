@@ -1,7 +1,7 @@
 ﻿using Game.Contract.Events;
+using Game.Contract.Queries.Notifications;
 using MongoDB.Driver;
 using MediatR;
-using Game.Contract.Queries;
 
 namespace Game.Infrastructure.GameProjections.Players
 {

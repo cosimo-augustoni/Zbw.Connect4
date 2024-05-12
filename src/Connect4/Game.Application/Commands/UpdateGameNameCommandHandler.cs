@@ -2,7 +2,7 @@
 using Game.Domain.GameAggregate;
 using Shared.Application;
 
-namespace Game.Application
+namespace Game.Application.Commands
 {
     internal class UpdateGameNameCommandHandler(IGameRepository gameRepository) : ICommandHandler<UpdateGameNameCommand>
     {

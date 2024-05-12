@@ -2,7 +2,7 @@
 using Game.Domain.GameAggregate;
 using Shared.Application;
 
-namespace Game.Application
+namespace Game.Application.Commands
 {
     internal class CreateGameCommandHandler(IGameRepository gameRepository) : ICommandHandler<CreateGameCommand, Guid>
     {

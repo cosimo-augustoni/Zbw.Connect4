@@ -205,15 +205,6 @@ namespace Game.Domain.GameAggregate
                 PlayerSide = playerSide
             });
 
-            if (this.Board.FreeSlots == 1)
-            {
-                await this.RaiseEventAsync(new GameFinishedEvent
-                {
-                    GameId = this.Id,
-                    FinishReason = FinishReason.Draw
-                });
-            }
-
             if (this.Board.IsWinningMove(this.PlacementRequest.Position, playerSide))
             {
                 await this.RaiseEventAsync(new GameFinishedEvent
@@ -221,6 +212,14 @@ namespace Game.Domain.GameAggregate
                     GameId = this.Id,
                     FinishReason = FinishReason.Win,
                     WinningPlayerId = this.PlacementRequest.RequestingPlayer
+                });
+            }
+            else if (this.Board.FreeSlots == 1)
+            {
+                await this.RaiseEventAsync(new GameFinishedEvent
+                {
+                    GameId = this.Id,
+                    FinishReason = FinishReason.Draw
                 });
             }
         }
@@ -322,14 +321,14 @@ namespace Game.Domain.GameAggregate
                 this.YellowPlayer = @event.Player;
             }
         }
-        
+
         private void Apply(PlayerRemovedEvent @event)
         {
             if (@event.PlayerId == this.RedPlayer?.Id)
             {
                 this.RedPlayer = null;
             }
-            else if(@event.PlayerId == this.YellowPlayer?.Id)
+            else if (@event.PlayerId == this.YellowPlayer?.Id)
             {
                 this.YellowPlayer = null;
             }
@@ -406,7 +405,7 @@ namespace Game.Domain.GameAggregate
     }
 
 
-    
+
 
 
 }
