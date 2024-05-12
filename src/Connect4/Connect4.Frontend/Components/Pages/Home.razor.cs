@@ -15,12 +15,12 @@ namespace Connect4.Frontend.Components.Pages
 
         [Inject] private IVisualizerMqttClient MqttClient { get; set; } = null!;
 
-        [Inject] private IGamesQuery GamesQuery { get; set; } = null!;
+        [Inject] private IGameLobbiesQuery GameLobbiesQuery { get; set; } = null!;
 
         [Inject] private VisualizerChangedEventHandler VisualizerChangedEventHandler { get; set; } = null!;
 
         private Guid? GameId { get; set; }
-        public IReadOnlyList<GameSummary> Games { get; set; } = [];
+        public IReadOnlyList<GameLobby> Games { get; set; } = [];
         public string? MqttPayload { get; set; } = "3";
         public string MqttTopic { get; set; } = "R001_to_IT";
         private IReadOnlyList<VisualizerDto>? visualizers;
@@ -58,7 +58,7 @@ namespace Connect4.Frontend.Components.Pages
 
         private async Task GetGames()
         {
-            this.Games = await this.GamesQuery.GetAllGames();
+            this.Games = await this.GameLobbiesQuery.GetAllLobbies();
         }
 
         private void SendToBroker()
