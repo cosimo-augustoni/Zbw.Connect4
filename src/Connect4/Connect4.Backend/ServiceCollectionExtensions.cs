@@ -1,5 +1,6 @@
 ﻿using Game.Application;
 using Microsoft.Extensions.DependencyInjection;
+using PlayerClient.Application;
 using Visualizer.Application;
 
 namespace Connect4.Backend
@@ -10,6 +11,7 @@ namespace Connect4.Backend
         {
             services.AddGame();
             services.AddVisualizer();
+            services.AddPlayerClients();
 
             return services;
         }

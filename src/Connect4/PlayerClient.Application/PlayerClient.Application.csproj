@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.Application\Game.Application.csproj" />
-    <ProjectReference Include="..\PlayerClient.Application\PlayerClient.Application.csproj" />
-    <ProjectReference Include="..\Visualizer.Application\Visualizer.Application.csproj" />
+    <ProjectReference Include="..\PlayerClient.Infrastructure\PlayerClient.Infrastructure.csproj" />
+    <ProjectReference Include="..\PlayerClient.Local\PlayerClient.Local.csproj" />
+    <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
   </ItemGroup>
 
 </Project>

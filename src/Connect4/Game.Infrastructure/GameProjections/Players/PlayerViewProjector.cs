@@ -41,7 +41,7 @@ namespace Game.Infrastructure.GameProjections.Players
             };
             await this.GetPlayersCollection().InsertOneAsync(playerView, cancellationToken: cancellationToken);
 
-            await notificationPublisher.Publish(new PlayerAddedNotification { GameId = notification.GameId }, cancellationToken);
+            await notificationPublisher.Publish(new PlayerAddedNotification { GameId = notification.GameId, PlayerId = notification.Player.Id }, cancellationToken);
         }
 
         public async Task Handle(PlayerRemovedEvent notification, CancellationToken cancellationToken)
@@ -49,7 +49,7 @@ namespace Game.Infrastructure.GameProjections.Players
             await this.GetPlayersCollection()
                 .FindOneAndDeleteAsync(g => g.PlayerId == notification.PlayerId.Id, cancellationToken: cancellationToken);
 
-            await notificationPublisher.Publish(new PlayerRemovedNotification { GameId = notification.GameId }, cancellationToken);
+            await notificationPublisher.Publish(new PlayerRemovedNotification { GameId = notification.GameId, PlayerId = notification.PlayerId }, cancellationToken);
         }
 
         private IMongoCollection<PlayerViewDbo> GetPlayersCollection() => database.GetCollection<PlayerViewDbo>("players");
