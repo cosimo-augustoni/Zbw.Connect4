@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
 </Project>

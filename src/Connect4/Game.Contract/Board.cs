@@ -1,4 +1,4 @@
-﻿using Game.Contract.Events;
+﻿using Game.Contract.Queries.Dtos;
 
 namespace Game.Contract
 {
@@ -84,20 +84,14 @@ namespace Game.Contract
             }
         }
 
-        public enum SlotState
-        {
-            Empty = 0,
-            Red = 1,
-            Yellow = 2,
-        }
     }
 
     internal static class PlayerSideExtensions
     {
-        public static Board.SlotState ToSlotState(this PlayerSide playerSide) => playerSide switch
+        public static SlotState ToSlotState(this PlayerSide playerSide) => playerSide switch
         {
-            PlayerSide.Red => Board.SlotState.Red,
-            PlayerSide.Yellow => Board.SlotState.Yellow,
+            PlayerSide.Red => SlotState.Red,
+            PlayerSide.Yellow => SlotState.Yellow,
             _ => throw new ArgumentOutOfRangeException(nameof(playerSide), playerSide, null)
         };
     }
