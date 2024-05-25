@@ -10,3 +10,10 @@
 </div>
 
 <MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>
+
+<MudOverlay Visible="this.Game?.IsAborted ?? false" DarkBackground="true" AutoClose="false">
+    <MudStack Spacing="3">
+        <MudText Typo="Typo.h2" >Spiel wurde abgebrochen</MudText>
+        <MudButton OnClick="CloseGame">Schliessen</MudButton>
+    </MudStack>
+</MudOverlay>
