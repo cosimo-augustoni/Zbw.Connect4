@@ -1,0 +1,15 @@
+﻿@attribute [StreamRendering]
+
+@if (!this.IsLoading)
+{
+    <MudPaper class="d-flex flex-row flex-wrap justify-content-center justify-content-lg-start gap-3 p-3" Elevation="25">
+        @foreach (var lobby in this.Lobbies)
+        {
+            <GameLobbyDisplay Lobby="@lobby"></GameLobbyDisplay>
+        }
+    </MudPaper>
+}
+else
+{
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+}

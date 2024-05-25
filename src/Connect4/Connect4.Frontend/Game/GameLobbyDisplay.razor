@@ -1,0 +1,14 @@
+﻿<MudCard Style="width: 300px" Square="true" Elevation="15">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h5">@this.Lobby.Name</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardMedia Image="@($"_content/Connect4.Frontend/images/games/{this.LobbyImage}")" Height="300" />
+    <MudCardActions>
+        @if (this.Lobby.HasOpenPlayerSlot)
+        {
+            <MudButton OnClick="JoinGame">Beitreten</MudButton>
+        }
+    </MudCardActions>
+</MudCard>

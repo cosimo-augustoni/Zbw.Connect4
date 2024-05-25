@@ -1,0 +1,12 @@
+﻿@page "/game/{GameId:guid}"
+@attribute [StreamRendering]
+
+<PageTitle>Spiel</PageTitle>
+
+<h3>@this.Game?.Name</h3>
+
+<div class="d-flex flex-column gap-2">
+    <PlayerSlot />
+</div>
+
+<MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>

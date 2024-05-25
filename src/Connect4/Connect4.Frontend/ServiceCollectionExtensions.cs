@@ -1,5 +1,6 @@
 ﻿using Connect4.Frontend.Components;
 using Connect4.Frontend.Components.Pages;
+using Connect4.Frontend.Game;
 using Connect4.Frontend.Shared;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,7 @@ namespace Connect4.Frontend
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
             services.AddSingleton<VisualizerChangedEventHandler>();
+            services.AddSingleton<GameLobbiesChangedEventHandler>();
             services.AddSingleton<LoadingDelayer>();
 
             return services;

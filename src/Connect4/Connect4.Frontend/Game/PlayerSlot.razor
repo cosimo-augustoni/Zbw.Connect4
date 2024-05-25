@@ -1,0 +1,49 @@
+﻿@using Microsoft.Identity.Web
+<MudCard Elevation="25">
+    <MudCardHeader>
+        <CardHeaderContent>
+            @if (this.IsSlotFree)
+            {
+                <MudStack Row="true">
+                    <MudIcon Icon="@Icons.Material.Outlined.Person"></MudIcon>
+                    <MudText Typo="Typo.h5">Freier Platz</MudText>
+                </MudStack>
+            }
+            else
+            {
+                <MudStack Row="true">
+                    @if (this.Player.IsReady)
+                    {
+                        <MudIcon Color="Color.Success" Icon="@Icons.Material.Filled.Person"></MudIcon>
+                    }
+                    else
+                    {
+                        <MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.Person"></MudIcon>
+                    }
+                    <MudText Typo="Typo.h5">@this.Player.User.DisplayName</MudText>
+                </MudStack>
+            }
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @if (!this.IsSlotFree)
+        {
+
+        }
+    </MudCardContent>
+    <MudCardActions>
+        @if (this.IsSlotFree)
+        {
+            <MudMenu Label="Spieler Hinzufügen" Variant="Variant.Filled" Color="Color.Primary">
+                <MudMenuItem OnClick="Join">Beitreten</MudMenuItem>
+                <MudMenuItem>KI Leicht</MudMenuItem>
+                <MudMenuItem>KI Normal</MudMenuItem>
+            </MudMenu>
+        }
+        else if (this.AuthenticationState?.User.GetNameIdentifierId() != null && this.AuthenticationState?.User.GetNameIdentifierId() == this.Player.User.Identifier)
+        {
+            <MudButton OnClick="Leave" Variant="Variant.Filled" Color="Color.Primary">Verlassen</MudButton>
+            <MudButton OnClick="ToggleReady" Variant="Variant.Filled" Color="Color.Primary">@(this.Player.IsReady ? "Nicht Bereit" : "Bereit")</MudButton>
+        }
+    </MudCardActions>
+</MudCard>

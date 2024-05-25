@@ -8,7 +8,7 @@ namespace Game.Infrastructure.GameProjections.Lobbies
     {
         public async Task<IReadOnlyList<GameLobby>> GetAllLobbies()
         {
-            var games = await database.GetCollection<GameLobbyDbo>("game_summaries").AsQueryable().ToListAsync();
+            var games = await database.GetCollection<GameLobbyDbo>("game_lobbies").AsQueryable().ToListAsync();
             return games.Select(g => new GameLobby
             {
                 Id = new GameId(g.GameId),
