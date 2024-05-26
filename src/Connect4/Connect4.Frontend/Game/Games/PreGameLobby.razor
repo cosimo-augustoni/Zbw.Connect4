@@ -6,7 +6,13 @@
                           OnAdornmentClick=" async () => await (this.IsTitelEditing ? this.UpdateGameName() : this.StartEditTitle())"
                           FullWidth="true"
                           Label=""
-                          ShrinkLabel="true"
+                          Style="font-size: var(--mud-typography-h6-size);
+font-family: var(--mud-typography-h6-family);
+  font-weight: var(--mud-typography-h6-weight);
+  line-height: var(--mud-typography-h6-lineheight);
+  letter-spacing: var(--mud-typography-h6-letterspacing);"
+                          ShrinkLabel="true" 
+                          Margin="Margin.Dense"
                           DisableUnderLine="!this.IsTitelEditing"
                           ReadOnly="!IsTitelEditing"
                           @bind-Value="@this.GameTitle">
