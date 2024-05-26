@@ -5,35 +5,39 @@
 
 @if (this.Game != null)
 {
-    <h3>@this.Game.Name</h3>
-
-    @if (this.Game.IsRunning)
-    {
-        <GameDisplay Game="this.Game" YellowPlayer="this.YellowPlayer" RedPlayer="this.RedPlayer"></GameDisplay>
-    }
-    else if (this.Game.IsAborted)
-    {
-        <MudOverlay Visible="this.Game.IsAborted" DarkBackground="true" AutoClose="false">
-            <MudStack Spacing="3">
-                <MudText Typo="Typo.h2">Spiel wurde abgebrochen</MudText>
-                <MudButton OnClick="CloseGame">Schliessen</MudButton>
-            </MudStack>
-        </MudOverlay>
-    }
-    else if (this.Game.IsFinished)
-    {
-        <MudOverlay Visible="this.Game.IsFinished" DarkBackground="true" AutoClose="false">
-            <MudStack Spacing="3">
-                <MudText Typo="Typo.h2">Spiel beendet</MudText>
-                <MudText Typo="Typo.h2">@FinishReason</MudText>
-                <MudButton OnClick="CloseGame">Schliessen</MudButton>
-            </MudStack>
-        </MudOverlay>
-    }
-    else
-    {
-        <PreGameLobby Game="this.Game" YellowPlayer="this.YellowPlayer" RedPlayer="this.RedPlayer"></PreGameLobby>
-    }
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudGrid Class="d-flex justify-center">
+            <MudItem>
+                @if (this.Game.IsRunning)
+                {
+                    <GameDisplay Game="this.Game" YellowPlayer="this.YellowPlayer" RedPlayer="this.RedPlayer"></GameDisplay>
+                }
+                else if (this.Game.IsAborted)
+                {
+                    <MudOverlay Visible="this.Game.IsAborted" DarkBackground="true" AutoClose="false">
+                        <MudStack Spacing="3">
+                            <MudText Typo="Typo.h2">Spiel wurde abgebrochen</MudText>
+                            <MudButton OnClick="CloseGame">Schliessen</MudButton>
+                        </MudStack>
+                    </MudOverlay>
+                }
+                else if (this.Game.IsFinished)
+                {
+                    <MudOverlay Visible="this.Game.IsFinished" DarkBackground="true" AutoClose="false">
+                        <MudStack Spacing="3">
+                            <MudText Typo="Typo.h2">Spiel beendet</MudText>
+                            <MudText Typo="Typo.h2">@FinishReason</MudText>
+                            <MudButton OnClick="CloseGame">Schliessen</MudButton>
+                        </MudStack>
+                    </MudOverlay>
+                }
+                else
+                {
+                    <PreGameLobby Game="this.Game" YellowPlayer="this.YellowPlayer" RedPlayer="this.RedPlayer"></PreGameLobby>
+                }
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
 }
 
 

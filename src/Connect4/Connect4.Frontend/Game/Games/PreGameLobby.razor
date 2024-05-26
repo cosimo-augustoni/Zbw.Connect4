@@ -1,9 +1,32 @@
-﻿<MudContainer>
-    <div class="d-flex flex-row justify-content-center gap-3 p-3 h-25">
-        <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
-        <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
-    </div>
-        
-    <MudButton FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanStartGame" OnClick="StartGame">Spiel Starten</MudButton>
-    <MudButton FullWidth="true" OnClick="AbortGame">Spiel Abbrechen</MudButton>
-</MudContainer>
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudTextField Adornment="Adornment.End"
+                          AdornmentIcon="@(this.IsTitelEditing ? @Icons.Material.Filled.Save : @Icons.Material.Filled.Edit)"
+                          OnAdornmentClick=" async () => await (this.IsTitelEditing ? this.UpdateGameName() : this.StartEditTitle())"
+                          FullWidth="true"
+                          Label=""
+                          ShrinkLabel="true"
+                          DisableUnderLine="!this.IsTitelEditing"
+                          ReadOnly="!IsTitelEditing"
+                          @bind-Value="@this.GameTitle">
+            </MudTextField>
+        </CardHeaderContent>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudPaper Elevation="0">
+            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 h-50">
+                <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
+                <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
+            </div>
+        </MudPaper>
+    </MudCardContent>
+    <MudCardActions>
+        <MudSpacer/>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanStartGame" OnClick="StartGame">Spiel Starten</MudButton>
+        <MudSpacer />
+        <MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>
+        <MudSpacer />
+    </MudCardActions>
+</MudCard>

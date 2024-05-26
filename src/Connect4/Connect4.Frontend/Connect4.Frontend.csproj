@@ -20,4 +20,8 @@
         <ProjectReference Include="..\Visualizer.Domain\Visualizer.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\images\avatars\" />
+    </ItemGroup>
+
 </Project>

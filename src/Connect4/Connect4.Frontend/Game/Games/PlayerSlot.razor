@@ -1,50 +1,61 @@
-﻿<div class="d-flex flex-column justify-content-center gap-3 p-3">
-    <MudBadge Icon="@Icons.Material.Filled.Cancel" Elevation="3" OnClick="Leave" Visible="!this.IsSlotFree">
-        @if (this.IsSlotFree)
+﻿<div class="d-flex flex-column justify-content-center align-content-start gap-3 p-3">
+
+    @if (this.IsSlotFree)
+    {
+        <MudMenu PositionAtCursor="true">
+            <ActivatorContent>
+                <MudAvatar Style="height:200px; width:200px;" Color="Color.Dark" Variant="Variant.Outlined">
+                    <MudIcon Style="height:100px; width:100px;" Icon="@Icons.Material.Outlined.Person" Size="Size.Large" />
+                </MudAvatar>
+            </ActivatorContent>
+            <ChildContent>
+                @foreach (var client in this.AvailablePlayerClients)
+                {
+                    <MudMenuItem OnClick="async () => await this.JoinClient(client)">@client.DisplayName</MudMenuItem>
+                }
+            </ChildContent>
+        </MudMenu>
+    }
+    else
+    {
+        <MudBadge Origin="Origin.TopCenter" Overlap="true" Bordered="true" Color="this.PlayerClient.Player?.IsReady ?? false ? Color.Success : Color.Error">
+            <MudAvatar Style="height:200px; width:200px;" Color="Color.Primary" Variant="Variant.Outlined">
+                <MudImage Src="@($"_content/Connect4.Frontend/images/avatars/{this.PlayerClient.PlayerImage}")" />
+            </MudAvatar>
+        </MudBadge>
+    }
+
+    <div class="d-flex flex-column justify-content-center align-content-center gap-1 p-3">
+        @if (!this.IsSlotFree)
         {
-            <MudMenu PositionAtCursor="true">
-                <ActivatorContent>
-                    <MudAvatar Style="height:200px; width:200px; font-size:2rem;" Color="Color.Primary" Variant="Variant.Outlined">
-                        <MudIcon Color="Color.Primary" Icon="@Icons.Material.Outlined.PersonAddAlt1" Style="height:100px; width:100px; font-size:2rem;" />
-                    </MudAvatar>
-                </ActivatorContent>
-                <ChildContent>
-                    @foreach (var client in this.AvailablePlayerClients)
-                    {
-                        <MudMenuItem OnClick="async () => await this.JoinClient(client)">@client.DisplayName</MudMenuItem>
-                    }
-                </ChildContent>
-            </MudMenu>
+
+            @if (this.PlayerClient.Player!.Owner.Identifier == this.CurrentUser?.Identifier)
+            {
+                <MudPaper Outlined="true" Elevation="0">
+                    <MudCheckBox Size="Size.Large"
+                                 T="bool"
+                                 ValueChanged="this.ReadyChanged"
+                                 Value="this.PlayerClient.Player?.IsReady ?? false"
+                                 UnCheckedColor="Color.Error"
+                                 Color="Color.Success"
+                                 Dense="true"
+                                 Style="width:150px"
+                                 Label="Bereit"></MudCheckBox>
+                </MudPaper>
+                <MudButton DisableElevation="true" Variant="Variant.Outlined" OnClick="Leave">Verlassen</MudButton>
+            }
+            else
+            {
+                <MudPaper Outlined="true" Elevation="0">
+                    <MudText>@this.PlayerClient.Player!.Owner.DisplayName</MudText>
+                </MudPaper>
+                <MudButton DisableElevation="true" Variant="Variant.Outlined" OnClick="Leave">Entfernen</MudButton>
+            }
 
         }
         else
         {
-            <MudAvatar Style="height:200px; width:200px; font-size:2rem;" Color="Color.Primary" Variant="Variant.Outlined">
-                <MudIcon Icon="@Icons.Material.Filled.Person" Color="@(this.PlayerClient.Player!.IsReady ? Color.Success : Color.Error)" Style="height:100px; width:100px; font-size:2rem;" />
-            </MudAvatar>
-
+            <MudSpacer />
         }
-    </MudBadge>
-
-    @if (!this.IsSlotFree)
-    {
-        <div class="d-flex flex-row justify-content-center align-content-center gap-1 p-3">
-            @if (this.PlayerClient.Player!.Owner.Identifier == this.CurrentUser?.Identifier)
-            {
-                <MudToggleIconButton Icon="@Icons.Material.Outlined.CheckBoxOutlineBlank"
-                                     Color="Color.Error"
-                                     Toggled="this.PlayerClient.Player!.IsReady"
-                                     ToggledIcon="@Icons.Material.Outlined.CheckBox"
-                                     ToggledColor="Color.Success"
-                                     Size="Size.Large"
-                                     ToggledChanged="ReadyChanged">
-                    <MudText Typo="Typo.button">@this.PlayerClient.Player!.Owner.DisplayName</MudText>
-                </MudToggleIconButton>
-            }
-            else
-            {
-                <MudText Typo="Typo.button">@this.PlayerClient.Player!.Owner.DisplayName</MudText>
-            }
-        </div>
-    }
+    </div>
 </div>
