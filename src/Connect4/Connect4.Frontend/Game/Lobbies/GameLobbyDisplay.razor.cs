@@ -2,7 +2,7 @@
 using Game.Contract.Queries;
 using System.Security.Cryptography;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Lobbies
 {
     public partial class GameLobbyDisplay
     {

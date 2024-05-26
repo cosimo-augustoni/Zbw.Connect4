@@ -118,26 +118,27 @@ namespace Game.Domain.GameAggregate
                 GameId = this.Id,
                 PlayerId = playerId
             });
-
-            await this.TryStartGame();
         }
 
-        private async Task TryStartGame()
+        public async Task StartGame()
         {
-            if ((this.YellowPlayer?.IsReady ?? false) && (this.RedPlayer?.IsReady ?? false))
+            if(!this.YellowPlayer?.IsReady ?? false)
+                throw new PlayerNotReadyException();
+
+            if(!this.RedPlayer?.IsReady ?? false)
+                throw new PlayerNotReadyException();
+
+            var startingSide = (PlayerSide)new Random().Next(1, 2);
+            await this.RaiseEventAsync(new GameStartedEvent
             {
-                var startingSide = (PlayerSide)new Random().Next(1, 2);
-                await this.RaiseEventAsync(new GameStartedEvent
+                GameId = this.Id,
+                StartingPlayerId = startingSide switch
                 {
-                    GameId = this.Id,
-                    StartingPlayerId = startingSide switch
-                    {
-                        PlayerSide.Red => this.RedPlayer.Id,
-                        PlayerSide.Yellow => this.YellowPlayer.Id,
-                        _ => throw new ArgumentOutOfRangeException()
-                    }
-                });
-            }
+                    PlayerSide.Red => this.RedPlayer!.Id,
+                    PlayerSide.Yellow => this.YellowPlayer!.Id,
+                    _ => throw new ArgumentOutOfRangeException()
+                }
+            });
         }
 
         public async Task UnreadyPlayer(PlayerId playerId)

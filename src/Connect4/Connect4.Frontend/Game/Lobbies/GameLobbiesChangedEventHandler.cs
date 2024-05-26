@@ -1,9 +1,9 @@
 ﻿using Connect4.Frontend.Shared;
-using MediatR;
 using Game.Contract;
 using Game.Contract.Queries.Notifications;
+using MediatR;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Lobbies
 {
     internal class GameLobbiesChangedEventHandler
     {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 using PlayerClient.Contract.Queries;
 using PlayerClient.Contract;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Games
 {
     public partial class GamePage : IDisposable
     {
@@ -28,6 +28,26 @@ namespace Connect4.Frontend.Game
 
         private GameDto? Game { get; set; }
 
+        public string? FinishReason
+        {
+            get
+            {
+                if(this.Game == null || !this.Game.IsFinished)
+                    return String.Empty;
+
+                if (this.Game.WinningPlayerId == null)
+                    return this.Game?.FinishReason;
+
+                if (this.Game.WinningPlayerId == this.YellowPlayer.Player?.Id)
+                    return $"{this.Game.FinishReason} von {this.YellowPlayer.Player.Owner.DisplayName}";
+
+                if (this.Game.WinningPlayerId == this.RedPlayer.Player?.Id)
+                    return $"{this.Game.FinishReason} von {this.RedPlayer.Player.Owner.DisplayName}";
+
+                return String.Empty;
+            }
+        }
+
         private PlayerUIClient YellowPlayer { get; set; } = new PlayerUIClient
         {
             PlayerSide = PlayerSide.Yellow,
@@ -40,6 +60,7 @@ namespace Connect4.Frontend.Game
             PlayerClient = null,
             Player = null
         };
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -58,14 +79,14 @@ namespace Connect4.Frontend.Game
             {
                 Player = this.Game.YellowPlayer
             };
-            if(this.YellowPlayer.Player != null)
+            if (this.YellowPlayer.Player != null)
                 await this.LoadPlayerClient(this.YellowPlayer.Player.Id);
 
             this.RedPlayer = this.RedPlayer with
             {
                 Player = this.Game.RedPlayer
             };
-            if(this.RedPlayer.Player != null)
+            if (this.RedPlayer.Player != null)
                 await this.LoadPlayerClient(this.RedPlayer.Player.Id);
         }
 
@@ -110,11 +131,7 @@ namespace Connect4.Frontend.Game
             await this.InvokeAsync(this.StateHasChanged);
         }
 
-        private async Task AbortGame()
-        {
-            await this.Mediator.Send(new AbortGameCommand(new GameId(this.GameId)));
-            this.NavigationManager.NavigateTo("");
-        }
+        
 
         private void CloseGame()
         {
@@ -127,5 +144,7 @@ namespace Connect4.Frontend.Game
             this.PlayerClientChangedEventHandler.PlayerClientCreated -= this.OnPlayerClientChanged;
             this.PlayerClientChangedEventHandler.PlayerClientDeleted -= this.OnPlayerClientChanged;
         }
+
+
     }
 }

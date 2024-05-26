@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Visualizer.Contract.Queries;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Lobbies
 {
     public partial class GameLobbiesOverview : IDisposable
     {

@@ -17,6 +17,7 @@ namespace Game.Infrastructure.GameProjections.Games
         public required Guid? WinningPlayerId { get; set; }
 
         public required bool IsFinished { get; set; }
+        public required string? FinishReason { get; set; }
         public required bool IsAborted { get; set; }
         public required bool IsRunning { get; set; }
     }

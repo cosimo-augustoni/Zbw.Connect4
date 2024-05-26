@@ -1,0 +1,9 @@
+﻿<MudContainer>
+    <div class="d-flex flex-row justify-content-center gap-3 p-3 h-25">
+        <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
+        <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
+    </div>
+        
+    <MudButton FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanStartGame" OnClick="StartGame">Spiel Starten</MudButton>
+    <MudButton FullWidth="true" OnClick="AbortGame">Spiel Abbrechen</MudButton>
+</MudContainer>

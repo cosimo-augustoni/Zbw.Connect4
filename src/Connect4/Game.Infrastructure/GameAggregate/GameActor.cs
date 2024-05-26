@@ -1,6 +1,5 @@
 ﻿using Game.Contract;
 using Game.Contract.Events;
-using Game.Domain.GameAggregate;
 using Orleans.Providers;
 using Shared.Domain;
 using Shared.Infrastructure;
@@ -39,6 +38,11 @@ namespace Game.Infrastructure.GameAggregate
         public async Task RemovePlayer(PlayerId playerId)
         {
             await this.ExecuteAsync(async (aggregate) => await aggregate.RemovePlayer(playerId));
+        }
+
+        public async Task StartGame()
+        {
+            await this.ExecuteAsync(async (aggregate) => await aggregate.StartGame());
         }
 
         public async Task ReadyPlayer(PlayerId playerId)

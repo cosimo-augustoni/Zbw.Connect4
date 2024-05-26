@@ -40,6 +40,7 @@ namespace Game.Application.Queries
                 } : null,
                 CurrentPlayerId = game.CurrentPlayerId,
                 WinningPlayerId = game.WinningPlayerId,
+                FinishReason = game.FinishReason,
                 IsFinished = game.IsFinished,
                 IsAborted = game.IsAborted,
                 IsRunning = game.IsRunning,

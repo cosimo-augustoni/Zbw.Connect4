@@ -3,7 +3,7 @@ using Game.Contract;
 using MediatR;
 using PlayerClient.Contract.Queries;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Games
 {
     internal class PlayerClientChangedEventHandler
     {

@@ -6,7 +6,7 @@ using Microsoft.Identity.Web;
 using PlayerClient.Contract;
 using PlayerClient.Contract.Queries;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Games
 {
     public partial class PlayerSlot
     {
@@ -58,7 +58,7 @@ namespace Connect4.Frontend.Game
             if (this.PlayerClient.PlayerClient == null)
                 return;
 
-            if(isReady)
+            if (isReady)
                 await this.PlayerClient.PlayerClient.Ready();
             else
                 await this.PlayerClient.PlayerClient.Unready();

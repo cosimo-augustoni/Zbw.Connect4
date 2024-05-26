@@ -1,4 +1,5 @@
 ﻿using Game.Contract;
+using Game.Contract.Events;
 using Game.Domain.GameProjections;
 using MongoDB.Driver;
 
@@ -36,6 +37,7 @@ namespace Game.Infrastructure.GameProjections.Games
                 } : null,
                 CurrentPlayerId = game.CurrentPlayerId != null ? new PlayerId(game.CurrentPlayerId.Value) : null,
                 WinningPlayerId = game.WinningPlayerId != null ? new PlayerId(game.WinningPlayerId.Value) : null,
+                FinishReason = game.FinishReason,
                 IsFinished = game.IsFinished,
                 IsAborted = game.IsAborted,
                 IsRunning = game.IsRunning,

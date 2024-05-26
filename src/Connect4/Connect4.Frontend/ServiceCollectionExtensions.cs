@@ -1,6 +1,8 @@
 ﻿using Connect4.Frontend.Components;
 using Connect4.Frontend.Components.Pages;
 using Connect4.Frontend.Game;
+using Connect4.Frontend.Game.Games;
+using Connect4.Frontend.Game.Lobbies;
 using Connect4.Frontend.Shared;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;

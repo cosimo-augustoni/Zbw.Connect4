@@ -16,8 +16,9 @@ namespace Game.Contract.Queries.Dtos
         public required PlayerId? CurrentPlayerId { get; init; }
         public required BoardDto Board { get; init; }
 
-        [MemberNotNullWhen(true, nameof(WinningPlayerId))]
+        [MemberNotNullWhen(true, nameof(FinishReason))]
         public required bool IsFinished { get; init; }
+        public required string? FinishReason { get; init; }
         public required PlayerId? WinningPlayerId { get; init; }
         public required bool IsAborted { get; init; }
     }

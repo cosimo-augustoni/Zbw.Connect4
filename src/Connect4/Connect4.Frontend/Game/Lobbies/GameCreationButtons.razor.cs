@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game.Contract.Commands;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Lobbies
 {
     public partial class GameCreationButtons
     {

@@ -32,6 +32,7 @@ namespace Game.Infrastructure.GameProjections.Games
                 CurrentPlayerId = null,
                 IsRunning = false,
                 IsFinished = false,
+                FinishReason = null,
                 WinningPlayerId = null,
                 IsAborted = false,
             };
@@ -143,6 +144,15 @@ namespace Game.Infrastructure.GameProjections.Games
         public async Task Handle(GameFinishedEvent notification, CancellationToken cancellationToken)
         {
             var updateDefinition = Builders<GameViewDbo>.Update.Set(g => g.IsFinished, true);
+
+            var finishReason = notification.FinishReason switch
+            {
+                FinishReason.Win => "Gewonnen",
+                FinishReason.Draw => "Unentschieden",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            updateDefinition = updateDefinition.Set(g => g.FinishReason, finishReason);
+
             if (notification.FinishReason == FinishReason.Win)
             {
                 updateDefinition = updateDefinition.Set(g => g.WinningPlayerId, notification.WinningPlayerId?.Id);

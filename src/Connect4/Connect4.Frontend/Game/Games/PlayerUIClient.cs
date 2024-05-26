@@ -2,7 +2,7 @@
 using Game.Contract.Queries.Dtos;
 using PlayerClient.Contract;
 
-namespace Connect4.Frontend.Game
+namespace Connect4.Frontend.Game.Games
 {
     public record PlayerUIClient
     {
