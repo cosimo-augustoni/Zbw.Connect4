@@ -15,6 +15,7 @@
         <ProjectReference Include="..\Connect4.ServiceDefaults\Connect4.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Game.Application\Game.Application.csproj" />
         <ProjectReference Include="..\Game.Domain\Game.Domain.csproj" />
+        <ProjectReference Include="..\PlayerClient.Contract\PlayerClient.Contract.csproj" />
         <ProjectReference Include="..\Visualizer.Application\Visualizer.Application.csproj" />
         <ProjectReference Include="..\Visualizer.Domain\Visualizer.Domain.csproj" />
     </ItemGroup>

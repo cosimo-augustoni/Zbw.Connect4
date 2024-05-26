@@ -1,9 +1,10 @@
-﻿using PlayerClient.Contract;
+﻿using Game.Contract;
+using PlayerClient.Contract;
 
 namespace PlayerClient.Domain
 {
     public interface IPlayerAssignmentQuery
     {
-        Task<GameId> GetGameIdByPlayerAsync(PlayerId playerId);
+        Task<GameId?> GetGameIdByPlayerAsync(PlayerId playerId);
     }
 }

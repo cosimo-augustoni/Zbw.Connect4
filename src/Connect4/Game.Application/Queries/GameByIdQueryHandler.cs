@@ -18,15 +18,25 @@ namespace Game.Application.Queries
                 YellowPlayer = game.YellowPlayer != null ? new PlayerDto()
                 {
                     Id = game.YellowPlayer.Id,
-                    Name = game.YellowPlayer.Name,
-                    IsReady = game.YellowPlayer.IsReady
+                    Owner = new PlayerOwnerDto
+                    {
+                        Identifier = game.YellowPlayer.Owner.Identifier,
+                        DisplayName = game.YellowPlayer.Owner.DisplayName,
+                    },
+                    IsReady = game.YellowPlayer.IsReady,
+                    Type = game.YellowPlayer.Type
                 } : null,
 
                 RedPlayer = game.RedPlayer != null ? new PlayerDto()
                 {
                     Id = game.RedPlayer.Id,
-                    Name = game.RedPlayer.Name,
-                    IsReady = game.RedPlayer.IsReady
+                    Owner = new PlayerOwnerDto
+                    {
+                        Identifier = game.RedPlayer.Owner.Identifier,
+                        DisplayName = game.RedPlayer.Owner.DisplayName,
+                    },
+                    IsReady = game.RedPlayer.IsReady,
+                    Type = game.RedPlayer.Type
                 } : null,
                 CurrentPlayerId = game.CurrentPlayerId,
                 WinningPlayerId = game.WinningPlayerId,

@@ -1,10 +1,11 @@
-﻿using PlayerClient.Contract;
+﻿using Game.Contract;
+using PlayerClient.Contract;
 
 namespace PlayerClient.Domain
 {
     public interface IPlayerClientFactory
     {
         PlayerClientType PlayerClientType { get; }
-        Task<IPlayerClient> CreateAsync(PlayerId playerId);
+        Task<IPlayerClient?> CreateAsync(PlayerId playerId);
     }
 }

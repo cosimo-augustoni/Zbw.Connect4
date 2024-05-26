@@ -2,5 +2,5 @@
 
 namespace PlayerClient.Contract.Queries
 {
-    public class AvailablePlayerClientsQuery : IQuery<IEnumerable<IPlayerClientConnector>>;
+    public class AvailablePlayerClientsQuery : IQuery<IReadOnlyList<IPlayerClientConnector>>;
 }

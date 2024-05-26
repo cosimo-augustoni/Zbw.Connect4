@@ -11,6 +11,8 @@ namespace Game.Infrastructure.GameProjections.Games
             INotificationHandler<GameNameChangedEvent>,
             INotificationHandler<PlayerAddedEvent>,
             INotificationHandler<PlayerRemovedEvent>,
+            INotificationHandler<PlayerReadiedEvent>,
+            INotificationHandler<PlayerUnreadiedEvent>,
             INotificationHandler<GamePiecePlacementRequestedEvent>,
             INotificationHandler<GamePiecePlacementRejectedEvent>,
             INotificationHandler<GamePiecePlacedEvent>,
@@ -25,8 +27,8 @@ namespace Game.Infrastructure.GameProjections.Games
                 GameId = notification.GameId.Id,
                 Name = notification.Name,
                 Board = new Board(),
-                YellowPlayerId = null,
-                RedPlayerId = null,
+                YellowPlayer = null,
+                RedPlayer = null,
                 CurrentPlayerId = null,
                 IsRunning = false,
                 IsFinished = false,
@@ -46,9 +48,21 @@ namespace Game.Infrastructure.GameProjections.Games
 
         public async Task Handle(PlayerAddedEvent notification, CancellationToken cancellationToken)
         {
+            var player = new PlayerViewDbo
+            {
+                PlayerId = notification.Player.Id.Id,
+                Owner = new PlayerOwnerDbo
+                {
+                    Identifier = notification.Player.PlayerOwner.Identifier,
+                    DisplayName = notification.Player.PlayerOwner.DisplayName,
+                },
+                IsReady = false,
+                Type = notification.Player.TypeIdentifier
+            };
+
             var updateDefinition = notification.PlayerSide == PlayerSide.Red
-                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayerId, notification.Player.Id.Id) 
-                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayerId, notification.Player.Id.Id);
+                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayer, player) 
+                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayer, player);
 
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }
@@ -57,9 +71,31 @@ namespace Game.Infrastructure.GameProjections.Games
         {
             var game = this.GetGameById(notification.GameId);
 
-            var updateDefinition = game.RedPlayerId == notification.PlayerId.Id
-                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayerId, null) 
-                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayerId, null);
+            var updateDefinition = game.RedPlayer?.PlayerId == notification.PlayerId.Id
+                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayer, null) 
+                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayer, null);
+
+            await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
+        }
+
+        public async Task Handle(PlayerReadiedEvent notification, CancellationToken cancellationToken)
+        {
+            var game = this.GetGameById(notification.GameId);
+
+            var updateDefinition = game.RedPlayer?.PlayerId == notification.PlayerId.Id
+                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayer!.IsReady, true) 
+                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayer!.IsReady, true);
+
+            await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
+        }
+
+        public async Task Handle(PlayerUnreadiedEvent notification, CancellationToken cancellationToken)
+        {
+            var game = this.GetGameById(notification.GameId);
+
+            var updateDefinition = game.RedPlayer?.PlayerId == notification.PlayerId.Id
+                ? Builders<GameViewDbo>.Update.Set(g => g.RedPlayer!.IsReady, false) 
+                : Builders<GameViewDbo>.Update.Set(g => g.YellowPlayer!.IsReady, false);
 
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }
@@ -76,7 +112,7 @@ namespace Game.Infrastructure.GameProjections.Games
         public async Task Handle(GamePiecePlacementRequestedEvent notification, CancellationToken cancellationToken)
         {
             var game = this.GetGameById(notification.GameId);
-            game.Board.PlacePiece(notification.Position, game.CurrentPlayerId == game.YellowPlayerId ? PlayerSide.Yellow : PlayerSide.Red);
+            game.Board.PlacePiece(notification.Position, game.CurrentPlayerId == game.YellowPlayer?.PlayerId ? PlayerSide.Yellow : PlayerSide.Red);
 
             var updateDefinition = Builders<GameViewDbo>.Update
                 .Set(g => g.Board, game.Board);
@@ -99,7 +135,7 @@ namespace Game.Infrastructure.GameProjections.Games
         {
             var game = this.GetGameById(notification.GameId);
             var updateDefinition = Builders<GameViewDbo>.Update
-                .Set(g => g.CurrentPlayerId, game.CurrentPlayerId == game.YellowPlayerId ? game.RedPlayerId : game.YellowPlayerId);
+                .Set(g => g.CurrentPlayerId, game.CurrentPlayerId == game.YellowPlayer?.PlayerId ? game.RedPlayer?.PlayerId : game.YellowPlayer?.PlayerId);
 
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }

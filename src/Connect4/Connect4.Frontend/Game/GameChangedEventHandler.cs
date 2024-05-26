@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Connect4.Frontend.Shared;
+﻿using Connect4.Frontend.Shared;
 using Game.Contract;
 using Game.Contract.Queries.Notifications;
 using MediatR;
@@ -28,7 +23,6 @@ namespace Connect4.Frontend.Game
         {
             await gameChangedEventHandler.NotifyUpdatedAsync(notification.GameId);
         }
-
     }
 
     internal class GameChangedEventArgs : EventArgs

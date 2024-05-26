@@ -16,7 +16,10 @@ var mongoDb = builder.AddMongoDB("mongodb")
 
 var orleans = builder
     .AddOrleans("orleans")
-    .WithClustering(redis)
+    .WithDevelopmentClustering()
+    //.WithClustering(redis)
+    .WithClusterId("connect4Cluster")
+    .WithServiceId("connect4Service")
     .WithGrainStorage("games", redis)
     .WithGrainStorage("visualizers", redis);
 

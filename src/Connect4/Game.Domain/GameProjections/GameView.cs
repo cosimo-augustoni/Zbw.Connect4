@@ -21,5 +21,6 @@ namespace Game.Domain.GameProjections
         public required bool IsFinished { get; init; }
         public required PlayerId? WinningPlayerId { get; init; }
         public required bool IsAborted { get; init; }
+        
     }
 }

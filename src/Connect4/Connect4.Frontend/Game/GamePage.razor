@@ -3,17 +3,25 @@
 
 <PageTitle>Spiel</PageTitle>
 
-<h3>@this.Game?.Name</h3>
+@if (this.Game != null)
+{
+    <h3>@this.Game.Name</h3>
 
-<div class="d-flex flex-column gap-2">
-    <PlayerSlot />
-</div>
+    <MudContainer>
+        <div class="d-flex flex-row justify-content-center gap-3 p-3 h-25">
+            <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
+            <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
+        </div>
 
-<MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>
+        <MudButton FullWidth="true" OnClick="AbortGame">Spiel Abbrechen</MudButton>
+    </MudContainer>
 
-<MudOverlay Visible="this.Game?.IsAborted ?? false" DarkBackground="true" AutoClose="false">
-    <MudStack Spacing="3">
-        <MudText Typo="Typo.h2" >Spiel wurde abgebrochen</MudText>
-        <MudButton OnClick="CloseGame">Schliessen</MudButton>
-    </MudStack>
-</MudOverlay>
+    <MudOverlay Visible="this.Game?.IsAborted ?? false" DarkBackground="true" AutoClose="false">
+        <MudStack Spacing="3">
+            <MudText Typo="Typo.h2">Spiel wurde abgebrochen</MudText>
+            <MudButton OnClick="CloseGame">Schliessen</MudButton>
+        </MudStack>
+    </MudOverlay>
+}
+
+

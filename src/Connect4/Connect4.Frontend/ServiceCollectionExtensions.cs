@@ -47,6 +47,7 @@ namespace Connect4.Frontend
             services.AddSingleton<VisualizerChangedEventHandler>();
             services.AddSingleton<GameLobbiesChangedEventHandler>();
             services.AddSingleton<GameChangedEventHandler>();
+            services.AddSingleton<PlayerClientChangedEventHandler>();
             services.AddSingleton<LoadingDelayer>();
 
             return services;

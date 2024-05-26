@@ -9,8 +9,8 @@ namespace Game.Infrastructure.GameProjections.Games
         public required Guid GameId { get; set; }
         public required string Name { get; set; }
         
-        public required Guid? RedPlayerId { get; set; }
-        public required Guid? YellowPlayerId { get; set; }
+        public required PlayerViewDbo? RedPlayer { get; set; }
+        public required PlayerViewDbo? YellowPlayer { get; set; }
 
         public required Board Board { get; set; }
         public required Guid? CurrentPlayerId { get; set; }

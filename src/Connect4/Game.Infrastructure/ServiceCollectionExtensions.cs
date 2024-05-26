@@ -3,7 +3,6 @@ using Game.Domain.GameProjections;
 using Game.Infrastructure.GameAggregate;
 using Game.Infrastructure.GameProjections.Games;
 using Game.Infrastructure.GameProjections.Lobbies;
-using Game.Infrastructure.GameProjections.Players;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Infrastructure;
 
@@ -21,7 +20,6 @@ namespace Game.Infrastructure
             services.AddTransient<IGameRepository, GameRepository>();
             services.AddTransient<IGameLobbiesQuery, GameLobbiesQuery>();
             services.AddTransient<IGameQuery, GameQuery>();
-            services.AddTransient<PlayerViewQuery>();
 
             return services;
         }

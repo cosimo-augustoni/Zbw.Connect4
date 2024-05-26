@@ -5,9 +5,9 @@ using Shared.Application;
 
 namespace PlayerClient.Application.Queries
 {
-    internal class PlayerClientByPlayerQueryHandler(IEnumerable<IPlayerClientFactory> clientFactories) : IQueryHandler<PlayerClientByPlayerQuery, IPlayerClient>
+    internal class PlayerClientByPlayerQueryHandler(IEnumerable<IPlayerClientFactory> clientFactories) : IQueryHandler<PlayerClientByPlayerQuery, IPlayerClient?>
     {
-        public async Task<IPlayerClient> Handle(PlayerClientByPlayerQuery request, CancellationToken cancellationToken)
+        public async Task<IPlayerClient?> Handle(PlayerClientByPlayerQuery request, CancellationToken cancellationToken)
         {
             foreach (var clientFactory in clientFactories)
             {

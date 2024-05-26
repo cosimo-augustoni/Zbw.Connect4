@@ -1,5 +1,7 @@
 ﻿using Orleans;
+using Orleans.Configuration;
 using Orleans.EventSourcing;
+using Orleans.EventSourcing.CustomStorage;
 using Shared.Contract;
 using Shared.Domain;
 

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Game.Contract;
+using MediatR;
 using PlayerClient.Contract;
 using PlayerClient.Domain;
 
@@ -8,9 +9,12 @@ namespace PlayerClient.Local
     {
         public PlayerClientType PlayerClientType => LocalPlayerClientConstants.PlayerClientType;
 
-        public async Task<IPlayerClient> CreateAsync(PlayerId playerId)
+        public async Task<IPlayerClient?> CreateAsync(PlayerId playerId)
         {
             var gameId = await playerAssignmentQuery.GetGameIdByPlayerAsync(playerId);
+
+            if (gameId == null)
+                return null;
 
             return new LocalPlayerClient(mediator)
             {
