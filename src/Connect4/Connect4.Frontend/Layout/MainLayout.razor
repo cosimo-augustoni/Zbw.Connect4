@@ -10,14 +10,11 @@
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudText Typo="Typo.h5" Class="ml-3">Connect 4</MudText>
+        <MudLink Color="Color.Default" Typo="Typo.h5" Href="/" Underline="Underline.None" Class="ml-3">Connect 4</MudLink>
         <MudSpacer/>
+        <MudIconButton Href="/visualizers" Icon="fas fa-robot" Color="Color.Primary" Style="margin-right: 10px"></MudIconButton>
         <LoginDisplay />
     </MudAppBar>
-    <MudDrawer @bind-Open="@drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-        <NavMenu/>
-    </MudDrawer>
     <MudMainContent>
         <MudContainer Class="p-3" MaxWidth="MaxWidth.ExtraExtraLarge">
             @Body
@@ -26,12 +23,3 @@
         
     </MudMainContent>
 </MudLayout>
-
-@code {
-    bool drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        drawerOpen = !drawerOpen;
-    }
-}

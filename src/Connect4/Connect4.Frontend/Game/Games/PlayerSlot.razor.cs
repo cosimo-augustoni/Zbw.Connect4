@@ -65,4 +65,8 @@ namespace Connect4.Frontend.Game.Games
                 await this.PlayerClient.PlayerClient.Unready();
         }
     }
+
+    
+
+        
 }

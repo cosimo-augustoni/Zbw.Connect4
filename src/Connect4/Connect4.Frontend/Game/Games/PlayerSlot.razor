@@ -19,9 +19,7 @@
     else
     {
         <MudBadge Origin="Origin.TopCenter" Overlap="true" Bordered="true" Color="this.PlayerClient.Player?.IsReady ?? false ? Color.Success : Color.Error">
-            <MudAvatar Style="height:200px; width:200px;" Color="Color.Primary" Variant="Variant.Outlined">
-                <MudImage Src="@($"_content/Connect4.Frontend/images/avatars/{this.PlayerClient.PlayerImage}")" />
-            </MudAvatar>
+            <PlayerDisplay PlayerClient="this.PlayerClient"/>
         </MudBadge>
     }
 

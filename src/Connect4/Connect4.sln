@@ -54,15 +54,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizer.Physical.Infrast
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PlayerClient", "PlayerClient", "{E9C889E4-CD49-44C8-952F-61E9E02D643D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.Local", "PlayerClient.Local\PlayerClient.Local.csproj", "{BA19FF58-2AC8-45AB-892E-B76A6DABD599}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Local", "PlayerClient.Local\PlayerClient.Local.csproj", "{BA19FF58-2AC8-45AB-892E-B76A6DABD599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.Domain", "PlayerClient.Domain\PlayerClient.Domain.csproj", "{CF665E0E-7652-4F8C-AEBF-2C7A422CE010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Domain", "PlayerClient.Domain\PlayerClient.Domain.csproj", "{CF665E0E-7652-4F8C-AEBF-2C7A422CE010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.Contract", "PlayerClient.Contract\PlayerClient.Contract.csproj", "{0BC28A09-2D0F-4BCB-AFB6-5E60427CB53A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Contract", "PlayerClient.Contract\PlayerClient.Contract.csproj", "{0BC28A09-2D0F-4BCB-AFB6-5E60427CB53A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.Infrastructure", "PlayerClient.Infrastructure\PlayerClient.Infrastructure.csproj", "{C2212040-3CCC-48D5-84CE-A02D9E15CB04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Infrastructure", "PlayerClient.Infrastructure\PlayerClient.Infrastructure.csproj", "{C2212040-3CCC-48D5-84CE-A02D9E15CB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.Application", "PlayerClient.Application\PlayerClient.Application.csproj", "{7176E09F-5503-4F37-8779-F2E70F3D9250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Application", "PlayerClient.Application\PlayerClient.Application.csproj", "{7176E09F-5503-4F37-8779-F2E70F3D9250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

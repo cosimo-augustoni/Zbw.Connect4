@@ -1,38 +1,40 @@
-﻿<MudCard>
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudTextField Adornment="Adornment.End"
-                          AdornmentIcon="@(this.IsTitelEditing ? @Icons.Material.Filled.Save : @Icons.Material.Filled.Edit)"
-                          OnAdornmentClick=" async () => await (this.IsTitelEditing ? this.UpdateGameName() : this.StartEditTitle())"
-                          FullWidth="true"
-                          Label=""
-                          Style="font-size: var(--mud-typography-h6-size);
+﻿<MudContainer MaxWidth="MaxWidth.Small">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudTextField Adornment="Adornment.End"
+                              AdornmentIcon="@(this.IsTitelEditing ? @Icons.Material.Filled.Save : @Icons.Material.Filled.Edit)"
+                              OnAdornmentClick=" async () => await (this.IsTitelEditing ? this.UpdateGameName() : this.StartEditTitle())"
+                              FullWidth="true"
+                              Label=""
+                              Style="font-size: var(--mud-typography-h6-size);
 font-family: var(--mud-typography-h6-family);
   font-weight: var(--mud-typography-h6-weight);
   line-height: var(--mud-typography-h6-lineheight);
   letter-spacing: var(--mud-typography-h6-letterspacing);"
-                          ShrinkLabel="true" 
-                          Margin="Margin.Dense"
-                          DisableUnderLine="!this.IsTitelEditing"
-                          ReadOnly="!IsTitelEditing"
-                          @bind-Value="@this.GameTitle">
-            </MudTextField>
-        </CardHeaderContent>
-    </MudCardHeader>
+                              ShrinkLabel="true"
+                              Margin="Margin.Dense"
+                              DisableUnderLine="!this.IsTitelEditing"
+                              ReadOnly="!IsTitelEditing"
+                              @bind-Value="@this.GameTitle">
+                </MudTextField>
+            </CardHeaderContent>
+        </MudCardHeader>
 
-    <MudCardContent>
-        <MudPaper Elevation="0">
-            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 h-50">
-                <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
-                <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
-            </div>
-        </MudPaper>
-    </MudCardContent>
-    <MudCardActions>
-        <MudSpacer/>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanStartGame" OnClick="StartGame">Spiel Starten</MudButton>
-        <MudSpacer />
-        <MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>
-        <MudSpacer />
-    </MudCardActions>
-</MudCard>
+        <MudCardContent>
+            <MudPaper Elevation="0">
+                <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 h-50">
+                    <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
+                    <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
+                </div>
+            </MudPaper>
+        </MudCardContent>
+        <MudCardActions>
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanStartGame" OnClick="StartGame">Spiel Starten</MudButton>
+            <MudSpacer />
+            <MudButton OnClick="AbortGame">Spiel Abbrechen</MudButton>
+            <MudSpacer />
+        </MudCardActions>
+    </MudCard>
+</MudContainer>

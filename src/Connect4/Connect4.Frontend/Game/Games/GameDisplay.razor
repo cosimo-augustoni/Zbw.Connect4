@@ -1,4 +1,12 @@
-﻿<MudContainer Fixed="true">
-    <MudText Typo="Typo.h2">@Game.Name</MudText>
-    <MudText Typo="Typo.h2">@Game.IsRunning</MudText>
+﻿<MudContainer Fixed="true" MaxWidth="MaxWidth.ExtraLarge">
+    <div class="d-flex flex-column flex-wrap justify-content-center gap-3 p-3">
+        <MudPaper>
+            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 m-3">
+                <PlayerDisplay PlayerClient="RedPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.RedPlayer.Player?.Id" />
+                <MudSpacer />
+                <PlayerDisplay PlayerClient="YellowPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
+            </div>
+        </MudPaper>
+        <Board/>
+    </div>
 </MudContainer>

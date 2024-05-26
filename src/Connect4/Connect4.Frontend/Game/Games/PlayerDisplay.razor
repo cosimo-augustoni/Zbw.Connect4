@@ -1,0 +1,27 @@
+﻿@if (!this.DisplayPlayerSide)
+{
+    <MudAvatar Style="height:150px; width:150px;" Variant="Variant.Outlined">
+        <MudImage Src="@($"_content/Connect4.Frontend/images/avatars/{this.PlayerClient.PlayerImage}")" />
+    </MudAvatar>
+}
+else
+{
+    <div class="position-relative d-none d-md-flex">
+        <MudAvatar Style="height:150px; width:150px;" Variant="Variant.Outlined">
+            <MudImage Src="@($"_content/Connect4.Frontend/images/avatars/{this.PlayerClient.PlayerImage}")" />
+        </MudAvatar>
+        @if (this.IsCurrentPlayer)
+        {
+            <div class="d-flex justify-content-center" style="position:absolute; left: 0; bottom: -18px; width: 100%;">
+                <MudChip Size="Size.Large" Color="@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? Color.Error : Color.Warning)">@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? "ROT" : "GELB")</MudChip>
+            </div>
+        }
+    </div>
+
+    <MudChip Class="d-flex d-md-none"
+             Size="Size.Large"
+             Variant="@(this.IsCurrentPlayer ? Variant.Filled : Variant.Outlined)"
+             Color="@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? Color.Error : Color.Warning)">
+        @(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? "ROT" : "GELB")
+    </MudChip>
+}
