@@ -13,7 +13,6 @@ namespace Game.Infrastructure.GameProjections.Games
             INotificationHandler<PlayerRemovedEvent>,
             INotificationHandler<PlayerReadiedEvent>,
             INotificationHandler<PlayerUnreadiedEvent>,
-            INotificationHandler<GamePiecePlacementRequestedEvent>,
             INotificationHandler<GamePiecePlacementRejectedEvent>,
             INotificationHandler<GamePiecePlacedEvent>,
             INotificationHandler<GameFinishedEvent>,
@@ -110,17 +109,6 @@ namespace Game.Infrastructure.GameProjections.Games
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }
 
-        public async Task Handle(GamePiecePlacementRequestedEvent notification, CancellationToken cancellationToken)
-        {
-            var game = this.GetGameById(notification.GameId);
-            game.Board.PlacePiece(notification.Position, game.CurrentPlayerId == game.YellowPlayer?.PlayerId ? PlayerSide.Yellow : PlayerSide.Red);
-
-            var updateDefinition = Builders<GameViewDbo>.Update
-                .Set(g => g.Board, game.Board);
-
-            await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
-        }
-
         public async Task Handle(GamePiecePlacementRejectedEvent notification, CancellationToken cancellationToken)
         {
             var game = this.GetGameById(notification.GameId);
@@ -135,7 +123,9 @@ namespace Game.Infrastructure.GameProjections.Games
         public async Task Handle(GamePiecePlacedEvent notification, CancellationToken cancellationToken)
         {
             var game = this.GetGameById(notification.GameId);
-            var updateDefinition = Builders<GameViewDbo>.Update
+            game.Board.PlacePiece(notification.Position, game.CurrentPlayerId == game.YellowPlayer?.PlayerId ? PlayerSide.Yellow : PlayerSide.Red);
+            var updateDefinition = Builders<GameViewDbo>.Update.Set(g => g.Board, game.Board);
+            updateDefinition = updateDefinition
                 .Set(g => g.CurrentPlayerId, game.CurrentPlayerId == game.YellowPlayer?.PlayerId ? game.RedPlayer?.PlayerId : game.YellowPlayer?.PlayerId);
 
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
