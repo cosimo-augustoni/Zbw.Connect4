@@ -1,37 +1,29 @@
 ﻿@using global::Game.Contract.Queries.Dtos
-<MudPaper Height="70vh" Class="d-flex justify-content-center">
+<MudPaper Height="70vh" Class="d-flex justify-content-center" Style="position: relative;">
     <div class="board">
         @foreach (var row in this.BoardState.BoardState)
         {
             int columnIndex = 0;
             @foreach (var cell in row)
             {
-                @if (this.IsBoardReadOnly)
-                {
-                    <div class="cell-container">
-                        <div class="hole">
-                            <div class="game-piece @(cell.SlotState.ToString().ToLower()) @(cell.SlotState == SlotState.Empty ? "empty" : "filled")"></div>
-                        </div>
+
+                var localColumnIndex = columnIndex;
+                <div class="cell-container" @onclick="() => CellClickedAsync(localColumnIndex)">
+                    <div class="hole">
+                        <div class="game-piece @(cell.SlotState.ToString().ToLower()) @(cell.SlotState == SlotState.Empty ? "empty" : "filled")"></div>
                     </div>
-                }
-                else
-                {
-                    var localColumnIndex = columnIndex;
-                    <div class="cell-container" @onclick="() => CellClickedAsync(localColumnIndex)">
-                        <div class="hole">
-                            <div class="game-piece @(cell.SlotState.ToString().ToLower()) @(cell.SlotState == SlotState.Empty ? "empty" : "filled")"></div>
-                        </div>
-                    </div>
-                }
+                </div>
 
                 columnIndex++;
             }
 
             <div style="flex-basis: 100%; height: 0;"></div>
         }
+        
     </div>
+    <MudOverlay Visible="this.IsBoardReadOnly" DarkBackground="true" AutoClose="false" Absolute="true"></MudOverlay>
 </MudPaper>
-
+ 
 <style>
     .cell-container {
         flex: 0 1 13.7%;
