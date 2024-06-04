@@ -128,7 +128,7 @@ namespace Game.Domain.GameAggregate
             if(!this.RedPlayer?.IsReady ?? false)
                 throw new PlayerNotReadyException();
 
-            var startingSide = (PlayerSide)new Random().Next(1, 2);
+            var startingSide = (PlayerSide)new Random().Next(0, 2);
             await this.RaiseEventAsync(new GameStartedEvent
             {
                 GameId = this.Id,
