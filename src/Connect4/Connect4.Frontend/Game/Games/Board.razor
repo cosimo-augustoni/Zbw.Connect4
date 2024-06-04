@@ -1,30 +1,35 @@
-﻿<MudPaper Height="70vh" Class="d-flex justify-content-center">
-        <div class="board">
-            @{
-                int rowIndex = 0;
-            }
-            @foreach (var row in this.BoardFrontend)
+﻿@using global::Game.Contract.Queries.Dtos
+<MudPaper Height="70vh" Class="d-flex justify-content-center">
+    <div class="board">
+        @foreach (var row in this.BoardState.BoardState)
+        {
+            int columnIndex = 0;
+            @foreach (var cell in row)
             {
-                int columnIndex = 0;
-                @foreach (var cell in row)
+                @if (this.IsBoardReadOnly)
                 {
-
-                    var localRowIndex = rowIndex;
-                    var localColumnIndex = columnIndex;
-                    <div class="cell-container" @onclick="() => CellClicked(localRowIndex, localColumnIndex)" @onmouseenter="() => MouseEnter(localColumnIndex)" @onmouseleave="() => MouseLeave(localColumnIndex)">
-                        <div class="hole @(cell.IsHovered ? "hovered" : "")">
-                            <div class="game-piece @(cell.State.ToString().ToLower()) @(cell.State == State.Empty ? "empty" : "filled")"></div>
+                    <div class="cell-container">
+                        <div class="hole">
+                            <div class="game-piece @(cell.SlotState.ToString().ToLower()) @(cell.SlotState == SlotState.Empty ? "empty" : "filled")"></div>
                         </div>
                     </div>
-
-                    columnIndex++;
+                }
+                else
+                {
+                    var localColumnIndex = columnIndex;
+                    <div class="cell-container" @onclick="() => CellClickedAsync(localColumnIndex)">
+                        <div class="hole">
+                            <div class="game-piece @(cell.SlotState.ToString().ToLower()) @(cell.SlotState == SlotState.Empty ? "empty" : "filled")"></div>
+                        </div>
+                    </div>
                 }
 
-                <div style="flex-basis: 100%; height: 0;"></div>
-
-                rowIndex++;
+                columnIndex++;
             }
-        </div>
+
+            <div style="flex-basis: 100%; height: 0;"></div>
+        }
+    </div>
 </MudPaper>
 
 <style>
@@ -97,58 +102,3 @@
         box-shadow: 0px 0px 5px 3px rgba(242, 238, 13,0.5);
     }
 </style>
-
-@code {
-
-    private enum State
-    {
-        Empty,
-        Red,
-        Yellow
-    }
-
-    private class Cell
-    {
-        public State State { get; set; } = State.Empty;
-        public bool IsHovered { get; set; }
-    }
-
-    private State CurrentPlayer { get; set; } = State.Red;
-
-    private Cell[][] BoardFrontend { get; } = Enumerable.Range(0, 6).Select(i => Enumerable.Range(0, 7).Select(j => new Cell()).ToArray()).ToArray();
-
-    private void CellClicked(int rowIndex, int columnIndex)
-    {
-        var lowestFreeRow = 0;
-        for (var row = 0; row < 6; row++)
-        {
-            if (this.BoardFrontend[0][columnIndex].State != State.Empty)
-                return;
-
-            if (this.BoardFrontend[row][columnIndex].State == State.Empty)
-                lowestFreeRow = row;
-            else
-                break;
-        }
-
-        this.BoardFrontend[lowestFreeRow][columnIndex].State = this.CurrentPlayer;
-        this.CurrentPlayer = this.CurrentPlayer == State.Red ? State.Yellow : State.Red;
-    }
-
-    private void MouseEnter(int columnIndex)
-    {
-        for (var row = 0; row < 6; row++)
-        {
-            this.BoardFrontend[row][columnIndex].IsHovered = true;
-        }
-    }
-
-    private void MouseLeave(int columnIndex)
-    {
-        for (var row = 0; row < 6; row++)
-        {
-            this.BoardFrontend[row][columnIndex].IsHovered = false;
-        }
-    }
-
-}

@@ -165,11 +165,11 @@ namespace Game.Domain.GameAggregate
             if (this.Board.IsSlotOccupied(boardPosition))
                 throw new SlotAlreadyFilledException();
 
-            var playerId = this.GetPlayerIdByPlayerSide(this.CurrentPlayingSide.Value);
+            var player = this.CurrentPlayingSide == PlayerSide.Yellow ? this.YellowPlayer : this.RedPlayer;
             await this.RaiseEventAsync(new GamePiecePlacementRequestedEvent
             {
                 GameId = this.Id,
-                RequestingPlayer = playerId,
+                RequestingPlayer = player,
                 Position = boardPosition
             });
         }
@@ -355,7 +355,7 @@ namespace Game.Domain.GameAggregate
         {
             this.PlacementRequest = new GamePiecePlacementRequest
             {
-                RequestingPlayer = @event.RequestingPlayer,
+                RequestingPlayer = @event.RequestingPlayer.Id,
                 Position = @event.Position
             };
         }
@@ -384,11 +384,6 @@ namespace Game.Domain.GameAggregate
         private PlayerSide GetPlayerSideByPlayerId(PlayerId playerId)
         {
             return this.YellowPlayer!.Id == playerId ? PlayerSide.Yellow : PlayerSide.Red;
-        }
-
-        private PlayerId GetPlayerIdByPlayerSide(PlayerSide playerSide)
-        {
-            return playerSide == PlayerSide.Yellow ? this.YellowPlayer!.Id : this.RedPlayer!.Id;
         }
 
         private class GamePiecePlacementRequest

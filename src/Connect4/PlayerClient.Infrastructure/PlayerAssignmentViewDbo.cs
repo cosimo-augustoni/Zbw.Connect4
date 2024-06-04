@@ -13,5 +13,6 @@ namespace PlayerClient.Infrastructure
         public ObjectId Id { get; set; }
         public Guid PlayerId { get; set; }
         public Guid GameId { get; set; }
+        public required string PlayerType { get; set; }
     }
 }

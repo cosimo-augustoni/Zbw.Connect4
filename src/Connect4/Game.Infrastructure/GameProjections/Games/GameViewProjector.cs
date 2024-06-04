@@ -148,6 +148,8 @@ namespace Game.Infrastructure.GameProjections.Games
                 updateDefinition = updateDefinition.Set(g => g.WinningPlayerId, notification.WinningPlayerId?.Id);
             }
 
+            updateDefinition = updateDefinition.Set(g => g.IsRunning, false);
+
             await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }
 

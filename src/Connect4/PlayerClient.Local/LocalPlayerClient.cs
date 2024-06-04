@@ -24,5 +24,11 @@ namespace PlayerClient.Local
         {
             await mediator.Send(new RemovePlayerCommand(this.GameId, this.PlayerId));
         }
+
+        public Task RequestGamePiecePlacementAcknowledgement(BoardPosition notificationPosition)
+        {
+            _ = Task.Run(async () => await mediator.Send(new AcknowledgeGamePiecePlacementCommand(this.GameId, this.PlayerId)));
+            return Task.CompletedTask;
+        }
     }
 }

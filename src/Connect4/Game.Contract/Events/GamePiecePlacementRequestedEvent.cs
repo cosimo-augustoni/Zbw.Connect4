@@ -2,7 +2,7 @@
 {
     public record GamePiecePlacementRequestedEvent : GameEvent
     {
-        public required PlayerId RequestingPlayer { get; init; }
+        public required Player RequestingPlayer { get; init; }
         public required BoardPosition Position { get; init; }
     }
 }

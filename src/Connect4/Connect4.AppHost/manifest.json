@@ -113,14 +113,13 @@
         "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
         "OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY": "in_memory",
         "ASPNETCORE_FORWARDEDHEADERS_ENABLED": "true",
-        "Orleans__Clustering__ProviderType": "Redis",
-        "Orleans__Clustering__ServiceKey": "redis",
-        "ConnectionStrings__redis": "{redis.connectionString}",
-        "Orleans__ClusterId": "{orleans-cluster-id.value}",
-        "Orleans__ServiceId": "{orleans-service-id.value}",
+        "Orleans__Clustering__ProviderType": "Development",
+        "Orleans__ClusterId": "connect4Cluster",
+        "Orleans__ServiceId": "connect4Service",
         "Orleans__EnableDistributedTracing": "true",
         "Orleans__GrainStorage__games__ProviderType": "Redis",
         "Orleans__GrainStorage__games__ServiceKey": "redis",
+        "ConnectionStrings__redis": "{redis.connectionString}",
         "Orleans__GrainStorage__visualizers__ProviderType": "Redis",
         "Orleans__GrainStorage__visualizers__ServiceKey": "redis",
         "Orleans__Endpoints__SiloPort": "{webapp.bindings.orleans-silo.targetPort}",
@@ -128,7 +127,8 @@
         "ConnectionStrings__projections": "{projections.connectionString}",
         "MQTT_HOST": "{rabbitmq.bindings.mqtt.host}",
         "MQTT_USERNAME": "{RabbitMQUsername.value}",
-        "MQTT_PASSWORD": "{RabbitMQPassword.value}"
+        "MQTT_PASSWORD": "{RabbitMQPassword.value}",
+        "FRONTEND_LOADING_DELAY": "500"
       },
       "bindings": {
         "http": {
@@ -152,38 +152,6 @@
           "protocol": "tcp",
           "transport": "tcp",
           "targetPort": 8001
-        }
-      }
-    },
-    "orleans-cluster-id": {
-      "type": "parameter.v0",
-      "value": "{orleans-cluster-id.inputs.value}",
-      "inputs": {
-        "value": {
-          "type": "string",
-          "default": {
-            "generate": {
-              "minLength": 25,
-              "upper": false,
-              "special": false
-            }
-          }
-        }
-      }
-    },
-    "orleans-service-id": {
-      "type": "parameter.v0",
-      "value": "{orleans-service-id.inputs.value}",
-      "inputs": {
-        "value": {
-          "type": "string",
-          "default": {
-            "generate": {
-              "minLength": 25,
-              "upper": false,
-              "special": false
-            }
-          }
         }
       }
     }

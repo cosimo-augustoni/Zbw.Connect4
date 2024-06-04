@@ -14,7 +14,8 @@ namespace PlayerClient.Infrastructure
             var playerAssignmentViewDbo = new PlayerAssignmentViewDbo
             {
                 GameId = @event.GameId.Id,
-                PlayerId = @event.Player.Id.Id
+                PlayerId = @event.Player.Id.Id,
+                PlayerType = @event.Player.TypeIdentifier
             };
             await this.GetPlayerAssignmentsCollection().InsertOneAsync(playerAssignmentViewDbo, cancellationToken: cancellationToken);
 

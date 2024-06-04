@@ -7,6 +7,6 @@
                 <PlayerDisplay PlayerClient="YellowPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
             </div>
         </MudPaper>
-        <Board/>
+        <Board BoardState="Game.Board" CurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id ? this.YellowPlayer : this.RedPlayer" GameId="Game.Id" />
     </div>
 </MudContainer>

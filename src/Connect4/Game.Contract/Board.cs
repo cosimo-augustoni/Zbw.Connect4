@@ -54,7 +54,7 @@ namespace Game.Contract
                         var y = boardPosition.Y + yStepDirection * distance;
                         var x = boardPosition.X + xStepDirection * distance;
 
-                        if (y < 0 || y > 6 || x < 0 || x > 7)
+                        if (y < 0 || y > 5 || x < 0 || x > 6)
                             break;
 
                         if (this.BoardState[y][x].SlotState == playerSide.ToSlotState())
