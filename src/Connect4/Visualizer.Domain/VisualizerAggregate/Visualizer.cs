@@ -49,7 +49,7 @@ namespace Visualizer.Domain.VisualizerAggregate
 
             await this.ChangeNameAsync(name);
             await this.ChangeExternalIdAsync(externalId);
-            await this.ChangeStatusAsync(VisualizerStatus.Idle);
+            await this.ChangeStatusAsync(VisualizerStatus.Unknown);
 
             return this.Id.Id;
         }
