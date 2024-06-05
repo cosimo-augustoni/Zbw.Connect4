@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Connect4.FakeRobot\Connect4.FakeRobot.csproj" />
     <ProjectReference Include="..\Connect4.Web\Connect4.Web.csproj" />
   </ItemGroup>
 
