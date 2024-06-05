@@ -19,7 +19,7 @@ namespace Visualizer.Domain.VisualizerAggregate
         {
             this.Name = name;
             this.ExternalId = externalId;
-            this.Status = status ?? VisualizerStatus.Unknown;
+            this.Status = status ?? VisualizerStatus.NotInitialized;
             this.DeletedAt = deletedAt;
         }
 
@@ -29,7 +29,7 @@ namespace Visualizer.Domain.VisualizerAggregate
 
         public string? ExternalId { get; private set; }
 
-        public VisualizerStatus Status { get; private set; } = VisualizerStatus.Unknown;
+        public VisualizerStatus Status { get; private set; } = VisualizerStatus.NotInitialized;
 
         public DateTimeOffset? DeletedAt { get; private set; }
 
@@ -49,7 +49,7 @@ namespace Visualizer.Domain.VisualizerAggregate
 
             await this.ChangeNameAsync(name);
             await this.ChangeExternalIdAsync(externalId);
-            await this.ChangeStatusAsync(VisualizerStatus.Idle);
+            await this.ChangeStatusAsync(VisualizerStatus.Unknown);
 
             return this.Id.Id;
         }

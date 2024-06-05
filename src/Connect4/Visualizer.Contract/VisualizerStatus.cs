@@ -12,6 +12,7 @@ namespace Visualizer.Contract
         public static VisualizerStatus PiecesSorted = new VisualizerStatus(5, "Spielsteine sortiert", StatusType.Ready);
         public static VisualizerStatus Faulty = new VisualizerStatus(8, "Fehlerhaft", StatusType.Faulty);
         public static VisualizerStatus Unknown = new VisualizerStatus(16, "Unbekannt", StatusType.Faulty);
+        public static VisualizerStatus NotInitialized = new VisualizerStatus(32, "Nicht Initialisiert", StatusType.Faulty);
 
         public int Id { get; }
         public string DisplayText { get; }
