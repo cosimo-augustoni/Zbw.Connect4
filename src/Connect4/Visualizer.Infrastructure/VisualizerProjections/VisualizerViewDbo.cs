@@ -10,5 +10,6 @@ namespace Visualizer.Infrastructure.VisualizerProjections
         public string? ExternalId { get; set; }
         public int StatusId { get; set; }
         public bool IsDeleted { get; set; }
+        public Guid? CurrentGameId { get; set; }
     }
 }

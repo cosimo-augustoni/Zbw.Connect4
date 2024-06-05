@@ -1,4 +1,5 @@
-﻿using Orleans;
+﻿using Game.Contract;
+using Orleans;
 using Orleans.Runtime;
 using Shared.Infrastructure;
 using Visualizer.Contract;
@@ -81,6 +82,26 @@ namespace Visualizer.Infrastructure.VisualizerAggregate
                 throw new GrainUninitialisedOnAccessException();
 
             await this.Visualizer.DeleteAsync();
+            
+            await this.SaveAsync(this.Visualizer);
+        }
+
+        public async Task AddToGameAsync(GameId gameId)
+        {
+            if (this.Visualizer == null)
+                throw new GrainUninitialisedOnAccessException();
+
+            await this.Visualizer.AddToGameAsync(gameId);
+            
+            await this.SaveAsync(this.Visualizer);
+        }
+
+        public async Task RemoveFromGameAsync()
+        {
+            if (this.Visualizer == null)
+                throw new GrainUninitialisedOnAccessException();
+
+            await this.Visualizer.RemoveFromGameAsync();
             
             await this.SaveAsync(this.Visualizer);
         }

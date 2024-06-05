@@ -1,4 +1,5 @@
-﻿using Visualizer.Contract;
+﻿using Game.Contract;
+using Visualizer.Contract;
 
 namespace Visualizer.Domain.VisualizerAggregate
 {
@@ -9,5 +10,7 @@ namespace Visualizer.Domain.VisualizerAggregate
         Task ChangeExternalIdAsync(string externalId);
         Task ChangeStatusAsync(VisualizerStatus status);
         Task DeleteAsync();
+        Task AddToGameAsync(GameId gameId);
+        Task RemoveFromGameAsync();
     }
 }

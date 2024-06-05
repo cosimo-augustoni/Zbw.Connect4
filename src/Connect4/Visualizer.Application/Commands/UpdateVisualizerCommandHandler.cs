@@ -20,4 +20,22 @@ namespace Visualizer.Application.Commands
                 await visualizer.ChangeExternalIdAsync(request.ExternalId);
         }
     }
+
+    internal class AddVisualizerToGameCommandHandler(IVisualizerRepository repo) : ICommandHandler<AddVisualizerToGameCommand>
+    {
+        public async Task Handle(AddVisualizerToGameCommand request, CancellationToken cancellationToken)
+        {
+            var visualizer = repo.GetById(request.VisualizerId);
+            await visualizer.AddToGameAsync(request.GameId);
+        }
+    }
+
+    internal class RemoveVisualizerFromGameCommandHandler(IVisualizerRepository repo) : ICommandHandler<RemoveVisualizerFromGameCommand>
+    {
+        public async Task Handle(RemoveVisualizerFromGameCommand request, CancellationToken cancellationToken)
+        {
+            var visualizer = repo.GetById(request.VisualizerId);
+            await visualizer.RemoveFromGameAsync();
+        }
+    }
 }

@@ -7,7 +7,7 @@ using PlayerClient.Domain;
 
 namespace PlayerClient.Application
 {
-    internal class GamePiecePlacementRequestedEventProcessor(IMediator mediator, IPlayerAssignmentQuery playerAssignmentQuery) : INotificationHandler<GamePiecePlacementRequestedEvent>
+    internal class GamePiecePlacementRequestedPolicy(IMediator mediator, IPlayerAssignmentQuery playerAssignmentQuery) : INotificationHandler<GamePiecePlacementRequestedEvent>
     {
         public async Task Handle(GamePiecePlacementRequestedEvent notification, CancellationToken cancellationToken)
         {

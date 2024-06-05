@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Game.Contract;
+using MongoDB.Driver;
 using Visualizer.Contract;
 using Visualizer.Domain.VisualizerProjections;
 
@@ -33,6 +34,16 @@ namespace Visualizer.Infrastructure.VisualizerProjections
                 .ToList();
 
             return Task.FromResult<IReadOnlyList<VisualizerView>>(visualizerDetails.Select(Map).ToList());
+        }
+
+        public Task<VisualizerView?> GetByGameIdAsync(GameId gameId, CancellationToken cancellationToken = default)
+        {
+            var visualizerDetail = collectionProvider.VisualizerDetailCollection
+                .AsQueryable()
+                .Where(v => !v.IsDeleted)
+                .FirstOrDefault(v => v.CurrentGameId == gameId.Id);
+
+            return Task.FromResult(visualizerDetail != null ? Map(visualizerDetail) : null);
         }
 
         private static VisualizerView Map(VisualizerViewDbo visualizerView)

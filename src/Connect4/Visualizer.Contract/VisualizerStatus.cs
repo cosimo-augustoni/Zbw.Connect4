@@ -8,8 +8,8 @@ namespace Visualizer.Contract
         public static VisualizerStatus Processing = new VisualizerStatus(1, "Verarbeitet Anfrage", StatusType.Busy);
         public static VisualizerStatus PlacingPiece = new VisualizerStatus(2, "Spielstein wird platziert", StatusType.Busy);
         public static VisualizerStatus PiecePlaced = new VisualizerStatus(3, "Spielstein platziert", StatusType.Ready);
-        public static VisualizerStatus SortingPieces = new VisualizerStatus(4, "Sortiere Spielfeld", StatusType.Busy);
-        public static VisualizerStatus PiecesSorted = new VisualizerStatus(5, "Spielfeld sortiert", StatusType.Ready);
+        public static VisualizerStatus SortingPieces = new VisualizerStatus(4, "Sortiere Spielsteine", StatusType.Busy);
+        public static VisualizerStatus PiecesSorted = new VisualizerStatus(5, "Spielsteine sortiert", StatusType.Ready);
         public static VisualizerStatus Faulty = new VisualizerStatus(8, "Fehlerhaft", StatusType.Faulty);
         public static VisualizerStatus Unknown = new VisualizerStatus(16, "Unbekannt", StatusType.Faulty);
 

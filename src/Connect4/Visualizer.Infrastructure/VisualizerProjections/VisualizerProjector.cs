@@ -11,6 +11,8 @@ namespace Visualizer.Infrastructure.VisualizerProjections
             , INotificationHandler<VisualizerExternalIdChangedEvent>
             , INotificationHandler<VisualizerStatusChangedEvent>
             , INotificationHandler<VisualizerDeletedEvent>
+            , INotificationHandler<VisualizerAddedToGameEvent>
+            , INotificationHandler<VisualizerRemovedFromGameEvent>
     {
         public async Task Handle(VisualizerCreatedEvent notification, CancellationToken cancellationToken)
         {
@@ -56,6 +58,18 @@ namespace Visualizer.Infrastructure.VisualizerProjections
                 .FindOneAndUpdateAsync(g => g.VisualizerId == notification.VisualizerId.Id, updateDefinition, cancellationToken: cancellationToken);
 
             await notificationPublisher.Publish(new VisualizerUpdatedNotification { VisualizerId = notification.VisualizerId }, cancellationToken);
+        }
+
+        public async Task Handle(VisualizerAddedToGameEvent notification, CancellationToken cancellationToken)
+        {
+            var updateDefinition = Builders<VisualizerViewDbo>.Update.Set(g => g.CurrentGameId, notification.GameId.Id);
+            await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
+        }
+
+        public async Task Handle(VisualizerRemovedFromGameEvent notification, CancellationToken cancellationToken)
+        {
+            var updateDefinition = Builders<VisualizerViewDbo>.Update.Set(g => g.CurrentGameId, null);
+            await this.UpdateInternalAsync(notification, cancellationToken, updateDefinition);
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Game.Contract;
 using Game.Contract.Events;
+using Shared.Domain;
 
 namespace Game.Domain.GameAggregate
 {
-    public class AggregateValidationException : Exception;
-
     public class GamePiecePlacementAcknowledgementNotAllowedException : AggregateValidationException;
 
     public class SlotAlreadyFilledException : AggregateValidationException;

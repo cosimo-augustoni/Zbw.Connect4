@@ -1,4 +1,5 @@
-﻿using Shared.Domain;
+﻿using Game.Contract;
+using Shared.Domain;
 using Visualizer.Contract;
 using Visualizer.Contract.Events;
 
@@ -31,6 +32,8 @@ namespace Visualizer.Domain.VisualizerAggregate
         public VisualizerStatus Status { get; private set; } = VisualizerStatus.Unknown;
 
         public DateTimeOffset? DeletedAt { get; private set; }
+
+        public GameId? CurrentGameId { get; private set; }
 
         private bool IsDeleted => this.DeletedAt != null;
 
@@ -103,10 +106,36 @@ namespace Visualizer.Domain.VisualizerAggregate
             });
         }
 
+        public async Task AddToGameAsync(GameId gameId)
+        {
+            if (this.CurrentGameId != null)
+                throw new VisualizerAlreadyInGameException();
+
+            await this.RaiseEventAsync(new VisualizerAddedToGameEvent()
+            {
+                VisualizerId = this.Id,
+                GameId = gameId,
+            });
+        }
+
+        public async Task RemoveFromGameAsync()
+        {
+            if (this.CurrentGameId == null)
+                return;
+
+            await this.RaiseEventAsync(new VisualizerRemovedFromGameEvent()
+            {
+                VisualizerId = this.Id,
+            });
+        }
+
         public override void Apply(VisualizerEvent @event)
         {
             switch (@event)
             {
+                case VisualizerAddedToGameEvent visualizerAddedToGameEvent:
+                    this.Apply(visualizerAddedToGameEvent);
+                    break;
                 case VisualizerCreatedEvent:
                     break;
                 case VisualizerDeletedEvent visualizerDeletedEvent:
@@ -117,6 +146,9 @@ namespace Visualizer.Domain.VisualizerAggregate
                     break;
                 case VisualizerNameChangedEvent visualizerNameChangedEvent:
                     this.Apply(visualizerNameChangedEvent);
+                    break;
+                case VisualizerRemovedFromGameEvent visualizerRemovedFromGameEvent:
+                    this.Apply(visualizerRemovedFromGameEvent);
                     break;
                 case VisualizerStatusChangedEvent visualizerStatusChangedEvent:
                     this.Apply(visualizerStatusChangedEvent);
@@ -144,6 +176,16 @@ namespace Visualizer.Domain.VisualizerAggregate
         public void Apply(VisualizerStatusChangedEvent @event)
         {
             this.Status = @event.Status;
+        }
+
+        public void Apply(VisualizerAddedToGameEvent @event)
+        {
+            this.CurrentGameId = @event.GameId;
+        }
+
+        public void Apply(VisualizerRemovedFromGameEvent @event)
+        {
+            this.CurrentGameId = null;
         }
     }
 }
