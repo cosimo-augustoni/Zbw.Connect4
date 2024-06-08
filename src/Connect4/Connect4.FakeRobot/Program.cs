@@ -1,109 +1,17 @@
 ﻿using System.Collections.Concurrent;
 using System.Timers;
+using Connect4.ServiceDefaults;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using Timer = System.Timers.Timer;
 
 Console.WriteLine("Starting Fake Robot");
-var cts = new CancellationTokenSource();
-var cancellationToken = cts.Token;
-
-await Task.Run((Func<Task>)(async () =>
-{
-    var robots = new ConcurrentDictionary<string, Robot>();
-
-    var mqttHost = Environment.GetEnvironmentVariable("MQTT_HOST");
-    var mqttUser = Environment.GetEnvironmentVariable("MQTT_USERNAME");
-    var mqttPassword = Environment.GetEnvironmentVariable("MQTT_PASSWORD");
-
-    var mqttClient = new MqttFactory().CreateManagedMqttClient();
-    var mqttClientOptions = new MqttClientOptionsBuilder()
-        .WithTcpServer(mqttHost)
-        .WithCredentials(mqttUser, mqttPassword)
-        .Build();
-
-    var managedMqttClientOptions = new ManagedMqttClientOptionsBuilder()
-        .WithClientOptions(mqttClientOptions)
-        .WithAutoReconnectDelay(TimeSpan.FromSeconds(3))
-        .Build();
-
-    mqttClient.ConnectingFailedAsync += _ =>
-    {
-        WriteError("Couldn't connect to MQTT. Retry in 3 seconds");
-        return Task.CompletedTask;
-    };
-    mqttClient.ConnectedAsync += _ =>
-    {
-        Console.WriteLine("Connection to MQTT established.");
-        return Task.CompletedTask;
-    };
-
-    Console.WriteLine("Starting MQTT Client.");
-    await mqttClient.StartAsync(managedMqttClientOptions);
-
-    mqttClient.ApplicationMessageReceivedAsync += eventArgs =>
-    {
-        if (!eventArgs.ApplicationMessage.Topic.StartsWith("IT_to_Fake"))
-            return Task.CompletedTask;
-
-        try
-        {
-            var payload = eventArgs.ApplicationMessage.ConvertPayloadToString();
-            var topic = eventArgs.ApplicationMessage.Topic;
-            Console.WriteLine($"Message recieved: Topic: {topic} Payload: {payload}");
-
-            var robotId = topic.Split('_')[2];
-            if (!int.TryParse(payload, out var message))
-                WriteError($"Couldn't process message: {payload}");
-
-            if (!robots.TryGetValue(robotId, out var robot))
-            {
-                robot = new Robot(mqttClient, robotId);
-                robots.TryAdd(robotId, robot);
-            }
-
-            _ = Task.Run(async () =>
-            {
-                await robot.MessageRecievedAsync(message, cancellationToken);
-            }, cancellationToken);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-        
-        return Task.CompletedTask;
-    };
-
-    Console.WriteLine("Subscribing to Topics: IT_to_Fake#");
-    await mqttClient.SubscribeAsync("#");
-
-    var fakeCount = Environment.GetEnvironmentVariable("NUMBER_OF_INITIAL_FAKES");
-    if (fakeCount != null && int.TryParse(fakeCount, out var fakesToCreate))
-    {
-        for (int i = 1; i <= fakesToCreate; i++)
-        {
-            var robotId = $"Fake{i:D3}";
-            robots.TryAdd(robotId, new Robot(mqttClient, robotId));
-        }
-    }
-
-    Console.WriteLine("Fake Robot started. Press any key to stop...");
-    
-}), cancellationToken);
-
-Console.ReadKey(true);
-Console.WriteLine("Stopping Fake Robot");
-await cts.CancelAsync();
-
-static void WriteError(string message)
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine(message);
-    Console.ResetColor();
-}
+var builder = Host.CreateApplicationBuilder(args);
+builder.AddServiceDefaults();
+builder.Services.AddHostedService<Worker>();
+var host = builder.Build();
+await host.RunAsync();
 
 public class Robot
 {
@@ -154,7 +62,7 @@ public class Robot
         this.CurrentStatus = "2";
         await this.SendCurrentStatusAsync();
 
-        await Task.Delay((Math.Abs(xCoord-7) * 1000) / 2, cancellationToken);
+        await Task.Delay((Math.Abs(xCoord - 7) * 1000) / 2, cancellationToken);
 
         Console.WriteLine($"{this.Topic} - Piece placed for Player: {player} at X-Position: {xCoord}");
         this.CurrentStatus = "3";
@@ -171,5 +79,106 @@ public class Robot
     {
         this.timer.Stop();
         this.timer.Start();
+    }
+}
+
+public class Worker(ILogger<Worker> logger) : BackgroundService
+{
+    private readonly ConcurrentDictionary<string, Robot> robots = new();
+    private readonly CancellationTokenSource cancellationTokenSource = new();
+    private readonly IManagedMqttClient mqttClient = new MqttFactory().CreateManagedMqttClient();
+
+    public override async Task StartAsync(CancellationToken cancellationToken)
+    {
+        var mqttHost = Environment.GetEnvironmentVariable("MQTT_HOST");
+        var mqttUser = Environment.GetEnvironmentVariable("MQTT_USERNAME");
+        var mqttPassword = Environment.GetEnvironmentVariable("MQTT_PASSWORD");
+
+        var mqttClientOptions = new MqttClientOptionsBuilder()
+            .WithTcpServer(mqttHost)
+            .WithCredentials(mqttUser, mqttPassword)
+            .Build();
+
+        var managedMqttClientOptions = new ManagedMqttClientOptionsBuilder()
+            .WithClientOptions(mqttClientOptions)
+            .WithAutoReconnectDelay(TimeSpan.FromSeconds(3))
+            .Build();
+
+        this.mqttClient.ConnectingFailedAsync += _ =>
+        {
+            logger.LogWarning("Couldn't connect to MQTT. Retry in 3 seconds");
+            return Task.CompletedTask;
+        };
+        this.mqttClient.ConnectedAsync += _ =>
+        {
+            logger.LogInformation("Connection to MQTT established.");
+            return Task.CompletedTask;
+        };
+
+        logger.LogInformation("Starting MQTT Client.");
+        await this.mqttClient.StartAsync(managedMqttClientOptions);
+
+        await base.StartAsync(cancellationToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        this.mqttClient.ApplicationMessageReceivedAsync += eventArgs =>
+        {
+            if (!eventArgs.ApplicationMessage.Topic.StartsWith("IT_to_Fake"))
+                return Task.CompletedTask;
+
+            try
+            {
+                var payload = eventArgs.ApplicationMessage.ConvertPayloadToString();
+                var topic = eventArgs.ApplicationMessage.Topic;
+                logger.LogInformation($"Message recieved: Topic: {topic} Payload: {payload}");
+
+                var robotId = topic.Split('_')[2];
+                if (!int.TryParse(payload, out var message))
+                    logger.LogError($"Couldn't process message: {payload}");
+
+                if (!this.robots.TryGetValue(robotId, out var robot))
+                {
+                    robot = new Robot(this.mqttClient, robotId);
+                    this.robots.TryAdd(robotId, robot);
+                }
+
+                _ = Task.Run(async () =>
+                {
+                    await robot.MessageRecievedAsync(message, this.cancellationTokenSource.Token);
+                }, this.cancellationTokenSource.Token);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Couldn't process message");
+                throw;
+            }
+
+            return Task.CompletedTask;
+        };
+
+        logger.LogInformation("Subscribing to Topic: #");
+        await this.mqttClient.SubscribeAsync("#");
+
+        var fakeCount = Environment.GetEnvironmentVariable("NUMBER_OF_INITIAL_FAKES");
+        if (fakeCount != null && int.TryParse(fakeCount, out var fakesToCreate))
+        {
+            for (var i = 1; i <= fakesToCreate; i++)
+            {
+                var robotId = $"Fake{i:D3}";
+                this.robots.TryAdd(robotId, new Robot(this.mqttClient, robotId));
+            }
+        }
+
+        logger.LogInformation("Fake Robot started.");
+    }
+
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Stopping Fake Robot.");
+        await this.mqttClient.StopAsync();
+        await this.cancellationTokenSource.CancelAsync();
+        await base.StopAsync(cancellationToken);
     }
 }

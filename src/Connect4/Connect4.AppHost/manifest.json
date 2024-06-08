@@ -154,6 +154,19 @@
           "targetPort": 8001
         }
       }
+    },
+    "fakerobot": {
+      "type": "project.v0",
+      "path": "../Connect4.FakeRobot/Connect4.FakeRobot.csproj",
+      "env": {
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY": "in_memory",
+        "MQTT_HOST": "{rabbitmq.bindings.mqtt.host}",
+        "MQTT_USERNAME": "{RabbitMQUsername.value}",
+        "MQTT_PASSWORD": "{RabbitMQPassword.value}",
+        "NUMBER_OF_INITIAL_FAKES": "1"
+      }
     }
   }
 }

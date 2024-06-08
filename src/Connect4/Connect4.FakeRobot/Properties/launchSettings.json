@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Connect4.FakeRobot": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

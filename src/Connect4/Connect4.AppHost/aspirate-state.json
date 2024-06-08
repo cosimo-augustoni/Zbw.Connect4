@@ -1,0 +1,33 @@
+{
+  "projectPath": ".",
+  "outputPath": "aspirate-output",
+  "containerImageTags": [
+    "latest"
+  ],
+  "containerBuilder": "docker",
+  "outputFormat": "compose",
+  "privateRegistryEmail": "aspir8@aka.ms",
+  "includeDashboard": false,
+  "secrets": {
+    "salt": "thONx4/HtC8ibnl0",
+    "hash": "bpXFNRbsYJhNagyZKKRtLEQ/QEKl5NE78DyCDl\u002B3wIU=",
+    "secrets": {
+      "RabbitMQUsername": {
+        "value": "thONx4/HtC8ibnl0Zmkf\u002BqAmG3L/yN403stgQHD/TCwM6yFvjdYMzw=="
+      },
+      "RabbitMQPassword": {
+        "value": "thONx4/HtC8ibnl0FluRpc91K6TI3rVcbxKtmjXabzcR\u002BTlYv9YfyiVu6yfQRhrNGgTEPWnmclmEEFwDKy6o/1Yzm942PQWN5E8waKvgmrk="
+      },
+      "redis": {},
+      "mongodb": {},
+      "projections": {},
+      "rabbitmq": {},
+      "webapp": {
+        "ConnectionStrings__redis": "thONx4/HtC8ibnl0AQjtf30IpzcjVoWb/e67P3D7SicWpVoN75w=",
+        "ConnectionStrings__projections": "thONx4/HtC8ibnl0NxR3zOxUFlQkGgl8ryhgz2/xQCkK\u002Bw4E94oE0n5MzDHQHUawXQ2QJUzRZ0mZRU45PAq9"
+      },
+      "fakerobot": {}
+    }
+  },
+  "processAllComponents": true
+}

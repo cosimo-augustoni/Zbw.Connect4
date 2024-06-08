@@ -41,7 +41,7 @@ builder.AddProject<Projects.Connect4_Web>("webapp")
     .WithEnvironment("MQTT_PASSWORD", rabbitMQPassword)
     .WithEnvironment("FRONTEND_LOADING_DELAY", "500");
 
-builder.AddProject<Projects.Connect4_FakeRobot>("fake-robot")
+builder.AddProject<Projects.Connect4_FakeRobot>("fakerobot")
     .WithEnvironment("MQTT_HOST", $"{mqttEndpoint.Property(EndpointProperty.Host)}")
     .WithEnvironment("MQTT_USERNAME", rabbitMQUsername)
     .WithEnvironment("MQTT_PASSWORD", rabbitMQPassword)
