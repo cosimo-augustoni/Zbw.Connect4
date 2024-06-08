@@ -8,7 +8,7 @@
     <MudContainer MaxWidth="MaxWidth.ExtraLarge">
         @if (this.Game.IsRunning || this.Game.IsFinished)
         {
-            <MudOverlay Visible="this.Game.IsFinished" DarkBackground="true" AutoClose="false">
+            <MudOverlay Visible="this.Game.IsFinished" DarkBackground="true" AutoClose="false" ZIndex="100">
                 <MudStack Spacing="3">
                     <MudText Typo="Typo.h2" Align="Align.Center">Spiel beendet</MudText>
                     <MudText Typo="Typo.h4" Align="Align.Center">@FinishReason</MudText>

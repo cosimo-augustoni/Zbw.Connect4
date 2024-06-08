@@ -3,13 +3,15 @@ using MediatR;
 using PlayerClient.Contract;
 using PlayerClient.Domain;
 
-namespace PlayerClient.Local
+namespace PlayerClient.AI
 {
-    internal class LocalPlayerClientFactory(ISender mediator, IPlayerAssignmentQuery playerAssignmentQuery) : IPlayerClientFactory
+    internal class AiPlayerClientFactory(ISender mediator, IPlayerAssignmentQuery playerAssignmentQuery) : IPlayerClientFactory
     {
         public List<PlayerClientType> PlayerClientTypes =>
         [
-            LocalPlayerClientConstants.PlayerClientType
+            AiPlayerClientConstants.EasyPlayerClientType,
+            AiPlayerClientConstants.MediumPlayerClientType,
+            AiPlayerClientConstants.HardPlayerClientType
         ];
 
         public async Task<IPlayerClient?> CreateAsync(PlayerId playerId)
@@ -19,7 +21,7 @@ namespace PlayerClient.Local
             if (gameId == null)
                 return null;
 
-            return new LocalPlayerClient(mediator)
+            return new AiPlayerClient(mediator)
             {
                 PlayerId = playerId,
                 GameId = gameId

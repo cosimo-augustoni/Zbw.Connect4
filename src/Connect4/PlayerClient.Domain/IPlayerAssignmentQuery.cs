@@ -7,6 +7,6 @@ namespace PlayerClient.Domain
     {
         Task<GameId?> GetGameIdByPlayerAsync(PlayerId playerId);
 
-        Task<List<(PlayerId PlayerId, string PlayerType)>> GetPlayersByGameAsync(GameId gameId);
+        Task<List<(PlayerId PlayerId, PlayerClientType PlayerType)>> GetPlayersByGameAsync(GameId gameId);
     }
 }

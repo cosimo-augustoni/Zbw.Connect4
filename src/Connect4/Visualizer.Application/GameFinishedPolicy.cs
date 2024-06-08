@@ -7,15 +7,15 @@ using Visualizer.Domain.VisualizerProjections;
 namespace Visualizer.Application
 {
     internal class GameFinishedPolicy(IMediator mediator, IVisualizerQuery visualizerQuery) 
-        : INotificationHandler<GameFinishedEvent>
-        , INotificationHandler<GameAbortedEvent>
+        : INotificationHandler<GameFinishedEventDto>
+        , INotificationHandler<GameAbortedEventDto>
     {
-        public async Task Handle(GameFinishedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GameFinishedEventDto notification, CancellationToken cancellationToken)
         {
             await this.RemoveVisualizerFromGameAsync(notification.GameId, cancellationToken);
         }
 
-        public async Task Handle(GameAbortedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GameAbortedEventDto notification, CancellationToken cancellationToken)
         {
             await this.RemoveVisualizerFromGameAsync(notification.GameId, cancellationToken);
         }

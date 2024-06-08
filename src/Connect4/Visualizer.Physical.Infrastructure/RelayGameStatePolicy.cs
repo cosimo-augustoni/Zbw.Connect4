@@ -9,18 +9,18 @@ using Visualizer.Contract.Queries;
 namespace Visualizer.Physical.Infrastructure
 {
     internal class RelayGameStatePolicy(IVisualizerMqttClient mqttClient, IMediator mediator)
-        : INotificationHandler<GamePiecePlacedEvent>
-            , INotificationHandler<GameFinishedEvent>
-            , INotificationHandler<GameAbortedEvent>
+        : INotificationHandler<GamePiecePlacedEventDto>
+            , INotificationHandler<GameFinishedEventDto>
+            , INotificationHandler<GameAbortedEventDto>
             , INotificationHandler<VisualizerAddedToGameEvent>
     {
-        public async Task Handle(GamePiecePlacedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GamePiecePlacedEventDto notification, CancellationToken cancellationToken)
         {
             var visualizer = await mediator.Send(new VisualizerByGameIdQuery { GameId = notification.GameId }, cancellationToken);
             if (visualizer == null)
                 return;
 
-            var playerSide = notification.PlayerSide == PlayerSide.Red ? MqttMessages.PlaceRed : MqttMessages.PlaceYellow;
+            var playerSide = notification.PlayingSide == PlayerSide.Red ? MqttMessages.PlaceRed : MqttMessages.PlaceYellow;
             var xCoord = notification.Position.X << 3;
             var yCoord = notification.Position.Y;
             var payload = playerSide + xCoord + yCoord;
@@ -29,7 +29,7 @@ namespace Visualizer.Physical.Infrastructure
             await mqttClient.PublishAsync(visualizer.GetMqttTopic(), payload.ToString());
         }
 
-        public async Task Handle(GameFinishedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GameFinishedEventDto notification, CancellationToken cancellationToken)
         {
             var visualizer = await mediator.Send(new VisualizerByGameIdQuery { GameId = notification.GameId }, cancellationToken);
             if (visualizer == null)
@@ -38,7 +38,7 @@ namespace Visualizer.Physical.Infrastructure
             await mqttClient.PublishAsync(visualizer.GetMqttTopic(), MqttMessages.Sort.ToString());
         }
 
-        public async Task Handle(GameAbortedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GameAbortedEventDto notification, CancellationToken cancellationToken)
         {
             var visualizer = await mediator.Send(new VisualizerByGameIdQuery { GameId = notification.GameId }, cancellationToken);
             if (visualizer == null || visualizer.Status == VisualizerStatus.PiecesSorted || visualizer.Status == VisualizerStatus.SortingPieces)

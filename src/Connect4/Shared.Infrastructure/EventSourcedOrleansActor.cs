@@ -50,6 +50,7 @@ namespace Shared.Infrastructure
             this.RaiseEvents(this.eventRegistry.Events);
             await this.ConfirmEvents();
             await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
+            await this.PublishEventsExternal(this.eventRegistry.Events);
             this.eventRegistry.Clear();
         }
 
@@ -63,9 +64,24 @@ namespace Shared.Infrastructure
             this.RaiseEvents(this.eventRegistry.Events);
             await this.ConfirmEvents();
             await this.eventPublisher.PublishEvents(this.eventRegistry.Events);
+            await this.PublishEventsExternal(this.eventRegistry.Events);
             this.eventRegistry.Clear();
 
             return result;
+        }
+
+        private async Task PublishEventsExternal(IReadOnlyList<TEvent> domainEvents)
+        {
+            var externalEvents = new List<ExternalDomainEvent>();
+            foreach (var @event in domainEvents)
+            {
+                if (@event is IExternalDomainEvent externalDomainEvent)
+                {
+                    externalEvents.Add(externalDomainEvent.ToExternalDomainEvent());
+                }
+            }
+
+            await this.eventPublisher.PublishEvents(externalEvents);
         }
     }
 }

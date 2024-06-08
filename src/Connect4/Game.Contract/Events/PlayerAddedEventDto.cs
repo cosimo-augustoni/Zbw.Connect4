@@ -1,6 +1,6 @@
 ﻿namespace Game.Contract.Events
 {
-    public record PlayerAddedEvent : GameEvent
+    public record PlayerAddedEventDto : ExternalGameEvent
     {
         public required Player Player { get; init; }
 

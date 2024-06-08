@@ -1,4 +1,4 @@
-﻿namespace Game.Contract.Events
+﻿namespace Game.Contract
 {
     public enum FinishReason
     {

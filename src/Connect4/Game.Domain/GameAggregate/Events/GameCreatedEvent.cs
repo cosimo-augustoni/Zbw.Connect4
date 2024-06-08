@@ -1,4 +1,4 @@
-﻿namespace Game.Contract.Events
+﻿namespace Game.Domain.GameAggregate.Events
 {
     public record GameCreatedEvent : GameEvent
     {

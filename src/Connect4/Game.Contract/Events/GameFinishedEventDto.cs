@@ -1,6 +1,6 @@
 ﻿namespace Game.Contract.Events
 {
-    public record GameFinishedEvent : GameEvent
+    public record GameFinishedEventDto : ExternalGameEvent
     {
         public required FinishReason FinishReason { get; init; }
 

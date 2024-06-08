@@ -64,7 +64,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerClient.Application", "PlayerClient.Application\PlayerClient.Application.csproj", "{7176E09F-5503-4F37-8779-F2E70F3D9250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.FakeRobot", "Connect4.FakeRobot\Connect4.FakeRobot.csproj", "{CD3C0792-D4FD-4739-B420-498F6F1DB48B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connect4.FakeRobot", "Connect4.FakeRobot\Connect4.FakeRobot.csproj", "{CD3C0792-D4FD-4739-B420-498F6F1DB48B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClient.AI", "PlayerClient.AI\PlayerClient.AI.csproj", "{B236ABBB-99D2-4A72-9619-F7047BBA29E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +170,10 @@ Global
 		{CD3C0792-D4FD-4739-B420-498F6F1DB48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD3C0792-D4FD-4739-B420-498F6F1DB48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD3C0792-D4FD-4739-B420-498F6F1DB48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B236ABBB-99D2-4A72-9619-F7047BBA29E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B236ABBB-99D2-4A72-9619-F7047BBA29E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B236ABBB-99D2-4A72-9619-F7047BBA29E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B236ABBB-99D2-4A72-9619-F7047BBA29E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{0BC28A09-2D0F-4BCB-AFB6-5E60427CB53A} = {E9C889E4-CD49-44C8-952F-61E9E02D643D}
 		{C2212040-3CCC-48D5-84CE-A02D9E15CB04} = {E9C889E4-CD49-44C8-952F-61E9E02D643D}
 		{7176E09F-5503-4F37-8779-F2E70F3D9250} = {E9C889E4-CD49-44C8-952F-61E9E02D643D}
+		{B236ABBB-99D2-4A72-9619-F7047BBA29E5} = {E9C889E4-CD49-44C8-952F-61E9E02D643D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15536992-5D0B-4AF4-B2B0-96C75C9128F9}

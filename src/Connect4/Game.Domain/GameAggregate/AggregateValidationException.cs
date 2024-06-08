@@ -1,5 +1,4 @@
 ﻿using Game.Contract;
-using Game.Contract.Events;
 using Shared.Domain;
 
 namespace Game.Domain.GameAggregate

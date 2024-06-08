@@ -7,9 +7,9 @@ using PlayerClient.Domain;
 
 namespace PlayerClient.Application
 {
-    internal class GamePiecePlacementRequestedPolicy(IMediator mediator, IPlayerAssignmentQuery playerAssignmentQuery) : INotificationHandler<GamePiecePlacementRequestedEvent>
+    internal class GamePiecePlacementRequestedPolicy(IMediator mediator, IPlayerAssignmentQuery playerAssignmentQuery) : INotificationHandler<GamePiecePlacementRequestedEventDto>
     {
-        public async Task Handle(GamePiecePlacementRequestedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GamePiecePlacementRequestedEventDto notification, CancellationToken cancellationToken)
         {
             var players = await playerAssignmentQuery.GetPlayersByGameAsync(notification.GameId);
 
@@ -18,7 +18,7 @@ namespace PlayerClient.Application
                     new PlayerClientByPlayerQuery
                     {
                         PlayerId = playerToAcknowledgeRequest.PlayerId,
-                        PlayerClientType = new PlayerClientType(playerToAcknowledgeRequest.PlayerType)
+                        PlayerClientType = playerToAcknowledgeRequest.PlayerType
                     }, cancellationToken);
 
             if (playerClient == null)

@@ -1,9 +1,10 @@
-﻿using Shared.Contract;
+﻿using MediatR;
+using Shared.Contract;
 
 namespace Shared.Infrastructure
 {
     public interface IEventPublisher
     {
-        Task PublishEvents(IReadOnlyList<DomainEvent> domainEvents);
+        Task PublishEvents(IReadOnlyList<INotification> domainEvents);
     }
 }

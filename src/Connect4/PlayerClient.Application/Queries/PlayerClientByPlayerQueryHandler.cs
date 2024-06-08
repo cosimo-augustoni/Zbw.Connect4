@@ -11,7 +11,7 @@ namespace PlayerClient.Application.Queries
         {
             foreach (var clientFactory in clientFactories)
             {
-                if (clientFactory.PlayerClientType == request.PlayerClientType)
+                if (clientFactory.PlayerClientTypes.Contains(request.PlayerClientType))
                     return await clientFactory.CreateAsync(request.PlayerId);
             }
 

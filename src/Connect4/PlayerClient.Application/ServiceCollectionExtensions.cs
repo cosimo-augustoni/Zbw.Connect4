@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PlayerClient.AI;
 using PlayerClient.Infrastructure;
 using PlayerClient.Local;
 using Shared.Application;
@@ -14,6 +15,7 @@ namespace PlayerClient.Application
                 .RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
             services.AddLocalPlayerClient();
+            services.AddAiPlayerClient();
 
             services.AddPlayerClientInfrastructure();
 

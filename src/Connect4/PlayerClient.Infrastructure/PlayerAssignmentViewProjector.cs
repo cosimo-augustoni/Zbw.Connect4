@@ -6,10 +6,10 @@ using PlayerClient.Contract.Queries;
 namespace PlayerClient.Infrastructure
 {
     internal class PlayerAssignmentViewProjector(IMongoDatabase database, IPublisher notificationPublisher)
-        : INotificationHandler<PlayerAddedEvent>, 
-            INotificationHandler<PlayerRemovedEvent>
+        : INotificationHandler<PlayerAddedEventDto>, 
+            INotificationHandler<PlayerRemovedEventDto>
     {
-        public async Task Handle(PlayerAddedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(PlayerAddedEventDto @event, CancellationToken cancellationToken)
         {
             var playerAssignmentViewDbo = new PlayerAssignmentViewDbo
             {
@@ -22,7 +22,7 @@ namespace PlayerClient.Infrastructure
             await notificationPublisher.Publish(new PlayerClientCreatedNotification { GameId = @event.GameId, PlayerId = @event.Player.Id }, cancellationToken);
         }
 
-        public async Task Handle(PlayerRemovedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(PlayerRemovedEventDto @event, CancellationToken cancellationToken)
         {
             await this.GetPlayerAssignmentsCollection()
                 .FindOneAndDeleteAsync(g => g.PlayerId == @event.PlayerId.Id, cancellationToken: cancellationToken);

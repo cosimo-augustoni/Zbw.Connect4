@@ -5,7 +5,7 @@ namespace PlayerClient.Domain
 {
     public interface IPlayerClientFactory
     {
-        PlayerClientType PlayerClientType { get; }
+        List<PlayerClientType> PlayerClientTypes { get; }
         Task<IPlayerClient?> CreateAsync(PlayerId playerId);
     }
 }

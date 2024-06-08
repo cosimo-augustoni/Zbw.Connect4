@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Game.Contract;
-using Game.Contract.Events;
+using Game.Domain.GameAggregate.Events;
 using Shared.Domain;
 
 namespace Game.Domain.GameAggregate
@@ -198,15 +198,16 @@ namespace Game.Domain.GameAggregate
 
             this.ThrowIfAcknowledgementNotAllowed(playerId);
 
-            var playerSide = this.GetPlayerSideByPlayerId(this.PlacementRequest.RequestingPlayer);
+            var playingSide = this.GetPlayerSideByPlayerId(this.PlacementRequest.RequestingPlayer);
             await this.RaiseEventAsync(new GamePiecePlacedEvent
             {
                 GameId = this.Id,
                 Position = this.PlacementRequest.Position,
-                PlayerSide = playerSide
+                PlacedBy = this.GetPlayerById(this.PlacementRequest.RequestingPlayer) ?? throw new ArgumentNullException(),
+                PlayingSide = playingSide
             });
 
-            if (this.Board.IsWinningMove(this.PlacementRequest.Position, playerSide))
+            if (this.Board.IsWinningMove(this.PlacementRequest.Position, playingSide))
             {
                 await this.RaiseEventAsync(new GameFinishedEvent
                 {
@@ -362,7 +363,7 @@ namespace Game.Domain.GameAggregate
 
         private void Apply(GamePiecePlacedEvent @event)
         {
-            this.Board.PlacePiece(@event.Position, @event.PlayerSide);
+            this.Board.PlacePiece(@event.Position, @event.PlayingSide);
             this.PlacementRequest = null;
             this.CurrentPlayingSide = this.CurrentPlayingSide == PlayerSide.Red ? PlayerSide.Yellow : PlayerSide.Red;
         }

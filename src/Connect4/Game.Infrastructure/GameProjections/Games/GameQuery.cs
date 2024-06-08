@@ -1,5 +1,4 @@
 ﻿using Game.Contract;
-using Game.Contract.Events;
 using Game.Domain.GameProjections;
 using MongoDB.Driver;
 

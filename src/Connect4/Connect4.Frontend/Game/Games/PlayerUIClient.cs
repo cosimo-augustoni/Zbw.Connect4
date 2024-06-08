@@ -3,6 +3,7 @@ using Game.Contract.Queries.Dtos;
 using PlayerClient.Contract;
 using System.Security.Cryptography;
 using System.Text;
+using PlayerClient.AI;
 
 namespace Connect4.Frontend.Game.Games
 {
@@ -21,11 +22,18 @@ namespace Connect4.Frontend.Game.Games
                 if (this.Player == null)
                     return null;
 
+                if (this.Player.Owner.Identifier == AiPlayerClientConstants.EasyPlayerClientType.Identifier)
+                    return $"ais/AI_Easy.jpeg";
+                if (this.Player.Owner.Identifier == AiPlayerClientConstants.MediumPlayerClientType.Identifier)
+                    return $"ais/AI_Medium.jpeg";
+                if (this.Player.Owner.Identifier == AiPlayerClientConstants.HardPlayerClientType.Identifier)
+                    return $"ais/AI_Hard.jpeg";
+
                 using var sha = MD5.Create();
                 var imageCount = 8;
                 var hashedId = sha.ComputeHash(Encoding.UTF8.GetBytes(this.Player.Owner.Identifier));
                 int imageId = Math.Abs(BitConverter.ToInt32(hashedId, 0)) % imageCount + 1;
-                return $"{imageId}.png";
+                return $"avatars/{imageId}.png";
             }
         }
     }

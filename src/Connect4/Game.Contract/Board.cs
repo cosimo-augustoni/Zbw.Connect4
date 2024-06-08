@@ -85,14 +85,4 @@ namespace Game.Contract
         }
 
     }
-
-    internal static class PlayerSideExtensions
-    {
-        public static SlotState ToSlotState(this PlayerSide playerSide) => playerSide switch
-        {
-            PlayerSide.Red => SlotState.Red,
-            PlayerSide.Yellow => SlotState.Yellow,
-            _ => throw new ArgumentOutOfRangeException(nameof(playerSide), playerSide, null)
-        };
-    }
 }

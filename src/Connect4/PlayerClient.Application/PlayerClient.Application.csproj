@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlayerClient.AI\PlayerClient.AI.csproj" />
     <ProjectReference Include="..\PlayerClient.Infrastructure\PlayerClient.Infrastructure.csproj" />
     <ProjectReference Include="..\PlayerClient.Local\PlayerClient.Local.csproj" />
     <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />

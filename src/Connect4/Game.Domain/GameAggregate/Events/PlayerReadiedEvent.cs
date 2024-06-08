@@ -1,4 +1,6 @@
-﻿namespace Game.Contract.Events
+﻿using Game.Contract;
+
+namespace Game.Domain.GameAggregate.Events
 {
     public record PlayerReadiedEvent : GameEvent
     {
