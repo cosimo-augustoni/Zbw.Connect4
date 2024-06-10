@@ -48,6 +48,7 @@ namespace Connect4.Frontend.Game.Games
 
         private async Task CellClickedAsync(int xCoord)
         {
+            this.IsPiecePlacing = true;
             var yCoord = 0;
             for (var row = 0; row < 6; row++)
             {
