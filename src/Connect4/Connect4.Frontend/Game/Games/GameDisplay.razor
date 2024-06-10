@@ -4,9 +4,11 @@
             <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 m-3">
                 <PlayerDisplay PlayerClient="RedPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.RedPlayer.Player?.Id" />
                 <MudSpacer />
+                @* TODO Spiel Aufgeben und Abbrechen können wenn ein Player Client der eigene *@
                 <PlayerDisplay PlayerClient="YellowPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
             </div>
         </MudPaper>
         <Board BoardState="Game.Board" CurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id ? this.YellowPlayer : this.RedPlayer" GameId="Game.Id" />
+        @* TODO Züge darstellen und jeweilige Zeiten pro Spieler anzeigen *@
     </div>
 </MudContainer>

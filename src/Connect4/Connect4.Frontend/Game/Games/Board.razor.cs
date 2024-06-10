@@ -38,6 +38,7 @@ namespace Connect4.Frontend.Game.Games
             await base.OnParametersSetAsync();
         }
 
+        //TODO Visualizer Status berücksichtigen
         private async Task EvaluateBoardReadOnlyAsync()
         {
             var authenticationState = await this.AuthenticationStateProvider.GetAuthenticationStateAsync();

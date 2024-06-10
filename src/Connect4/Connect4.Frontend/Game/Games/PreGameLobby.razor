@@ -25,7 +25,9 @@ font-family: var(--mud-typography-h6-family);
             <MudPaper Elevation="0">
                 <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 h-50">
                     <PlayerSlot GameId="this.Game.Id" PlayerClient="this.YellowPlayer" />
+                    @* TODO Roboter auswählen können und Spielstart erst wenn ready *@
                     <PlayerSlot GameId="this.Game.Id" PlayerClient="this.RedPlayer" />
+                    @* TODO Schöner darstellen *@
                 </div>
             </MudPaper>
         </MudCardContent>

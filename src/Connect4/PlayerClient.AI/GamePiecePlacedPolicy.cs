@@ -38,6 +38,7 @@ namespace PlayerClient.AI
             var nextPlayerType = players.FirstOrDefault(p => p.PlayerId != notification.PlacedBy.Id).PlayerType;
             var nextPlayingSide = notification.PlayingSide == PlayerSide.Red ? PlayerSide.Yellow : PlayerSide.Red;
 
+            //TODO Zug erst ausführen wenn Roboter auch bereit ist
             this.TryMakeNextMove(gameId, nextPlayingSide, nextPlayerType, players.AreAllAi(), cancellationToken);
         }
 

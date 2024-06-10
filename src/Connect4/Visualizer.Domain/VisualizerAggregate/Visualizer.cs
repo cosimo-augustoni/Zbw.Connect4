@@ -99,6 +99,8 @@ namespace Visualizer.Domain.VisualizerAggregate
             if (this.IsDeleted)
                 throw new VisualizerDeletedException();
 
+            //TODO Nur löschen wenn nicht in Game
+
             await this.RaiseEventAsync(new VisualizerDeletedEvent()
             {
                 VisualizerId = this.Id,
