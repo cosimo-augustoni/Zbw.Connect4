@@ -9,7 +9,7 @@ namespace Game.Application.Commands
         public async Task<Guid> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             var game = gameRepository.Create();
-            return await game.CreateGame();
+            return await game.CreateGame(request.Name);
         }
     }
 }

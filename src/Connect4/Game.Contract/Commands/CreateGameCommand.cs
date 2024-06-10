@@ -2,4 +2,7 @@
 
 namespace Game.Contract.Commands;
 
-public record CreateGameCommand : ICommand<Guid>;
+public record CreateGameCommand : ICommand<Guid>
+{
+    public string? Name { get; init; }
+}

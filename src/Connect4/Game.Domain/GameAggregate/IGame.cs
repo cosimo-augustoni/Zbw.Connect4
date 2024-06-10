@@ -4,7 +4,7 @@ namespace Game.Domain.GameAggregate
 {
     public interface IGame
     {
-        public Task<Guid> CreateGame();
+        public Task<Guid> CreateGame(string? name);
         public Task ChangeNameAsync(string name);
         Task AddPlayer(Player player, PlayerSide playerSide);
         Task ReadyPlayer(PlayerId playerId);

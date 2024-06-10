@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Game.Contract.Commands;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Identity.Web;
 
 namespace Connect4.Frontend.Game.Lobbies
 {
@@ -17,6 +14,9 @@ namespace Connect4.Frontend.Game.Lobbies
         [Inject]
         private NavigationManager NavigationManager { get; set; } = null!;
 
+        [Inject]
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+
         private bool IsCreating { get; set; }
 
         private async Task CreateGame()
@@ -25,7 +25,8 @@ namespace Connect4.Frontend.Game.Lobbies
             try
             {
                 this.IsCreating = true;
-                gameId = await this.Mediator.Send(new CreateGameCommand());
+                var authenticationState = await this.AuthenticationStateProvider.GetAuthenticationStateAsync();
+                gameId = await this.Mediator.Send(new CreateGameCommand { Name = authenticationState.User.GetDisplayName() });
             }
             finally
             {

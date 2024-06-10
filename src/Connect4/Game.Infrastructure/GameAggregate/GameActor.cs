@@ -20,9 +20,9 @@ namespace Game.Infrastructure.GameAggregate
             return new Domain.GameAggregate.Game(new GameId(id), eventRegistry);
         }
 
-        public async Task<Guid> CreateGame()
+        public async Task<Guid> CreateGame(string? name)
         {
-            return await this.ExecuteAsync(async (aggregate) => await aggregate.CreateGame());
+            return await this.ExecuteAsync(async (aggregate) => await aggregate.CreateGame(name));
         }
 
         public async Task ChangeNameAsync(string name)

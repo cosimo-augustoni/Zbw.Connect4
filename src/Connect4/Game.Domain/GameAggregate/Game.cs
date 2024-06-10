@@ -48,12 +48,12 @@ namespace Game.Domain.GameAggregate
             return Task.FromResult(this.Board);
         }
 
-        public async Task<Guid> CreateGame()
+        public async Task<Guid> CreateGame(string? name)
         {
             await this.RaiseEventAsync(new GameCreatedEvent
             {
                 GameId = this.Id,
-                Name = "Connect 4 Game"
+                Name = name != null ? $"{name}'s Spiel" : "4 Gewinnt Spiel"
             });
 
             return this.Id.Id;
