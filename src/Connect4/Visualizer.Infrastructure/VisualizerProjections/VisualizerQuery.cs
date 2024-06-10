@@ -36,6 +36,16 @@ namespace Visualizer.Infrastructure.VisualizerProjections
             return Task.FromResult<IReadOnlyList<VisualizerView>>(visualizerDetails.Select(Map).ToList());
         }
 
+        public Task<IReadOnlyList<VisualizerView>> GetAvailableVisualizersAsync(CancellationToken cancellationToken = default)
+        {
+            var visualizerDetails = collectionProvider.VisualizerDetailCollection
+                .AsQueryable()
+                .Where(v => !v.IsDeleted && v.CurrentGameId == null)
+                .ToList();
+
+            return Task.FromResult<IReadOnlyList<VisualizerView>>(visualizerDetails.Select(Map).ToList());
+        }
+
         public Task<VisualizerView?> GetByGameIdAsync(GameId gameId, CancellationToken cancellationToken = default)
         {
             var visualizerDetail = collectionProvider.VisualizerDetailCollection

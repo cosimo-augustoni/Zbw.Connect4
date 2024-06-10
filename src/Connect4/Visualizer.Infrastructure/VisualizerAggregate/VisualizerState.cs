@@ -9,6 +9,8 @@
 
         public string? ExternalId { get; set; }
 
+        public Guid? CurrentGameId { get; set; }
+
         public int? StatusId { get; set; }
 
         public DateTimeOffset? DeletedAt { get; set; }

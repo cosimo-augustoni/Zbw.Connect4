@@ -1,5 +1,4 @@
-﻿using Game.Contract;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Connect4.Frontend.Game.Games
 {

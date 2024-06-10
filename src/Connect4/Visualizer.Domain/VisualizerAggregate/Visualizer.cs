@@ -7,13 +7,13 @@ namespace Visualizer.Domain.VisualizerAggregate
 {
     public class Visualizer(VisualizerId id, IEventRegistry<VisualizerEvent> eventRegistry, TimeProvider timeProvider) : AggregateRoot<VisualizerEvent>(eventRegistry), IVisualizer
     {
-        public Visualizer(
-            VisualizerId id, 
-            string? name, 
-            string? externalId, 
-            VisualizerStatus? status, 
-            DateTimeOffset? deletedAt, 
-            IEventRegistry<VisualizerEvent> eventRegistry, 
+        public Visualizer(VisualizerId id,
+            string? name,
+            string? externalId,
+            VisualizerStatus? status,
+            DateTimeOffset? deletedAt,
+            GameId? currentGameId,
+            IEventRegistry<VisualizerEvent> eventRegistry,
             TimeProvider timeProvider) 
             : this(id, eventRegistry, timeProvider)
         {
@@ -21,6 +21,7 @@ namespace Visualizer.Domain.VisualizerAggregate
             this.ExternalId = externalId;
             this.Status = status ?? VisualizerStatus.NotInitialized;
             this.DeletedAt = deletedAt;
+            this.CurrentGameId = currentGameId;
         }
 
         public VisualizerId Id { get; } = id;

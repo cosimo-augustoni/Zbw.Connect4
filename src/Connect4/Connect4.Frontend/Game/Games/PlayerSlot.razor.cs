@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Game.Contract;
+﻿using Game.Contract;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

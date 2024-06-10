@@ -21,16 +21,16 @@ namespace Connect4.Frontend.Visualizer
         private ISnackbar Snackbar { get; set; } = null!;
         
         [Inject]
-        private LoadingDelayer LoadingDelayer { get; set; } = null!;
-
-        [Inject]
         private VisualizerChangedEventHandler VisualizerChangedEventHandler { get; set; } = null!;
 
         [Parameter]
-        public required VisualizerId VisualizerId { get; init; }
+        public required VisualizerId? VisualizerId { get; init; }
 
         [Parameter]
         public required bool Editable { get; init; }
+
+        [Parameter]
+        public required bool ShowImage { get; init; } = true;
 
         private VisualizerDto? Visualizer { get; set; }
 
@@ -38,6 +38,9 @@ namespace Connect4.Frontend.Visualizer
         {
             get
             {
+                if (this.VisualizerId == null)
+                    return "";
+
                 using var sha = MD5.Create();
                 var imageCount = 8;
                 var hashedGuid = sha.ComputeHash(this.VisualizerId.Id.ToByteArray());
@@ -48,17 +51,33 @@ namespace Connect4.Frontend.Visualizer
 
         protected override async Task OnInitializedAsync()
         {
-            await this.LoadingDelayer.Delay();
-
-            this.Visualizer = await this.Mediator.Send(new VisualizerByKeyQuery { VisualizerId = this.VisualizerId });
+            await this.TryLoadVisualizerAsync();
             this.VisualizerChangedEventHandler.VisualizerUpdated += this.OnVisualizerUpdated;
             await base.OnInitializedAsync();
         }
 
         private async Task OnVisualizerUpdated(object sender, VisualizerChangedEventArgs e)
         {
+            if(await this.TryLoadVisualizerAsync())
+                await this.InvokeAsync(this.StateHasChanged);
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await this.TryLoadVisualizerAsync();
+            await base.OnParametersSetAsync();
+        }
+
+        private async Task<bool> TryLoadVisualizerAsync()
+        {
+            if (this.VisualizerId == null)
+            {
+                this.Visualizer = null;
+                return false;
+            }
+
             this.Visualizer = await this.Mediator.Send(new VisualizerByKeyQuery { VisualizerId = this.VisualizerId });
-            await this.InvokeAsync(this.StateHasChanged);
+            return true;
         }
 
         private async Task EditVisualizer()
@@ -93,6 +112,9 @@ namespace Connect4.Frontend.Visualizer
 
         private async Task DeleteVisualizer()
         {
+            if (this.VisualizerId == null)
+                return;
+
             await this.Mediator.Send(new DeleteVisualizerCommand
             {
                 VisualizerId = this.VisualizerId
@@ -105,5 +127,7 @@ namespace Connect4.Frontend.Visualizer
             this.VisualizerChangedEventHandler.VisualizerUpdated -= this.OnVisualizerUpdated;
             this.Snackbar.Dispose();
         }
+
+        
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using Game.Contract;
+﻿using Game.Contract;
 using Game.Contract.Commands;
 using Game.Contract.Queries.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Identity.Web;
+using Visualizer.Contract;
 
 namespace Connect4.Frontend.Game.Games
 {
@@ -16,6 +16,8 @@ namespace Connect4.Frontend.Game.Games
         [Parameter] public required PlayerUIClient CurrentPlayer { get; set; }
 
         [Parameter] public required GameId GameId { get; set; }
+
+        [Parameter] public required VisualizerStatus? VisualizerStatus { get; set; }
 
         [Inject] private ISender Mediator { get; set; } = null!;
 
@@ -38,12 +40,12 @@ namespace Connect4.Frontend.Game.Games
             await base.OnParametersSetAsync();
         }
 
-        //TODO Visualizer Status berücksichtigen
         private async Task EvaluateBoardReadOnlyAsync()
         {
             var authenticationState = await this.AuthenticationStateProvider.GetAuthenticationStateAsync();
             var isMyPlayer = this.CurrentPlayer.Player?.Owner.Identifier == authenticationState.User.GetNameIdentifierId();
-            this.IsBoardReadOnly = !isMyPlayer || this.IsPiecePlacing;
+            var isVisualizerReady = this.VisualizerStatus is { StatusType: StatusType.Ready };
+            this.IsBoardReadOnly = !isMyPlayer || this.IsPiecePlacing || !isVisualizerReady;
         }
 
         private async Task CellClickedAsync(int xCoord)

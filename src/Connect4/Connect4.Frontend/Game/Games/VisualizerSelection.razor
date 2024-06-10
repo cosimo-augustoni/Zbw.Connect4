@@ -1,0 +1,14 @@
+﻿@using Connect4.Frontend.Visualizer
+@using global::Visualizer.Contract
+
+<div class="d-flex flex-column justify-content-center gap-3 p-3 h-50">
+    <MudSelect T="VisualizerId" ValueChanged="ChangeVisualizer" Clearable="true" Label="Roboter" Value="this.SelectedVisualizer?.Id">
+        @foreach (var visualizer in this.AvailableVisualizers.Union(this.SelectedVisualizer != null ? [this.SelectedVisualizer] : []))
+        {
+            <MudSelectItem Value="visualizer.Id">@visualizer.Name</MudSelectItem>
+        }
+    </MudSelect>
+    <VisualizerDisplay VisualizerId="this.SelectedVisualizer?.Id"></VisualizerDisplay>
+</div>
+
+

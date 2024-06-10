@@ -49,8 +49,8 @@ namespace Visualizer.Physical.Infrastructure
 
         public async Task Handle(VisualizerAddedToGameEvent notification, CancellationToken cancellationToken)
         {
-            var visualizer = await mediator.Send(new VisualizerByGameIdQuery { GameId = notification.GameId }, cancellationToken);
-            if (visualizer == null || visualizer.Status == VisualizerStatus.PiecesSorted || visualizer.Status == VisualizerStatus.SortingPieces)
+            var visualizer = await mediator.Send(new VisualizerByKeyQuery() { VisualizerId = notification.VisualizerId }, cancellationToken);
+            if (visualizer.Status == VisualizerStatus.PiecesSorted || visualizer.Status == VisualizerStatus.SortingPieces)
                 return;
 
             await mqttClient.PublishAsync(visualizer.GetMqttTopic(), MqttMessages.Sort.ToString("D"));

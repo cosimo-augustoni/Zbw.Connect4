@@ -37,8 +37,9 @@ namespace Visualizer.Infrastructure.VisualizerAggregate
                 state.Name,
                 state.ExternalId,
                 visualizerStatus,
-                state.DeletedAt,
-                this.eventRegistry,
+                state.DeletedAt, 
+                state.CurrentGameId != null ? new GameId(state.CurrentGameId.Value) : null, 
+                this.eventRegistry, 
                 this.timeProvider);
 
             return base.OnActivateAsync(cancellationToken);
@@ -132,6 +133,7 @@ namespace Visualizer.Infrastructure.VisualizerAggregate
             this.visualizerState.State.Id = visualizer.Id.Id;
             this.visualizerState.State.Name = visualizer.Name;
             this.visualizerState.State.ExternalId = visualizer.ExternalId;
+            this.visualizerState.State.CurrentGameId = visualizer.CurrentGameId?.Id;
             this.visualizerState.State.StatusId = visualizer.Status.Id;
             this.visualizerState.State.DeletedAt = visualizer.DeletedAt;
 

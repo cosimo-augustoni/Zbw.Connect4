@@ -1,14 +1,17 @@
-﻿<MudContainer Fixed="true" MaxWidth="MaxWidth.ExtraLarge">
+﻿@using Connect4.Frontend.Visualizer
+<MudContainer Fixed="true" MaxWidth="MaxWidth.ExtraLarge">
     <div class="d-flex flex-column flex-wrap justify-content-center gap-3 p-3">
         <MudPaper>
             <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 m-3">
                 <PlayerDisplay PlayerClient="RedPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.RedPlayer.Player?.Id" />
                 <MudSpacer />
-                @* TODO Spiel Aufgeben und Abbrechen können wenn ein Player Client der eigene *@
+                <VisualizerDisplay ShowImage="false" Editable="false" VisualizerId="this.Visualizer?.Id"></VisualizerDisplay>
+                <MudSpacer />
                 <PlayerDisplay PlayerClient="YellowPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
             </div>
+            @* TODO Spiel Aufgeben und Abbrechen können wenn ein Player Client der eigene *@
         </MudPaper>
-        <Board BoardState="Game.Board" CurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id ? this.YellowPlayer : this.RedPlayer" GameId="Game.Id" />
+        <Board VisualizerStatus="this.Visualizer?.Status" BoardState="Game.Board" CurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id ? this.YellowPlayer : this.RedPlayer" GameId="Game.Id" />
         @* TODO Züge darstellen und jeweilige Zeiten pro Spieler anzeigen *@
     </div>
 </MudContainer>

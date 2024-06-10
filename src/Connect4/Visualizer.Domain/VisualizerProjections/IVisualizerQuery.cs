@@ -9,5 +9,6 @@ namespace Visualizer.Domain.VisualizerProjections
         Task<VisualizerView> GetByExternalIdAsync(string externalId, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<VisualizerView>> GetAllVisualizersAsync(CancellationToken cancellationToken = default);
         Task<VisualizerView?> GetByGameIdAsync(GameId gameId, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<VisualizerView>> GetAvailableVisualizersAsync(CancellationToken cancellationToken = default);
     }
 }
