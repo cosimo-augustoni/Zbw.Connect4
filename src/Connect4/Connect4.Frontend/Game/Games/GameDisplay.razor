@@ -1,13 +1,13 @@
 ﻿@using Connect4.Frontend.Visualizer
 <MudContainer Fixed="true" MaxWidth="MaxWidth.ExtraLarge">
-    <div class="d-flex flex-column flex-wrap justify-content-center gap-3 p-3">
+    <div class="d-flex flex-column flex-wrap justify-content-center gap-2 p-2">
         <MudPaper>
-            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-3 m-3">
-                <PlayerInGameDisplay PlayerClient="RedPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.RedPlayer.Player?.Id" />
+            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-1 m-1">
+                <PlayerInGameDisplay PlayerClient="RedPlayer" IsCurrentPlayer="this.Game.CurrentPlayerId == this.RedPlayer.Player?.Id" />
                 <MudSpacer />
                 <VisualizerDisplay ShowImage="false" Editable="false" VisualizerId="this.Visualizer?.Id"></VisualizerDisplay>
                 <MudSpacer />
-                <PlayerInGameDisplay PlayerClient="YellowPlayer" DisplayPlayerSide="true" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
+                <PlayerInGameDisplay PlayerClient="YellowPlayer" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
             </div>
             @* TODO Spiel Aufgeben und Abbrechen können wenn ein Player Client der eigene *@
         </MudPaper>

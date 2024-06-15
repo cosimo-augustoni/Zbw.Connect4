@@ -8,9 +8,6 @@ namespace Connect4.Frontend.Game.Games
         public required PlayerUIClient PlayerClient { get; set; }
 
         [Parameter] 
-        public bool DisplayPlayerSide { get; set; }
-
-        [Parameter] 
         public bool IsCurrentPlayer { get; set; }
     }
 }

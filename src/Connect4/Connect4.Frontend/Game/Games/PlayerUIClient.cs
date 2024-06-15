@@ -30,10 +30,10 @@ namespace Connect4.Frontend.Game.Games
                     return $"ais/AI_Hard.jpeg";
 
                 using var sha = MD5.Create();
-                var imageCount = 8;
+                var imageCount = 30;
                 var hashedId = sha.ComputeHash(Encoding.UTF8.GetBytes(this.Player.Owner.Identifier));
                 int imageId = Math.Abs(BitConverter.ToInt32(hashedId, 0)) % imageCount + 1;
-                return $"avatars/{imageId}.png";
+                return $"avatars/{imageId:D2}.png";
             }
         }
     }
