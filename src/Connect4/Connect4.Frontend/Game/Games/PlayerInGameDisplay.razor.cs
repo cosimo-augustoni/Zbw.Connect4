@@ -2,7 +2,7 @@
 
 namespace Connect4.Frontend.Game.Games
 {
-    public partial class PlayerDisplay
+    public partial class PlayerInGameDisplay
     {
         [Parameter]
         public required PlayerUIClient PlayerClient { get; set; }

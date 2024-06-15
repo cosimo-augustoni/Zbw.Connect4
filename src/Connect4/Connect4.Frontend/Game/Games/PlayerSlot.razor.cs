@@ -28,6 +28,8 @@ namespace Connect4.Frontend.Game.Games
 
         private User? CurrentUser { get; set; }
 
+        private bool IsMyPlayer => this.PlayerClient.Player!.Owner.Identifier == this.CurrentUser?.Identifier;
+
         protected override async Task OnInitializedAsync()
         {
             this.AvailablePlayerClients = await this.Mediator.Send(new AvailablePlayerClientsQuery());

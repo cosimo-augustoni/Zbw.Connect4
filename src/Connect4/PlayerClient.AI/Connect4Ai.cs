@@ -1,6 +1,6 @@
 ﻿namespace PlayerClient.AI
 {
-    //ChatGPT Promt: 
+    //ChatGPT Prompt: 
     // You are a programmer writing a "connect four" video game.
     // You need to write a function that produces the best possible turn.
     // The output of the function is a number between 0 and 6.
