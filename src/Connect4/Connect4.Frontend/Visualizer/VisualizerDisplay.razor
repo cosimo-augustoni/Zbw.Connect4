@@ -29,8 +29,8 @@ else
                 @if (this.Editable)
                 {
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                        <MudMenuItem @onclick="EditVisualizer">Bearbeiten</MudMenuItem>
-                        <MudMenuItem @onclick="DeleteVisualizer">Löschen</MudMenuItem>
+                        <MudMenuItem Disabled="Visualizer.IsInGame" @onclick="EditVisualizer">Bearbeiten</MudMenuItem>
+                        <MudMenuItem Disabled="Visualizer.IsInGame" @onclick="DeleteVisualizer">Löschen</MudMenuItem>
                     </MudMenu>
                 }
             </CardHeaderActions>

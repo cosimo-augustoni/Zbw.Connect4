@@ -60,6 +60,9 @@ namespace Visualizer.Domain.VisualizerAggregate
             if (this.IsDeleted)
                 throw new VisualizerDeletedException();
 
+            if (this.CurrentGameId != null)
+                throw new VisualizerInGameException();
+
             await this.RaiseEventAsync(new VisualizerNameChangedEvent
             {
                 VisualizerId = this.Id,
@@ -87,6 +90,9 @@ namespace Visualizer.Domain.VisualizerAggregate
             if (this.IsDeleted)
                 throw new VisualizerDeletedException();
 
+            if (this.CurrentGameId != null)
+                throw new VisualizerInGameException();
+
             await this.RaiseEventAsync(new VisualizerExternalIdChangedEvent()
             {
                 VisualizerId = this.Id,
@@ -100,7 +106,8 @@ namespace Visualizer.Domain.VisualizerAggregate
             if (this.IsDeleted)
                 throw new VisualizerDeletedException();
 
-            //TODO Nur löschen wenn nicht in Game
+            if (this.CurrentGameId != null)
+                throw new VisualizerInGameException();
 
             await this.RaiseEventAsync(new VisualizerDeletedEvent()
             {
@@ -112,7 +119,7 @@ namespace Visualizer.Domain.VisualizerAggregate
         public async Task AddToGameAsync(GameId gameId)
         {
             if (this.CurrentGameId != null)
-                throw new VisualizerAlreadyInGameException();
+                throw new VisualizerInGameException();
 
             await this.RaiseEventAsync(new VisualizerAddedToGameEvent()
             {

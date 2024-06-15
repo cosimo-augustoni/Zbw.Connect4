@@ -14,7 +14,8 @@ namespace Visualizer.Application.Queries
                 Id = visualizer.Id,
                 Name = visualizer.Name,
                 ExternalId = visualizer.ExternalId,
-                Status = visualizer.Status
+                Status = visualizer.Status,
+                IsInGame = visualizer.IsInGame,
             };
         }
     }

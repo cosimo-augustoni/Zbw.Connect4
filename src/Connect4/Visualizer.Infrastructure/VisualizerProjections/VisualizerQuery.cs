@@ -63,7 +63,8 @@ namespace Visualizer.Infrastructure.VisualizerProjections
                 Id = new VisualizerId(visualizerView.VisualizerId),
                 Name = visualizerView.Name,
                 ExternalId = visualizerView.ExternalId,
-                Status = VisualizerStatus.GetById(visualizerView.StatusId)
+                Status = VisualizerStatus.GetById(visualizerView.StatusId),
+                IsInGame = visualizerView.CurrentGameId != null,
             };
         }
     }
