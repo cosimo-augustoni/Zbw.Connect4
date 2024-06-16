@@ -1,4 +1,5 @@
-﻿using Connect4.Frontend.Components;
+﻿using Connect4.Frontend.Chat;
+using Connect4.Frontend.Components;
 using Connect4.Frontend.Components.Pages;
 using Connect4.Frontend.Game;
 using Connect4.Frontend.Game.Games;
@@ -50,6 +51,7 @@ namespace Connect4.Frontend
             services.AddSingleton<GameLobbiesChangedEventHandler>();
             services.AddSingleton<GameChangedEventHandler>();
             services.AddSingleton<PlayerClientChangedEventHandler>();
+            services.AddSingleton<IChat, Chat.Chat>();
             services.AddSingleton<LoadingDelayer>();
 
             return services;

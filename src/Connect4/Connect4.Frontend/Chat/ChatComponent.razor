@@ -1,0 +1,49 @@
+﻿<div style="position:fixed; bottom: 30px; left: 10px;">
+    @if (!this.IsOpen)
+    {
+        <MudBadge Content="this.NewMessagesCount" Visible="this.NewMessagesCount > 0" Color="Color.Primary" Overlap="true" Class="mx-6 my-4">
+            <MudFab StartIcon="@Icons.Material.Filled.Chat" OnClick="ToogleChat" />
+        </MudBadge>
+    }
+    else
+    {
+        <MudPopover Style="opacity: 0.8; width: 20vw; height: 30vh;" Paper="true" Open="IsOpen" Fixed="true" Class="px-4 pt-4">
+            <div style="position: relative; height: 100%">
+                <MudIconButton Style="position: absolute; top: 3px; right: 3px" Icon="@Icons.Material.Filled.Close" aria-label="schliessen" OnClick="ToogleChat" />
+                <div class="d-flex flex-column gap-2 p-3" style="max-height: 28vh; height: 100%; overflow-y: scroll; overflow-x: hidden;">
+                    <MudText Typo="Typo.h6">Chat</MudText>
+                    @foreach (var messageBlock in this.Messages)
+                    {
+                        <MudAlert Severity="Severity.Normal" NoIcon="true" Dense="true" ShowCloseIcon="false">
+                            <MudText Typo="Typo.caption">@messageBlock.Author: </MudText>
+                            @foreach (var message in messageBlock.Messages)
+                            {
+                                <MudText Typo="Typo.body2">@message.Message</MudText>
+                            }
+                        </MudAlert>
+                        @if (this.Messages.LastOrDefault() == messageBlock)
+                        {
+                            <MudElement id="end"></MudElement>
+                        }
+                    }
+                    <MudSpacer/>
+                    
+                    <MudTextField T="string"
+                                  Class="flex-grow-0"
+                                  Style="position: absolute; bottom: 3px; left: 3px; width: 100%"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@Icons.Material.Filled.Send"
+                                  OnAdornmentClick="SendMessage"
+                                  OnKeyDown="OnMessageKeyDown"
+                                  Immediate="true"
+                                  @bind-Value="@this.CurrentMessage"
+                                  AutoGrow="true"
+                                  TextUpdateSuppression="false"
+                                  AutoFocus="true"></MudTextField>
+                </div>
+            </div>
+        </MudPopover>
+    }
+</div>
+
+

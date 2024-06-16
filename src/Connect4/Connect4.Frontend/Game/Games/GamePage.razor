@@ -1,4 +1,5 @@
 ﻿@page "/game/{GameId:guid}"
+@using Connect4.Frontend.Chat
 @attribute [StreamRendering]
 
 <PageTitle>Spiel</PageTitle>
@@ -31,8 +32,9 @@
             <PreGameLobby Game="this.Game" YellowPlayer="this.YellowPlayer" RedPlayer="this.RedPlayer"></PreGameLobby>
         }
     </MudContainer>
+    <ChatComponent GameId="this.Game.Id"></ChatComponent>
 }
 
-@* TODO Lobby Chat einfügen ohne Backend *@
+
 
 

@@ -1,11 +1,15 @@
-﻿<MudCard Style="width: 150" Elevation="2">
+﻿<MudCard Style="width: 200px" Elevation="2">
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText GutterBottom="true" Typo="Typo.body1">@this.PlayerClient.Player!.Owner.DisplayName</MudText>
+            <div class="d-flex justify-content-center" style="width: 100%;">
+                <MudText GutterBottom="true" Typo="Typo.body1" Style="text-overflow: ellipsis; height: 24px; overflow: hidden;">@this.PlayerClient.Player!.Owner.DisplayName</MudText>
+            </div>
         </CardHeaderContent>
     </MudCardHeader>
     <div class="position-relative">
-        <MudCardMedia Image="@($"_content/Connect4.Frontend/images/{this.PlayerClient.PlayerImage}")" Height="150" />
+        <div class="d-flex justify-content-center" style="width: 100%;">
+            <MudCardMedia Image="@($"_content/Connect4.Frontend/images/{this.PlayerClient.PlayerImage}")" Style="aspect-ratio: 1 / 1; height: 10vh;" />
+        </div>
         @if (this.IsCurrentPlayer)
         {
             <div class="d-flex justify-content-center" style="position:absolute; left: 0; bottom: 2px; width: 100%;">

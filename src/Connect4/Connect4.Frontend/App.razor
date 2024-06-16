@@ -16,6 +16,20 @@
 </head>
 
 <body>
+    <script>
+        window.scrollToElementId = (elementId) => {
+            console.info('scrolling to element', elementId);
+            var element = document.getElementById(elementId);
+            if (!element) {
+                console.warn('element was not found', elementId);
+                return false;
+            }
+            element.scrollIntoView();
+            return true;
+        }
+    </script>
+
+
     <Routes @rendermode="InteractiveServer" />
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
