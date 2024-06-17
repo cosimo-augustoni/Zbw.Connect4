@@ -10,7 +10,7 @@
         <MudPopover Style="opacity: 0.8; width: 25vw; height: 50vh;" Paper="true" Open="IsOpen" Fixed="true" Class="px-4 pt-4">
             <div style="position: relative; height: 100%">
                 <MudIconButton Style="position: absolute; top: 3px; right: 3px" Icon="@Icons.Material.Filled.Close" aria-label="schliessen" OnClick="ToogleChat" />
-                <div class="d-flex flex-column gap-2 p-3" style="max-height: 28vh; height: 100%; overflow-y: scroll; overflow-x: hidden;">
+                <div class="d-flex flex-column gap-2 p-3" style="max-height: 47vh; height: 100%; overflow-y: scroll; overflow-x: hidden;">
                     <MudText Typo="Typo.h6">Chat</MudText>
                     @foreach (var messageBlock in this.Messages)
                     {
