@@ -3,6 +3,7 @@
     public enum FinishReason
     {
         Win,
-        Draw
+        Draw,
+        Surrender
     }
 }

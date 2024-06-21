@@ -45,6 +45,11 @@ namespace Game.Infrastructure.GameAggregate
             await this.ExecuteAsync(async (aggregate) => await aggregate.StartGame());
         }
 
+        public async Task Surrender(PlayerId surrenderingPlayerId)
+        {
+            await this.ExecuteAsync(async (aggregate) => await aggregate.Surrender(surrenderingPlayerId));
+        }
+
         public async Task ReadyPlayer(PlayerId playerId)
         {
             await this.ExecuteAsync(async (aggregate) => await aggregate.ReadyPlayer(playerId));

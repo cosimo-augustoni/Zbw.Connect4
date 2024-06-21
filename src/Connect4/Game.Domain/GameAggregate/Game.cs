@@ -238,6 +238,20 @@ namespace Game.Domain.GameAggregate
                 throw new GamePiecePlacementAcknowledgementNotAllowedException();
         }
 
+        public async Task Surrender(PlayerId surrenderingPlayerId)
+        {
+            if (!this.IsRunning)
+                return;
+
+            var winningPlayer = this.RedPlayer?.Id == surrenderingPlayerId ? this.RedPlayer : this.YellowPlayer;
+            await this.RaiseEventAsync(new GameFinishedEvent
+            {
+                GameId = this.Id,
+                FinishReason = FinishReason.Surrender,
+                WinningPlayerId = winningPlayer.Id,
+            });
+        }
+
         public async Task AbortGame()
         {
             await this.RaiseEventAsync(new GameAbortedEvent

@@ -24,6 +24,11 @@ namespace PlayerClient.AI
             await mediator.Send(new RemovePlayerCommand(this.GameId, this.PlayerId));
         }
 
+        public Task Surrender()
+        {
+            throw new NotSupportedException();
+        }
+
         public Task RequestGamePiecePlacementAcknowledgement(BoardPosition notificationPosition)
         {
             _ = Task.Run(async () => await mediator.Send(new AcknowledgeGamePiecePlacementCommand(this.GameId, this.PlayerId)));

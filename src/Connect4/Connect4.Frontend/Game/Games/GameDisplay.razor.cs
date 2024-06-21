@@ -2,6 +2,8 @@
 using Game.Contract.Queries.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.VisualBasic;
 using Visualizer.Contract.Queries;
 
 namespace Connect4.Frontend.Game.Games

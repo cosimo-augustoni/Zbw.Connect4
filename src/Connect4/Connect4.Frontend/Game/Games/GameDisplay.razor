@@ -1,5 +1,8 @@
 ﻿@using Connect4.Frontend.Visualizer
 <MudContainer Fixed="true" MaxWidth="MaxWidth.ExtraLarge">
+    <div style="position: fixed; top: 80px; left: 20px">
+        <SurrenderButton AllPlayers="new List<PlayerUIClient>{RedPlayer, YellowPlayer}"></SurrenderButton>
+    </div>
     <div class="d-flex flex-column flex-wrap justify-content-center gap-2 p-2">
         <MudPaper>
             <div class="d-flex flex-row flex-wrap justify-content-center gap-3 p-1 m-1">
@@ -9,7 +12,6 @@
                 <MudSpacer />
                 <PlayerInGameDisplay PlayerClient="YellowPlayer" IsCurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id" />
             </div>
-            @* TODO Spiel Aufgeben und Abbrechen können wenn ein Player Client der eigene *@
         </MudPaper>
         <Board VisualizerStatus="this.Visualizer?.Status" BoardState="Game.Board" CurrentPlayer="this.Game.CurrentPlayerId == this.YellowPlayer.Player?.Id ? this.YellowPlayer : this.RedPlayer" GameId="Game.Id" />
     </div>

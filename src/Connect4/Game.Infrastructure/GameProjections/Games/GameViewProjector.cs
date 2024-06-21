@@ -139,11 +139,12 @@ namespace Game.Infrastructure.GameProjections.Games
             {
                 FinishReason.Win => "Gewonnen",
                 FinishReason.Draw => "Unentschieden",
+                FinishReason.Surrender => "Aufgegeben",
                 _ => throw new ArgumentOutOfRangeException()
             };
             updateDefinition = updateDefinition.Set(g => g.FinishReason, finishReason);
 
-            if (notification.FinishReason == FinishReason.Win)
+            if (notification.FinishReason == FinishReason.Win | notification.FinishReason == FinishReason.Surrender)
             {
                 updateDefinition = updateDefinition.Set(g => g.WinningPlayerId, notification.WinningPlayerId?.Id);
             }

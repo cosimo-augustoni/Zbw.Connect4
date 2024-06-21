@@ -17,5 +17,6 @@ namespace Game.Domain.GameAggregate
         Task<Board> GetBoardState();
         Task RemovePlayer(PlayerId playerId);
         Task StartGame();
+        Task Surrender(PlayerId surrenderingPlayerId);
     }
 }

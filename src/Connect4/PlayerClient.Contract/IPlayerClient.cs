@@ -7,6 +7,7 @@ namespace PlayerClient.Contract
         Task Ready();
         Task Unready();
         Task Leave();
+        Task Surrender();
         Task RequestGamePiecePlacementAcknowledgement(BoardPosition notificationPosition);
     }
 }
