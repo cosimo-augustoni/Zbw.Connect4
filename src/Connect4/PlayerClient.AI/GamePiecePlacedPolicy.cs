@@ -11,6 +11,8 @@ using Game.Contract.Queries.Dtos;
 using MediatR;
 using PlayerClient.Contract;
 using PlayerClient.Domain;
+using Visualizer.Contract;
+using Visualizer.Contract.Queries;
 
 namespace PlayerClient.AI
 {
@@ -38,7 +40,6 @@ namespace PlayerClient.AI
             var nextPlayerType = players.FirstOrDefault(p => p.PlayerId != notification.PlacedBy.Id).PlayerType;
             var nextPlayingSide = notification.PlayingSide == PlayerSide.Red ? PlayerSide.Yellow : PlayerSide.Red;
 
-            //TODO Zug erst ausführen wenn Roboter auch bereit ist
             this.TryMakeNextMove(gameId, nextPlayingSide, nextPlayerType, players.AreAllAi(), cancellationToken);
         }
 
@@ -73,6 +74,16 @@ namespace PlayerClient.AI
                 }
 
                 var boardPosition = await getNextBoardPositionResult;
+
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    var visualizer = await mediator.Send(new VisualizerByGameIdQuery { GameId = gameId }, cancellationToken);
+                    if (visualizer?.Status.StatusType == StatusType.Ready)
+                        break;
+
+                    cancellationToken.WaitHandle.WaitOne(250);
+                }
+
                 await mediator.Send(new PlaceGamePieceCommand(gameId, boardPosition), cancellationToken);
 
             }), cancellationToken);
