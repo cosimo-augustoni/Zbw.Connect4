@@ -27,6 +27,8 @@ namespace Connect4.Frontend.Game.Games
 
         private bool IsPiecePlacing { get; set; }
 
+        private bool PlayPlaceSound { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             await this.EvaluateBoardReadOnlyAsync();
@@ -65,6 +67,16 @@ namespace Connect4.Frontend.Game.Games
 
             var boardPosition = new BoardPosition(xCoord, yCoord);
             await this.Mediator.Send(new PlaceGamePieceCommand(this.GameId, boardPosition));
+            _ = Task.Run(async () =>
+            {
+                this.PlayPlaceSound = true;
+                await this.InvokeAsync(this.StateHasChanged);
+
+                await Task.Delay(1200);
+
+                this.PlayPlaceSound = false;
+                await this.InvokeAsync(this.StateHasChanged);
+            });
         }
     }
 }

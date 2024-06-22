@@ -25,7 +25,14 @@
     <MudOverlay Visible="this.IsBoardReadOnly" DarkBackground="true" AutoClose="false" Absolute="true"></MudOverlay>
 </MudPaper>
 
-@* TODO beim platzieren soll ein Ton abgespielt werden *@
+@if (this.PlayPlaceSound)
+{
+    <audio autoplay hidden><source src="_content/Connect4.Frontend/sounds/stoneblockdragwoodgrind.mp3" /></audio>
+}
+else
+{
+    <audio hidden><source src="_content/Connect4.Frontend/sounds/stoneblockdragwoodgrind.mp3" /></audio>
+}
 
 <style>
     .cell-container {
