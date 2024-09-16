@@ -14,7 +14,7 @@ font-family: var(--mud-typography-h6-family);
   letter-spacing: var(--mud-typography-h6-letterspacing);"
                               ShrinkLabel="true"
                               Margin="Margin.Dense"
-                              DisableUnderLine="!this.IsTitelEditing"
+                              Underline="this.IsTitelEditing"
                               ReadOnly="!IsTitelEditing"
                               @bind-Value="@this.GameTitle">
                 </MudTextField>

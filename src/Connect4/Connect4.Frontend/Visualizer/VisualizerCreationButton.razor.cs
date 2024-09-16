@@ -20,9 +20,9 @@ namespace Connect4.Frontend.Visualizer
 
             var dialog = await this.DialogService.ShowAsync<VisualizerEditDialog>("Roboter erfassen", parameters);
             var result = await dialog.Result;
-            if (!result.Canceled)
+            if (result is { Canceled: false })
             {
-                var visualizerModel = (VisualizerEditDialog.VisualizerModel)result.Data;
+                var visualizerModel = (VisualizerEditDialog.VisualizerModel)result.Data!;
                 await this.Mediator.Send(new CreateVisualizerCommand
                 {
                     Name = visualizerModel.Name ?? throw new ArgumentNullException(),

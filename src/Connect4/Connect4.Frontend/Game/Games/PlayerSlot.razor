@@ -48,7 +48,7 @@
                     }
                     else
                     {
-                        <MudChip Color="this.PlayerClient.Player!.IsReady ? Color.Success : Color.Error">@(this.PlayerClient.Player!.IsReady ? "Bereit" : "Nicht Bereit")</MudChip>
+                        <MudChip T="string" Color="this.PlayerClient.Player!.IsReady ? Color.Success : Color.Error">@(this.PlayerClient.Player!.IsReady ? "Bereit" : "Nicht Bereit")</MudChip>
                     }
                 </div>
             </MudCardContent>

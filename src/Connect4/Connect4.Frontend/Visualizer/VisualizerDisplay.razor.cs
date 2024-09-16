@@ -95,9 +95,9 @@ namespace Connect4.Frontend.Visualizer
 
             var dialog = await this.DialogService.ShowAsync<VisualizerEditDialog>(this.Visualizer.Name, parameters);
             var result = await dialog.Result;
-            if (!result.Canceled && !this.Visualizer.IsInGame)
+            if (result is { Canceled: false } && !this.Visualizer.IsInGame)
             {
-                var visualizerModel = (VisualizerEditDialog.VisualizerModel)result.Data;
+                var visualizerModel = (VisualizerEditDialog.VisualizerModel)result.Data!;
                 await this.Mediator.Send(new UpdateVisualizerCommand
                 {
                     VisualizerId = visualizerModel.VisualizerId ?? throw new ArgumentNullException(),

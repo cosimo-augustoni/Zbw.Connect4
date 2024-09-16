@@ -13,7 +13,7 @@
         @if (this.IsCurrentPlayer)
         {
             <div class="d-flex justify-content-center" style="position:absolute; left: 0; bottom: 2px; width: 100%;">
-                <MudChip Color="@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? Color.Error : Color.Warning)">@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? "ROT" : "GELB")</MudChip>
+                <MudChip T="string" Color="@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? Color.Error : Color.Warning)">@(this.PlayerClient.PlayerSide == global::Game.Contract.PlayerSide.Red ? "ROT" : "GELB")</MudChip>
             </div>
         }
     </div>
